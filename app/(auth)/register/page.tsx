@@ -6,9 +6,8 @@ import Link from 'next/link';
 import { Shield, ArrowLeft, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { createNewUser, saveUserProgress, UserPreferences, updateUserPreferences } from '@/lib/gamification';
+import { createNewUser, saveUserProgress } from '@/lib/gamification';
 import { SITE_NAME, BADGES } from '@/lib/constants';
-import { PersonalizationFlow } from '@/components/personalization/PersonalizationFlow';
 import { BadgeCelebration } from '@/components/ui/badge-celebration';
 
 const AVATARS = [
@@ -17,7 +16,6 @@ const AVATARS = [
 
 export default function RegisterPage() {
   const router = useRouter();
-  const [step, setStep] = useState<'register' | 'personalize'>('register');
   const [formData, setFormData] = useState({
     name: '',
     avatar: AVATARS[0]
@@ -38,47 +36,23 @@ export default function RegisterPage() {
         throw new Error('Por favor ingresá tu nombre');
       }
 
-      // Move to personalization step
-      setStep('personalize');
+      // Create new user without personalization
+      const newUser = createNewUser(
+        formData.name.trim(),
+        formData.avatar
+      );
+
+      // Save to localStorage
+      saveUserProgress(newUser);
+
+      // Show Early Adopter badge celebration first
+      setPendingUser(newUser);
+      setShowBadgeCelebration(BADGES.EARLY_ADOPTER.id);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error al registrarse');
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const handlePersonalizationComplete = (preferences: UserPreferences) => {
-    // Create new user with preferences
-    const newUser = createNewUser(
-      formData.name.trim(),
-      formData.avatar,
-      preferences
-    );
-
-    // Check for new badges (specifically "Voy en serio")
-    const updatedUser = updateUserPreferences(newUser, preferences);
-    
-    // Save to localStorage
-    saveUserProgress(updatedUser);
-
-    // Show "Voy en serio" badge celebration (which will be awarded for personalization)
-    setPendingUser(updatedUser);
-    setShowBadgeCelebration(BADGES.VOY_EN_SERIO.id);
-  };
-
-  const handlePersonalizationSkip = () => {
-    // Create new user without personalization
-    const newUser = createNewUser(
-      formData.name.trim(),
-      formData.avatar
-    );
-
-    // Save to localStorage
-    saveUserProgress(newUser);
-
-    // Show Early Adopter badge celebration first
-    setPendingUser(newUser);
-    setShowBadgeCelebration(BADGES.EARLY_ADOPTER.id);
   };
 
   const handleBadgeCelebrationClose = () => {
@@ -94,31 +68,6 @@ export default function RegisterPage() {
     setFormData(prev => ({ ...prev, [field]: value }));
     if (error) setError(''); // Clear error when user starts typing
   };
-
-  if (step === 'personalize') {
-    return (
-      <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-4xl">
-          <div className="text-center mb-8">
-            <Link href="/" className="inline-flex items-center space-x-2 text-security-blue hover:text-blue-700 mb-6">
-              <ArrowLeft className="h-5 w-5" />
-              <span>Volver al inicio</span>
-            </Link>
-            
-            <div className="flex items-center justify-center space-x-2 mb-4">
-              <Shield className="h-8 w-8 text-security-blue" />
-              <h1 className="text-2xl font-bold text-gray-900">{SITE_NAME}</h1>
-            </div>
-          </div>
-          
-          <PersonalizationFlow
-            onComplete={handlePersonalizationComplete}
-            onSkip={handlePersonalizationSkip}
-          />
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">

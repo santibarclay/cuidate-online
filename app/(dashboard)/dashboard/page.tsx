@@ -130,21 +130,26 @@ export default function DashboardPage() {
         </div>
         
         {!user.preferences?.isPersonalized && (
-          <div className="mt-4 p-4 bg-orange-50 border border-orange-200 rounded-lg">
+          <div className="mt-4 p-6 bg-gradient-to-r from-security-blue to-blue-600 text-white rounded-lg">
             <div className="flex items-center justify-between">
               <div>
-                <h4 className="font-medium text-orange-800 mb-1">
-                  💡 Mejorá tu experiencia
+                <h4 className="font-bold text-lg mb-2 flex items-center">
+                  ✨ ¡Felicitaciones por tu badge de Early Adopter!
                 </h4>
-                <p className="text-sm text-orange-700">
-                  Configurá tus herramientas para recibir guías específicas para tu navegador, celular y email
+                <p className="text-blue-100 mb-3">
+                  Ahora podés personalizar tu experiencia para recibir guías específicas para tus herramientas
                 </p>
+                <div className="flex items-center space-x-4 text-sm text-blue-100">
+                  <span>🌐 Navegador específico</span>
+                  <span>📱 Tipo de celular</span>
+                  <span>📧 Proveedor de email</span>
+                </div>
               </div>
               <button 
                 onClick={() => setShowPersonalization(true)}
-                className="ml-4 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors cursor-pointer text-sm font-medium"
+                className="ml-4 px-6 py-3 bg-white text-security-blue rounded-lg hover:bg-gray-100 transition-colors cursor-pointer font-bold text-base shadow-lg"
               >
-                Personalizar
+                ¡Personalizar ahora!
               </button>
             </div>
           </div>
