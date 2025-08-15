@@ -210,7 +210,7 @@ export default function ProfilePage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="text-center p-4 bg-gray-50 rounded-lg">
               <div className="text-2xl font-bold text-security-blue">{user.totalXP}</div>
-              <div className="text-sm text-gray-600">XP Total</div>
+              <div className="text-sm text-gray-600">Puntos Totales</div>
             </div>
             <div className="text-center p-4 bg-gray-50 rounded-lg">
               <div className="text-2xl font-bold text-security-green">{user.completedMissions.length}</div>
@@ -218,7 +218,7 @@ export default function ProfilePage() {
             </div>
             <div className="text-center p-4 bg-gray-50 rounded-lg">
               <div className="text-2xl font-bold text-yellow-600">{user.badges.length}</div>
-              <div className="text-sm text-gray-600">Badges</div>
+              <div className="text-sm text-gray-600">Medallas</div>
             </div>
             <div className="text-center p-4 bg-gray-50 rounded-lg">
               <div className="text-2xl font-bold text-orange-600">{user.streak}</div>

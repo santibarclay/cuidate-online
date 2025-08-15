@@ -27,9 +27,12 @@ export function PasswordBreachChecker({ userPreferences, onComplete }: PasswordB
   const isGmailUser = userPreferences.email === 'gmail';
 
   const handleGooglePasswordCheckup = () => {
-    // Open Google Password Checkup in new tab
-    window.open('https://passwords.google.com/checkup/start', '_blank');
-    setStep('results');
+    // Show reminder before opening
+    if (window.confirm('📋 RECORDATORIO:\n\nAl terminar la revisión de contraseñas en Google, volvé a esta pestaña de Cuidate Online para continuar con la misión.\n\n¿Continuar?')) {
+      // Open Google Password Checkup in new tab
+      window.open('https://passwords.google.com/checkup/start', '_blank');
+      setStep('results');
+    }
   };
 
   const handleComplete = () => {
@@ -220,7 +223,7 @@ export function PasswordBreachChecker({ userPreferences, onComplete }: PasswordB
                   <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
                   <div>
                     <p className="font-medium">Si no encontró problemas:</p>
-                    <p className="text-sm">¡Excelente! Pero igual asegurate de usar contraseñas únicas para cada cuenta.</p>
+                    <p className="text-sm">¡Excelente! Cuando llegues a nivel 3 aprenderás algo más. Por ahora estas son super buenas noticias!</p>
                   </div>
                 </div>
               </div>
@@ -289,7 +292,7 @@ export function PasswordBreachChecker({ userPreferences, onComplete }: PasswordB
               <CardContent>
                 <div className="space-y-3 text-green-700">
                   <p>
-                    No encontramos tus contraseñas en brechas conocidas. Eso es una buena señal.
+                    ¡Excelente! Cuando llegues a nivel 3 aprenderás algo más. Por ahora estas son super buenas noticias!
                   </p>
                   
                   <div className="bg-white p-3 rounded border border-green-200">
@@ -297,7 +300,7 @@ export function PasswordBreachChecker({ userPreferences, onComplete }: PasswordB
                     <ul className="text-sm space-y-1">
                       <li>• Seguí usando contraseñas únicas para cada cuenta</li>
                       <li>• Las brechas nuevas ocurren todo el tiempo</li>
-                      <li>• Considerá usar un gestor de contraseñas</li>
+                      <li>• Mantené tus contraseñas seguras</li>
                     </ul>
                   </div>
                 </div>
