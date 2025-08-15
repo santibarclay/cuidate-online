@@ -353,7 +353,7 @@ export default function MissionPage() {
                 </ul>
                 <div className="mt-3 p-3 bg-red-50 border border-red-200 rounded">
                   <p className="text-red-800 font-semibold text-sm">
-                    ⚠️ Aunque diga "santander" en el subdominio, el dominio real es "secure-login.com.ar" - ¡ES FALSO!
+                    ⚠️ Aunque diga &quot;santander&quot; en el subdominio, el dominio real es &quot;secure-login.com.ar&quot; - ¡ES FALSO!
                   </p>
                 </div>
               </div>
