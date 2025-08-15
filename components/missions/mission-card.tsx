@@ -60,7 +60,7 @@ export function MissionCard({ mission, isCompleted, isLocked = false, completion
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-1">
                 <Star className="h-4 w-4" />
-                <span>{mission.xp} XP</span>
+                <span>{mission.xp} puntos</span>
               </div>
               <div className="flex items-center space-x-1">
                 <Clock className="h-4 w-4" />
@@ -105,7 +105,7 @@ export function MissionCard({ mission, isCompleted, isLocked = false, completion
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-gray-500">
             <div className="flex items-center space-x-1">
               <Star className="h-4 w-4" />
-              <span>{mission.xp} XP</span>
+              <span>{mission.xp} puntos</span>
             </div>
             <div className="flex items-center space-x-1">
               <Clock className="h-4 w-4" />

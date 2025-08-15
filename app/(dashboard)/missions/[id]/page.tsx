@@ -208,7 +208,7 @@ export default function MissionPage() {
           <CardContent className="p-3 sm:p-6 text-center">
             <Star className="h-4 w-4 sm:h-8 sm:w-8 text-yellow-500 mx-auto mb-1 sm:mb-2" />
             <p className="text-lg sm:text-2xl font-bold text-gray-900">{mission.xp}</p>
-            <p className="text-xs sm:text-sm text-gray-600">XP</p>
+            <p className="text-xs sm:text-sm text-gray-600">puntos</p>
           </CardContent>
         </Card>
         
@@ -407,7 +407,7 @@ export default function MissionPage() {
                 </p>
                 <div className="bg-security-green/10 border border-security-green/20 rounded-lg p-4">
                   <p className="text-security-green font-medium">
-                    +{mission.xp} XP ganados • Misión completada
+                    +{mission.xp} puntos ganados • Misión completada
                   </p>
                 </div>
               </div>
@@ -434,7 +434,7 @@ export default function MissionPage() {
               ¡Excelente trabajo! 🎉
             </h3>
             <p className="mb-6 opacity-90">
-              Has completado esta misión y ganado {mission.xp} XP. ¡Seguí protegiendo tu vida digital!
+              Has completado esta misión y ganado {mission.xp} puntos. ¡Seguí protegiendo tu vida digital!
             </p>
             <Button asChild variant="secondary">
               <Link href="/dashboard">

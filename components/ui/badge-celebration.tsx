@@ -101,7 +101,7 @@ export function BadgeCelebration({ badgeId, isVisible, onClose }: BadgeCelebrati
             `}>
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold bg-gradient-to-r from-security-blue to-green-500 bg-clip-text text-transparent">
-                  ¡Badge Desbloqueado! 🎉
+                  ¡Medalla Desbloqueada! 🎉
                 </h2>
                 <h3 className="text-2xl font-semibold text-gray-900">
                   {badge.name}
@@ -116,11 +116,11 @@ export function BadgeCelebration({ badgeId, isVisible, onClose }: BadgeCelebrati
                 <div className="flex items-center justify-center space-x-6 text-sm">
                   <div className="text-center">
                     <div className="text-2xl font-bold text-green-600">+50</div>
-                    <div className="text-gray-600">XP Bonus</div>
+                    <div className="text-gray-600">Puntos Bonus</div>
                   </div>
                   <div className="text-center">
                     <div className="text-2xl font-bold text-blue-600">🏆</div>
-                    <div className="text-gray-600">Achievement</div>
+                    <div className="text-gray-600">Logro</div>
                   </div>
                 </div>
               </div>

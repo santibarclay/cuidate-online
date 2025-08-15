@@ -25,7 +25,7 @@ export function ProgressBar({ totalXP, level }: ProgressBarProps) {
           Nivel {level} - {LEVELS[level as keyof typeof LEVELS].name}
         </span>
         <span className="text-sm text-gray-500">
-          {totalXP} XP total
+          {totalXP} puntos totales
         </span>
       </div>
       
@@ -37,17 +37,17 @@ export function ProgressBar({ totalXP, level }: ProgressBarProps) {
       />
       
       <div className="flex justify-between items-center text-xs text-gray-500">
-        <span>{currentLevelXP} XP</span>
+        <span>{currentLevelXP} puntos</span>
         {level < 3 ? (
           <span className="text-security-blue font-medium">
-            {xpForNextLevel} XP para nivel {level + 1}
+            {xpForNextLevel} puntos para nivel {level + 1}
           </span>
         ) : (
           <span className="text-security-green font-medium">
             ¡Nivel máximo alcanzado! 🎉
           </span>
         )}
-        <span>{level === 3 ? totalXP : nextLevelXP} XP</span>
+        <span>{level === 3 ? totalXP : nextLevelXP} puntos</span>
       </div>
     </div>
   );

@@ -18,7 +18,7 @@ export default function HomePage() {
   const features = [
     {
       title: "Aprendé Jugando",
-      description: "Sistema de niveles, XP y badges que hace divertido aprender seguridad digital",
+      description: "Sistema de niveles, puntos y medallas que hace divertido aprender seguridad digital",
       icon: "🎮"
     },
     {

@@ -134,7 +134,7 @@ export default function DashboardPage() {
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
               <div className="flex-1">
                 <h4 className="font-bold text-base sm:text-lg mb-2 flex items-center">
-                  ✨ ¡Felicitaciones por tu badge de Early Adopter!
+                  ✨ ¡Felicitaciones por tu medalla de Pionero Digital!
                 </h4>
                 <p className="text-blue-100 mb-3 text-sm sm:text-base">
                   Ahora podés personalizar tu experiencia para recibir guías específicas para tus herramientas
@@ -166,7 +166,7 @@ export default function DashboardPage() {
                 <TrendingUp className="h-6 w-6 text-security-blue" />
               </div>
               <div className="flex-1">
-                <p className="text-sm text-gray-600">XP Total</p>
+                <p className="text-sm text-gray-600">Puntos Totales</p>
                 <p className="text-2xl font-bold text-gray-900">{user.totalXP}</p>
                 <p className="text-sm text-security-blue">Nivel {user.level}</p>
               </div>
@@ -202,7 +202,7 @@ export default function DashboardPage() {
                 <Award className="h-6 w-6 text-yellow-600" />
               </div>
               <div className="flex-1">
-                <p className="text-sm text-gray-600">Badges</p>
+                <p className="text-sm text-gray-600">Medallas</p>
                 <p className="text-2xl font-bold text-gray-900">{user.badges.length}</p>
                 <p className="text-sm text-yellow-600">desbloqueados</p>
               </div>

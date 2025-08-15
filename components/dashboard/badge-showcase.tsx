@@ -15,7 +15,7 @@ export function BadgeShowcase({ userBadges, className }: BadgeShowcaseProps) {
   return (
     <Card className={className}>
       <CardHeader>
-        <CardTitle className="text-lg">Mis Badges</CardTitle>
+        <CardTitle className="text-lg">Mis Medallas</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
@@ -58,10 +58,10 @@ export function BadgeShowcase({ userBadges, className }: BadgeShowcaseProps) {
           <div className="text-center py-8">
             <div className="text-4xl mb-4">🎯</div>
             <h3 className="font-medium text-gray-900 mb-2">
-              ¡Conseguí tu primer badge!
+              ¡Conseguí tu primera medalla!
             </h3>
             <p className="text-gray-600 text-sm">
-              Completá misiones para desbloquear badges y mostrar tu progreso
+              Completá misiones para desbloquear medallas y mostrar tu progreso
             </p>
           </div>
         )}
