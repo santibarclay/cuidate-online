@@ -27,12 +27,9 @@ export function PasswordBreachChecker({ userPreferences, onComplete }: PasswordB
   const isGmailUser = userPreferences.email === 'gmail';
 
   const handleGooglePasswordCheckup = () => {
-    // Show reminder before opening
-    if (window.confirm('📋 RECORDATORIO:\n\nAl terminar la revisión de contraseñas en Google, volvé a esta pestaña de Cuidate Online para continuar con la misión.\n\n¿Continuar?')) {
-      // Open Google Password Checkup in new tab
-      window.open('https://passwords.google.com/checkup/start', '_blank');
-      setStep('results');
-    }
+    // Open Google Password Checkup in new tab
+    window.open('https://passwords.google.com/checkup/start', '_blank');
+    setStep('results');
   };
 
   const handleComplete = () => {
@@ -125,6 +122,13 @@ export function PasswordBreachChecker({ userPreferences, onComplete }: PasswordB
               Como usás Gmail, podés usar la herramienta oficial de Google que verificará automáticamente 
               todas las contraseñas que tenés guardadas en tu navegador.
             </p>
+            
+            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 mb-4">
+              <p className="text-yellow-800 text-sm font-medium">
+                📋 Recordatorio: Al terminar la revisión de contraseñas en Google, volvé a esta pestaña de Cuidate Online para continuar con la misión.
+              </p>
+            </div>
+            
             <Button 
               onClick={handleGooglePasswordCheckup}
               className="w-full bg-blue-600 hover:bg-blue-700"
