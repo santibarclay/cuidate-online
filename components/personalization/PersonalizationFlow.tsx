@@ -161,14 +161,18 @@ export function PersonalizationFlow({ onComplete, onSkip, initialPreferences }: 
               </button>
               
               <button
-                disabled
-                className="p-4 rounded-lg border-2 border-gray-100 text-left opacity-50 cursor-not-allowed bg-gray-50"
+                onClick={() => setPreferences({ ...preferences, email: 'outlook' })}
+                className={`p-4 rounded-lg border-2 text-left transition-colors ${
+                  preferences.email === 'outlook'
+                    ? 'border-security-blue bg-blue-50 text-security-blue'
+                    : 'border-gray-200 hover:border-gray-300'
+                }`}
               >
                 <div className="flex items-center justify-between">
                   <span className="font-medium">Outlook/Hotmail</span>
-                  <span className="text-sm bg-gray-400 text-white px-2 py-1 rounded">Próximamente</span>
+                  <span className="text-sm bg-orange-500 text-white px-2 py-1 rounded">Genérico</span>
                 </div>
-                <p className="text-sm text-gray-500 mt-1">@outlook.com, @hotmail.com</p>
+                <p className="text-sm text-gray-600 mt-1">@outlook.com, @hotmail.com</p>
               </button>
               
               <button
