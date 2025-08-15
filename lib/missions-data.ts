@@ -40,7 +40,7 @@ export const MISSIONS: Mission[] = [
     steps: [],
     tips: [
       "El 2FA te protege incluso si tu contraseña es robada",
-      "WhatsApp te pedirá el PIN solo al registrar la app en un dispositivo nuevo",
+      "WhatsApp te pedirá el PIN cada tanto para que no te lo olvides, y al registrar la app en un dispositivo nuevo",
       "NUNCA compartas tu PIN de WhatsApp con nadie por teléfono",
       "Guardá los códigos de respaldo en papel o en tu computadora"
     ],
