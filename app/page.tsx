@@ -73,8 +73,12 @@ export default function HomePage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <Card className="p-8">
             <div className="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
-              <div className="w-32 h-32 bg-gradient-to-br from-security-blue to-blue-600 rounded-full flex items-center justify-center text-white text-4xl font-bold">
-                SB
+              <div className="w-32 h-32 rounded-full overflow-hidden ring-4 ring-security-blue/20">
+                <img 
+                  src="https://media.licdn.com/dms/image/v2/D4D03AQHsIKDu487_dQ/profile-displayphoto-shrink_800_800/B4DZTNX_xsHkAc-/0/1738612408100?e=1758153600&v=beta&t=YO5iPzp16A0qexTZoZgd7fV4OaOZyCSo-0v0lgUUcrM"
+                  alt="Santiago Barclay"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div className="flex-1 text-center md:text-left">
                 <h2 className="text-2xl font-bold text-gray-900 mb-2">
