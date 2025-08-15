@@ -21,10 +21,11 @@ export const MISSIONS: Mission[] = [
     estimatedTime: "5 minutos",
     risk: "En Argentina, el 85% de las personas usa contraseñas débiles y el 42% fue víctima de algún tipo de fraude digital. Las contraseñas comprometidas son la puerta de entrada más común para criminales.",
     steps: [
-      "Verificá si tus contraseñas fueron comprometidas",
-      "Si encontrás contraseñas hackeadas, cambialas inmediatamente",
+      "Verificá si tus contraseñas fueron comprometidas usando la herramienta interactiva de esta misión",
+      "Si encontrás contraseñas hackeadas, cambialas inmediatamente en todos los sitios donde las uses",
+      "Para usuarios de Gmail: Usá Google Password Checkup (https://passwords.google.com/checkup/start) para una verificación completa",
       "Nunca reutilices contraseñas entre diferentes sitios",
-      "Creá contraseñas únicas y seguras para cada cuenta"
+      "Creá contraseñas únicas y seguras para cada cuenta - Consultá la guía de Google: https://support.google.com/accounts/answer/32040"
     ],
     tips: [
       "Una contraseña 'hackeada' significa que fue expuesta en una brecha de datos de alguna empresa",
@@ -32,10 +33,7 @@ export const MISSIONS: Mission[] = [
       "Las contraseñas más seguras combinan mayúsculas, minúsculas, números y símbolos",
       "Es mejor tener una contraseña larga y fácil de recordar que una corta y compleja"
     ],
-    resources: [
-      { title: "Google Password Checkup", url: "https://passwords.google.com/checkup/start" },
-      { title: "Cómo crear contraseñas seguras", url: "https://support.google.com/accounts/answer/32040" }
-    ]
+    resources: []
   },
   {
     id: "activar-2fa-email-whatsapp",
@@ -46,10 +44,10 @@ export const MISSIONS: Mission[] = [
     estimatedTime: "10 minutos",
     risk: "Tu email es la puerta de entrada a todas tus otras cuentas. WhatsApp se usa cada vez más para estafas. El 73% de los argentinos no usa 2FA, quedando vulnerables a hackeos que se previenen fácilmente.",
     steps: [
-      "Activá 2FA en tu correo electrónico principal",
-      "Activá verificación en dos pasos en WhatsApp",
-      "Anotá y guardá todos los códigos de respaldo",
-      "Probá que funcione correctamente"
+      "Activá 2FA en tu correo electrónico principal (para Gmail: https://support.google.com/accounts/answer/185839)",
+      "Activá verificación en dos pasos en WhatsApp siguiendo la guía oficial: https://faq.whatsapp.com/1086027885177245",
+      "Anotá y guardá todos los códigos de respaldo en un lugar seguro",
+      "Probá que funcione correctamente antes de cerrar la configuración"
     ],
     tips: [
       "El 2FA te protege incluso si tu contraseña es robada",
@@ -57,10 +55,7 @@ export const MISSIONS: Mission[] = [
       "NUNCA compartas tu PIN de WhatsApp con nadie por teléfono",
       "Guardá los códigos de respaldo en papel o en tu computadora"
     ],
-    resources: [
-      { title: "Verificación en 2 pasos - Gmail", url: "https://support.google.com/accounts/answer/185839" },
-      { title: "Verificación en dos pasos - WhatsApp", url: "https://faq.whatsapp.com/1086027885177245" }
-    ]
+    resources: []
   },
   {
     id: "detectar-estafas",
@@ -71,10 +66,12 @@ export const MISSIONS: Mission[] = [
     estimatedTime: "12 minutos",
     risk: "Las estafas digitales crecen 300% cada año en Argentina. Los criminales usan técnicas cada vez más sofisticadas para robar dinero, datos personales y acceso a cuentas bancarias.",
     steps: [
-      "Aprendé a identificar emails de phishing",
-      "Reconocé estafas telefónicas comunes",
-      "Detectá estafas por WhatsApp",
-      "Verificá la autenticidad de sitios web"
+      "Practicá con ejemplos reales usando el detector interactivo de esta misión",
+      "Aprendé a identificar emails de phishing - Guía de Google: https://support.google.com/mail/answer/9157281",
+      "Reconocé estafas telefónicas comunes y nunca compartas datos por teléfono",
+      "Detectá estafas por WhatsApp como el 'cambié de número' y ofertas falsas",
+      "Aprendé a leer dominios correctamente para verificar sitios auténticos",
+      "Consultá recursos oficiales de ciberseguridad: https://www.argentina.gob.ar/jefatura/innovacion-publica/gobierno-digital/ciberseguridad"
     ],
     tips: [
       "Nunca ingreses datos bancarios por links recibidos por email o WhatsApp",
@@ -82,10 +79,7 @@ export const MISSIONS: Mission[] = [
       "Ante la duda, entrá directo al sitio oficial escribiendo la URL",
       "Si algo parece demasiado bueno para ser verdad, probablemente sea una estafa"
     ],
-    resources: [
-      { title: "Cómo identificar phishing - Google", url: "https://support.google.com/mail/answer/9157281" },
-      { title: "Central de Ciberseguridad - Argentina.gob.ar", url: "https://www.argentina.gob.ar/jefatura/innovacion-publica/gobierno-digital/ciberseguridad" }
-    ]
+    resources: []
   }
 ];
 

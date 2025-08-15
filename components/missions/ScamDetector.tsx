@@ -86,17 +86,17 @@ const SCAM_EXAMPLES: ScamExample[] = [
   {
     id: 'website-1',
     type: 'website',
-    content: '🌐 Estás navegando y aparece:\n\nURL: https://homebanking-santander.secure-login.com.ar\n\n"Ingrese su usuario y clave para acceder a Santander Río Online Banking"\n\n[Sin candado SSL visible]',
+    content: '🌐 Estás navegando y aparece:\n\nURL: https://homebanking-santander.secure-login.com.ar\n\n"Ingrese su usuario y clave para acceder a Santander Río Online Banking"\n\nLa página se ve idéntica al banco real.',
     isScam: true,
-    explanation: 'Sitio falso que simula ser del banco',
-    redFlags: ['URL sospechosa', 'Sin SSL', 'Dominio no oficial']
+    explanation: 'Sitio falso que simula ser del banco. El dominio real del Santander es "santander.com.ar", no "secure-login.com.ar"',
+    redFlags: ['Dominio falso', 'Subdominio engañoso', 'No es el dominio oficial del banco']
   },
   {
     id: 'website-2',
     type: 'website',
-    content: '🌐 Estás navegando:\n\nURL: https://www.santander.com.ar/\n\n[Candado verde SSL]\n"Banca por Internet - Santander"\n\nTodos los elementos visuales coinciden con el banco.',
+    content: '🌐 Estás navegando:\n\nURL: https://www.santander.com.ar/\n\n"Banca por Internet - Santander"\n\nTodos los elementos visuales coinciden con el banco.',
     isScam: false,
-    explanation: 'Sitio oficial del banco con SSL',
+    explanation: 'Sitio oficial del banco. El dominio "santander.com.ar" es el correcto (.com.ar indica empresa argentina)',
     redFlags: []
   }
 ];
@@ -168,6 +168,8 @@ export function ScamDetector({ onComplete }: ScamDetectorProps) {
     return isCorrect ? 'bg-green-100 border-green-500 text-green-800' : 'bg-red-100 border-red-500 text-red-800';
   };
 
+  const isCorrectAnswer = hasAnswered && answers[example.id] === example.isScam;
+
   return (
     <div className="max-w-4xl mx-auto">
       <div className="text-center mb-8">
@@ -217,7 +219,7 @@ export function ScamDetector({ onComplete }: ScamDetectorProps) {
                     <AlertTriangle className="h-5 w-5 mr-2" />
                   )
                 )}
-                SÍ, es estafa
+                Sí, es estafa
               </Button>
               
               <Button
@@ -233,32 +235,60 @@ export function ScamDetector({ onComplete }: ScamDetectorProps) {
                     <AlertTriangle className="h-5 w-5 mr-2" />
                   )
                 )}
-                NO, es legítimo
+                No, es legítimo
               </Button>
             </div>
           </div>
 
           {showExplanation && (
             <div className="space-y-4">
+              {/* Correct/Incorrect Feedback */}
+              {isCorrectAnswer ? (
+                <div className="p-4 bg-green-50 border-2 border-green-200 rounded-lg">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <CheckCircle className="h-5 w-5 text-green-600" />
+                    <span className="font-semibold text-green-800">
+                      ¡Correcto! 🎉
+                    </span>
+                  </div>
+                  <p className="text-sm text-green-700">
+                    Identificaste correctamente esta situación. ¡Buen trabajo!
+                  </p>
+                </div>
+              ) : (
+                <div className="p-4 bg-red-50 border-2 border-red-200 rounded-lg">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <AlertTriangle className="h-5 w-5 text-red-600" />
+                    <span className="font-semibold text-red-800">
+                      Respuesta incorrecta 😔
+                    </span>
+                  </div>
+                  <p className="text-sm text-red-700">
+                    No te preocupes, aprender a detectar estafas lleva práctica. Revisá la explicación.
+                  </p>
+                </div>
+              )}
+
+              {/* Actual Answer Explanation */}
               <div className={`p-4 rounded-lg border-2 ${
                 example.isScam 
-                  ? 'bg-red-50 border-red-200' 
-                  : 'bg-green-50 border-green-200'
+                  ? 'bg-orange-50 border-orange-200' 
+                  : 'bg-blue-50 border-blue-200'
               }`}>
                 <div className="flex items-center space-x-2 mb-2">
                   {example.isScam ? (
-                    <AlertTriangle className="h-5 w-5 text-red-600" />
+                    <AlertTriangle className="h-5 w-5 text-orange-600" />
                   ) : (
-                    <CheckCircle className="h-5 w-5 text-green-600" />
+                    <CheckCircle className="h-5 w-5 text-blue-600" />
                   )}
                   <span className={`font-semibold ${
-                    example.isScam ? 'text-red-800' : 'text-green-800'
+                    example.isScam ? 'text-orange-800' : 'text-blue-800'
                   }`}>
                     {example.isScam ? '⚠️ ESTO ES UNA ESTAFA' : '✅ ESTO ES LEGÍTIMO'}
                   </span>
                 </div>
                 <p className={`text-sm ${
-                  example.isScam ? 'text-red-700' : 'text-green-700'
+                  example.isScam ? 'text-orange-700' : 'text-blue-700'
                 }`}>
                   {example.explanation}
                 </p>
@@ -272,6 +302,29 @@ export function ScamDetector({ onComplete }: ScamDetectorProps) {
                       <li key={index}>• {flag}</li>
                     ))}
                   </ul>
+                </div>
+              )}
+
+              {example.type === 'website' && (
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <h4 className="font-semibold text-blue-800 mb-2">📚 Aprende a leer dominios:</h4>
+                  <div className="text-blue-700 text-sm space-y-2">
+                    <p><strong>Ejemplo:</strong> https://homebanking-santander.secure-login.com.ar/inicio</p>
+                    <div className="bg-white p-3 rounded border font-mono text-xs">
+                      <span className="text-green-600">https://</span>
+                      <span className="text-red-600">homebanking-santander</span>
+                      <span className="text-gray-500">.</span>
+                      <span className="text-purple-600 font-bold">secure-login.com.ar</span>
+                      <span className="text-gray-500">/inicio</span>
+                    </div>
+                    <ul className="space-y-1">
+                      <li>• <span className="text-purple-600 font-semibold">secure-login.com.ar</span> = Dominio principal</li>
+                      <li>• <span className="text-red-600">homebanking-santander</span> = Subdominio (puede ser falso)</li>
+                      <li>• <span className="text-gray-500">/inicio</span> = Página específica</li>
+                      <li>• <strong>.com.ar</strong> = Argentina, <strong>.com</strong> = internacional</li>
+                    </ul>
+                    <p className="text-xs"><strong>Regla:</strong> Solo confiá en el dominio principal. Santander real = santander.com.ar</p>
+                  </div>
                 </div>
               )}
 

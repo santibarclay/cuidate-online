@@ -9,7 +9,7 @@ import { UserPreferences } from '@/lib/gamification';
 interface PasswordBreachCheckerProps {
   userPreferences: UserPreferences;
   userEmail: string;
-  onComplete: () => void;
+  onComplete: (score?: number) => void;
 }
 
 interface BreachResult {
@@ -305,7 +305,10 @@ export function PasswordBreachChecker({ userPreferences, userEmail, onComplete }
       )}
       
       <div className="text-center">
-        <Button onClick={onComplete} className="bg-security-green hover:bg-green-700">
+        <Button 
+          onClick={() => onComplete(100)}
+          className="bg-security-green hover:bg-green-700"
+        >
           ¡Entendido, continuar!
         </Button>
       </div>

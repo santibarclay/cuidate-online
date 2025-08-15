@@ -17,13 +17,11 @@ Plataforma educativa gamificada para enseñar seguridad digital a familias argen
 ### 🎯 Misiones Disponibles
 
 **Nivel 1 - Fundamentos Críticos:**
-- Auditoría de Contraseñas (200 XP)
-- Activar 2FA en Gmail (300 XP) 
-- Configurar Password Manager (400 XP)
+Misiones interactivas que enseñan los conceptos básicos de seguridad digital.
 
 **Próximamente:**
-- Nivel 2: Protección contra phishing argentino, SIM Swapping
-- Nivel 3: Seguridad en home banking, backup seguro
+- Nivel 2: Protección avanzada 
+- Nivel 3: Seguridad bancaria y datos personales
 
 ## 🚀 Instalación y Desarrollo
 
@@ -95,12 +93,12 @@ npm run lint     # Linting con ESLint
 - **Nivel 2**: 900-1799 XP (Protección Avanzada)  
 - **Nivel 3**: 1800+ XP (Guardián Digital)
 
-### Badges
-- 🛡️ **Primera Línea**: Completar Nivel 1
-- 🔐 **Guardián 2FA**: Activar 2FA en servicios
-- 🎯 **Cazador de Phishing**: 100% en detector
-- 🔥 **En Llamas**: 7 días de streak
-- 💎 **Leyenda**: Completar todos los niveles
+### Sistema de Badges
+Sistema de reconocimientos que premia el progreso del usuario:
+- Badges por completar niveles y misiones
+- Reconocimientos por activar medidas de seguridad
+- Premios por mantener buenas prácticas
+- Badges especiales por actividad consistente
 
 ## 🔒 Privacidad
 
@@ -132,9 +130,6 @@ Este proyecto está abierto a contribuciones de la comunidad:
 - LinkedIn: [linkedin.com/in/santibarclay](https://www.linkedin.com/in/santibarclay/)
 - Email: Para consultas profesionales vía LinkedIn
 
-## 📄 Licencia
-
-Este proyecto está bajo licencia MIT. Ver `LICENSE` para más detalles.
 
 ## 🤖 Desarrollo con IA
 
@@ -143,19 +138,16 @@ Este proyecto está bajo licencia MIT. Ver `LICENSE` para más detalles.
 **Vibe Coding** es una práctica de desarrollo de software que utiliza IA, específicamente modelos de lenguaje grandes (LLMs), para generar código a partir de prompts en lenguaje natural. Enfatiza un enfoque conversacional y hands-off donde el desarrollador guía la IA en lugar de escribir código manualmente. Este método busca acelerar el desarrollo y hacer la creación de apps más accesible, particularmente para aquellos con experiencia limitada en programación.
 
 - **Plataforma**: [Claude Code](https://claude.ai/code) by Anthropic
-- **Costo total**: ~$5 USD en tokens de Claude
-- **Tiempo de desarrollo**: 1 sesión intensiva
-- **Líneas de código generadas**: 10,552
+- **Desarrollo**: Completamente generado por IA
+- **Enfoque**: Desarrollo ético y transparente con IA
 
 ### ⚠️ **Reflexión sobre Riesgos de IA**
 
-Irónicamente, un sitio sobre **ciberseguridad** fue creado enteramente por IA. Esto ilustra una paradoja importante:
+Un sitio sobre **ciberseguridad** creado enteramente por IA ilustra una paradoja importante:
 
 - ✅ **Beneficio**: IA democratiza la creación de herramientas educativas
 - ⚠️ **Riesgo**: Dependencia de IA puede introducir vulnerabilidades desconocidas
 - 🔍 **Lección**: Debemos auditar código generado por IA con el mismo rigor que código humano
-
-Esta misma tecnología que creó una herramienta educativa también podría ser usada por criminales para crear ataques más sofisticados.
 
 ## 🙏 Agradecimientos
 
@@ -179,5 +171,4 @@ Esta misma tecnología que creó una herramienta educativa también podría ser 
 
 **¡Protegé tu vida digital, paso a paso!** 🛡️
 
-*Desarrollado con IA responsable en Argentina por Santiago Barclay*  
-*Powered by [Akua](https://akua.la) • Built with [Claude Code](https://claude.ai/code)*
+*Built with [Claude Code](https://claude.ai/code)*
