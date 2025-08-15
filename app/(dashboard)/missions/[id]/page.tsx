@@ -174,10 +174,10 @@ export default function MissionPage() {
   const hasPassedQuiz = userQuizScore && (userQuizScore.score / userQuizScore.maxScore) * 100 >= 80;
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
       {/* Header */}
-      <div className="flex items-center space-x-4 mb-8">
-        <Button variant="secondary" asChild>
+      <div className="flex flex-col sm:flex-row sm:items-center space-y-3 sm:space-y-0 sm:space-x-4 mb-6 sm:mb-8">
+        <Button variant="secondary" asChild className="w-fit">
           <Link href="/dashboard">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Volver
@@ -185,7 +185,7 @@ export default function MissionPage() {
         </Button>
         
         <div className="flex-1">
-          <div className="flex items-center space-x-2 mb-2">
+          <div className="flex flex-wrap items-center gap-2 mb-2">
             <Badge className={getLevelColor(mission.level)}>
               Nivel {mission.level}
             </Badge>
@@ -196,34 +196,34 @@ export default function MissionPage() {
               </Badge>
             )}
           </div>
-          <h1 className="text-3xl font-bold text-gray-900">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
             {mission.title}
           </h1>
         </div>
       </div>
 
       {/* Mission Info */}
-      <div className="grid md:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-6 mb-6 sm:mb-8">
         <Card>
-          <CardContent className="p-6 text-center">
-            <Star className="h-8 w-8 text-yellow-500 mx-auto mb-2" />
-            <p className="text-2xl font-bold text-gray-900">{mission.xp}</p>
+          <CardContent className="p-4 sm:p-6 text-center">
+            <Star className="h-6 w-6 sm:h-8 sm:w-8 text-yellow-500 mx-auto mb-2" />
+            <p className="text-xl sm:text-2xl font-bold text-gray-900">{mission.xp}</p>
             <p className="text-sm text-gray-600">XP</p>
           </CardContent>
         </Card>
         
         <Card>
-          <CardContent className="p-6 text-center">
-            <Clock className="h-8 w-8 text-security-blue mx-auto mb-2" />
-            <p className="text-2xl font-bold text-gray-900">{mission.estimatedTime}</p>
+          <CardContent className="p-4 sm:p-6 text-center">
+            <Clock className="h-6 w-6 sm:h-8 sm:w-8 text-security-blue mx-auto mb-2" />
+            <p className="text-xl sm:text-2xl font-bold text-gray-900">{mission.estimatedTime}</p>
             <p className="text-sm text-gray-600">estimado</p>
           </CardContent>
         </Card>
         
         <Card>
-          <CardContent className="p-6 text-center">
-            <div className="text-2xl mb-2">{missionCompleted ? '✅' : '⏳'}</div>
-            <p className="text-2xl font-bold text-gray-900">
+          <CardContent className="p-4 sm:p-6 text-center">
+            <div className="text-xl sm:text-2xl mb-2">{missionCompleted ? '✅' : '⏳'}</div>
+            <p className="text-xl sm:text-2xl font-bold text-gray-900">
               {missionCompleted ? 'Completa' : 'Pendiente'}
             </p>
             <p className="text-sm text-gray-600">Estado</p>

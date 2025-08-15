@@ -42,31 +42,31 @@ export default function HomePage() {
     <div className="min-h-screen">
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-security-blue to-blue-800 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
           <div className="text-center">
             {/* Logo */}
-            <div className="flex items-center justify-center space-x-3 mb-8">
-              <Shield className="h-12 w-12" />
-              <h1 className="text-4xl md:text-5xl font-bold">{SITE_NAME}</h1>
+            <div className="flex items-center justify-center space-x-2 sm:space-x-3 mb-6 sm:mb-8">
+              <Shield className="h-8 w-8 sm:h-12 sm:w-12" />
+              <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold">{SITE_NAME}</h1>
             </div>
             
-            <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed px-2">
               Aprendé seguridad digital jugando
             </p>
             
-            <p className="text-lg mb-10 max-w-2xl mx-auto opacity-90">
+            <p className="text-sm sm:text-lg mb-8 sm:mb-10 max-w-2xl mx-auto opacity-90 px-4">
               Plataforma gratuita para proteger tu WhatsApp, Gmail, home banking y más. 
               Creada especialmente para familias argentinas.
             </p>
             
-            <div className="space-y-4">
-              <Button asChild size="lg" className="bg-white text-security-blue hover:bg-gray-100 text-lg px-8 py-4">
+            <div className="space-y-3 sm:space-y-4 px-4">
+              <Button asChild size="lg" className="bg-white text-security-blue hover:bg-gray-100 text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 w-full sm:w-auto">
                 <Link href="/register">
                   Empezá a cuidarte ahora
                 </Link>
               </Button>
               <div>
-                <Button asChild variant="outline" size="sm" className="border-white/30 text-white hover:bg-white/10">
+                <Button asChild variant="outline" size="sm" className="border-white/30 text-white hover:bg-white/10 w-full sm:w-auto">
                   <Link href="/dashboard">
                     ¿Ya te habías registrado?
                   </Link>
@@ -78,11 +78,11 @@ export default function HomePage() {
       </div>
 
       {/* Santiago Bio Section */}
-      <div className="bg-white py-16">
+      <div className="bg-white py-8 sm:py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Card className="p-8">
-            <div className="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
-              <div className="w-32 h-32 rounded-full overflow-hidden ring-4 ring-security-blue/20">
+          <Card className="p-4 sm:p-8">
+            <div className="flex flex-col md:flex-row items-center md:items-start space-y-4 sm:space-y-6 md:space-y-0 md:space-x-8">
+              <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden ring-4 ring-security-blue/20 flex-shrink-0">
                 <img 
                   src="https://media.licdn.com/dms/image/v2/D4D03AQHsIKDu487_dQ/profile-displayphoto-shrink_800_800/B4DZTNX_xsHkAc-/0/1738612408100?e=1758153600&v=beta&t=YO5iPzp16A0qexTZoZgd7fV4OaOZyCSo-0v0lgUUcrM"
                   alt="Santiago Barclay"
@@ -90,21 +90,21 @@ export default function HomePage() {
                 />
               </div>
               <div className="flex-1 text-center md:text-left">
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
                   Hola, soy {CREATOR.name}
                 </h2>
-                <p className="text-security-blue font-medium mb-4">
+                <p className="text-security-blue font-medium mb-3 sm:mb-4">
                   {CREATOR.role}
                 </p>
-                <p className="text-gray-600 leading-relaxed text-lg">
+                <p className="text-gray-600 leading-relaxed text-sm sm:text-lg">
                   {CREATOR.bio}
                 </p>
-                <div className="mt-6 flex flex-col sm:flex-row items-center justify-center md:justify-start space-y-3 sm:space-y-0 sm:space-x-4">
+                <div className="mt-4 sm:mt-6 flex flex-col sm:flex-row items-center justify-center md:justify-start space-y-2 sm:space-y-0 sm:space-x-4">
                   <a 
                     href="https://www.linkedin.com/in/santibarclay/" 
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-security-blue hover:underline"
+                    className="text-security-blue hover:underline text-sm sm:text-base"
                   >
                     LinkedIn
                   </a>
@@ -117,19 +117,19 @@ export default function HomePage() {
       </div>
 
       {/* Stats Section */}
-      <div className="bg-gray-50 py-16">
+      <div className="bg-gray-50 py-8 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+          <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-8 sm:mb-12 px-2">
             Cuidando a la comunidad argentina
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
             {stats.map((stat, index) => (
-              <Card key={index} className="text-center p-6">
-                <stat.icon className="h-8 w-8 text-security-blue mx-auto mb-3" />
-                <div className="text-2xl font-bold text-gray-900 mb-1">
+              <Card key={index} className="text-center p-3 sm:p-6">
+                <stat.icon className="h-6 w-6 sm:h-8 sm:w-8 text-security-blue mx-auto mb-2 sm:mb-3" />
+                <div className="text-lg sm:text-2xl font-bold text-gray-900 mb-1">
                   {stat.value}
                 </div>
-                <div className="text-sm text-gray-600">
+                <div className="text-xs sm:text-sm text-gray-600">
                   {stat.label}
                 </div>
               </Card>
@@ -139,21 +139,21 @@ export default function HomePage() {
       </div>
 
       {/* Features Section */}
-      <div className="bg-white py-16">
+      <div className="bg-white py-8 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+          <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-8 sm:mb-12 px-2">
             ¿Por qué elegir {SITE_NAME}?
           </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8">
             {features.map((feature, index) => (
-              <Card key={index} className="text-center p-6 hover:shadow-md transition-shadow">
-                <div className="text-4xl mb-4">
+              <Card key={index} className="text-center p-4 sm:p-6 hover:shadow-md transition-shadow">
+                <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">
                   {feature.icon}
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2 sm:mb-3">
                   {feature.title}
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-sm sm:text-base text-gray-600">
                   {feature.description}
                 </p>
               </Card>
@@ -163,29 +163,29 @@ export default function HomePage() {
       </div>
 
       {/* Cyber Crime Stats */}
-      <div className="bg-red-50 border border-red-200 py-16">
+      <div className="bg-red-50 border border-red-200 py-8 sm:py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-red-900 mb-6">
+          <h2 className="text-2xl sm:text-3xl font-bold text-red-900 mb-4 sm:mb-6 px-2">
             La Realidad en Argentina
           </h2>
-          <div className="grid md:grid-cols-3 gap-6 mb-8">
-            <div className="bg-white p-6 rounded-lg shadow-sm">
-              <div className="text-3xl font-bold text-red-600 mb-2">85%</div>
-              <p className="text-gray-600">de los argentinos usa contraseñas débiles</p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
+            <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm">
+              <div className="text-2xl sm:text-3xl font-bold text-red-600 mb-2">85%</div>
+              <p className="text-sm sm:text-base text-gray-600">de los argentinos usa contraseñas débiles</p>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-sm">
-              <div className="text-3xl font-bold text-red-600 mb-2">42%</div>
-              <p className="text-gray-600">fue víctima de algún tipo de fraude digital</p>
+            <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm">
+              <div className="text-2xl sm:text-3xl font-bold text-red-600 mb-2">42%</div>
+              <p className="text-sm sm:text-base text-gray-600">fue víctima de algún tipo de fraude digital</p>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-sm">
-              <div className="text-3xl font-bold text-red-600 mb-2">73%</div>
-              <p className="text-gray-600">no usa autenticación en dos pasos</p>
+            <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm">
+              <div className="text-2xl sm:text-3xl font-bold text-red-600 mb-2">73%</div>
+              <p className="text-sm sm:text-base text-gray-600">no usa autenticación en dos pasos</p>
             </div>
           </div>
-          <p className="text-lg text-red-800 mb-6">
+          <p className="text-base sm:text-lg text-red-800 mb-4 sm:mb-6 px-2">
             No seas parte de estas estadísticas. Protegete hoy.
           </p>
-          <Button asChild size="lg" className="bg-red-600 hover:bg-red-700">
+          <Button asChild size="lg" className="bg-red-600 hover:bg-red-700 w-full sm:w-auto">
             <Link href="/register">
               Empezá tu protección ahora
             </Link>

@@ -70,21 +70,21 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-6 px-4 sm:py-12 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-md">
         {/* Header */}
-        <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center space-x-2 text-security-blue hover:text-blue-700 mb-6">
-            <ArrowLeft className="h-5 w-5" />
+        <div className="text-center mb-6 sm:mb-8">
+          <Link href="/" className="inline-flex items-center space-x-2 text-security-blue hover:text-blue-700 mb-4 sm:mb-6 text-sm sm:text-base">
+            <ArrowLeft className="h-4 w-4 sm:h-5 sm:w-5" />
             <span>Volver al inicio</span>
           </Link>
           
-          <div className="flex items-center justify-center space-x-2 mb-4">
-            <Shield className="h-8 w-8 text-security-blue" />
-            <h1 className="text-2xl font-bold text-gray-900">{SITE_NAME}</h1>
+          <div className="flex items-center justify-center space-x-2 mb-3 sm:mb-4">
+            <Shield className="h-6 w-6 sm:h-8 sm:w-8 text-security-blue" />
+            <h1 className="text-xl sm:text-2xl font-bold text-gray-900">{SITE_NAME}</h1>
           </div>
           
-          <h2 className="text-xl text-gray-600">
+          <h2 className="text-lg sm:text-xl text-gray-600 px-2">
             Creá tu cuenta y empezá a protegerte
           </h2>
         </div>
@@ -122,13 +122,13 @@ export default function RegisterPage() {
                 <label className="block text-sm font-medium text-gray-700 mb-3">
                   Elegí tu avatar
                 </label>
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-3 gap-2 sm:gap-3">
                   {AVATARS.map((avatar) => (
                     <button
                       key={avatar}
                       type="button"
                       onClick={() => handleInputChange('avatar', avatar)}
-                      className={`p-4 text-2xl border-2 rounded-lg transition-colors ${
+                      className={`p-3 sm:p-4 text-xl sm:text-2xl border-2 rounded-lg transition-colors ${
                         formData.avatar === avatar
                           ? 'border-security-blue bg-blue-50'
                           : 'border-gray-200 hover:border-gray-300'
