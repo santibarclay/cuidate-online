@@ -240,7 +240,7 @@ export function PersonalizationFlow({ onComplete, onSkip, initialPreferences }: 
             </p>
           </div>
           <Button
-            variant="ghost"
+            variant="secondary"
             size="sm"
             onClick={onSkip}
             className="text-gray-500 hover:text-gray-700"
@@ -277,7 +277,7 @@ export function PersonalizationFlow({ onComplete, onSkip, initialPreferences }: 
           
           <div className="flex space-x-3">
             <Button
-              variant="ghost"
+              variant="secondary"
               onClick={onSkip}
               className="text-gray-600"
             >

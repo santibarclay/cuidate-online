@@ -6,10 +6,11 @@ import { ProgressBar } from '@/components/dashboard/progress-bar';
 import { StreakCounter } from '@/components/dashboard/streak-counter';
 import { BadgeShowcase } from '@/components/dashboard/badge-showcase';
 import { MissionCard } from '@/components/missions/mission-card';
-import { loadUserProgress, saveUserProgress, updateStreak, UserProgress } from '@/lib/gamification';
+import { loadUserProgress, saveUserProgress, updateStreak, UserProgress, migrateUserProgress } from '@/lib/gamification';
 import { MISSIONS, getMissionsByLevel } from '@/lib/missions-data';
 import { SITE_NAME } from '@/lib/constants';
-import { TrendingUp, Target, Award } from 'lucide-react';
+import { TrendingUp, Target, Award, Settings, User } from 'lucide-react';
+import Link from 'next/link';
 
 export default function DashboardPage() {
   const [user, setUser] = useState<UserProgress | null>(null);
@@ -19,9 +20,14 @@ export default function DashboardPage() {
     const loadUser = () => {
       const userProgress = loadUserProgress();
       if (userProgress) {
+        // Migrate old user data to include preferences
+        const migratedUser = migrateUserProgress(userProgress);
+        
         // Update streak on dashboard load
-        const updatedUser = updateStreak(userProgress);
-        if (updatedUser.streak !== userProgress.streak || updatedUser.lastActiveDate !== userProgress.lastActiveDate) {
+        const updatedUser = updateStreak(migratedUser);
+        if (updatedUser.streak !== userProgress.streak || 
+            updatedUser.lastActiveDate !== userProgress.lastActiveDate ||
+            migratedUser !== userProgress) {
           saveUserProgress(updatedUser);
         }
         setUser(updatedUser);
@@ -62,12 +68,59 @@ export default function DashboardPage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Welcome Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
-          Hola {user.name}, seguí cuidándote {user.avatar}
-        </h1>
-        <p className="text-gray-600">
-          Bienvenido a tu dashboard de {SITE_NAME}. Aquí podés ver tu progreso y continuar con tus misiones.
-        </p>
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+              Hola {user.name}, seguí cuidándote {user.avatar}
+            </h1>
+            <p className="text-gray-600">
+              Bienvenido a tu dashboard de {SITE_NAME}. Aquí podés ver tu progreso y continuar con tus misiones.
+            </p>
+          </div>
+          
+          {/* Personalization Status */}
+          <div className="flex items-center space-x-4">
+            <div className="text-right">
+              <div className="text-sm text-gray-500">Experiencia</div>
+              <div className={`text-sm font-medium ${
+                user.preferences?.isPersonalized 
+                  ? 'text-security-green' 
+                  : 'text-orange-600'
+              }`}>
+                {user.preferences?.isPersonalized ? '✨ Personalizada' : '📋 Genérica'}
+              </div>
+            </div>
+            <Link href="/profile">
+              <div className="p-2 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
+                {user.preferences?.isPersonalized ? (
+                  <User className="h-6 w-6 text-security-blue" />
+                ) : (
+                  <Settings className="h-6 w-6 text-orange-600" />
+                )}
+              </div>
+            </Link>
+          </div>
+        </div>
+        
+        {!user.preferences?.isPersonalized && (
+          <div className="mt-4 p-4 bg-orange-50 border border-orange-200 rounded-lg">
+            <div className="flex items-center justify-between">
+              <div>
+                <h4 className="font-medium text-orange-800 mb-1">
+                  💡 Mejorá tu experiencia
+                </h4>
+                <p className="text-sm text-orange-700">
+                  Configurá tus herramientas para recibir guías específicas para tu navegador, celular y email
+                </p>
+              </div>
+              <Link href="/profile">
+                <div className="ml-4 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors cursor-pointer text-sm font-medium">
+                  Personalizar
+                </div>
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Stats Overview */}

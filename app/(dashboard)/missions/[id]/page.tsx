@@ -12,8 +12,12 @@ import {
   saveUserProgress, 
   completeMission, 
   updateStreak,
-  UserProgress 
+  UserProgress,
+  migrateUserProgress
 } from '@/lib/gamification';
+import { PasswordBreachChecker } from '@/components/missions/PasswordBreachChecker';
+import { TwoFactorSetup } from '@/components/missions/TwoFactorSetup';
+import { ScamDetector } from '@/components/missions/ScamDetector';
 import { getMissionById } from '@/lib/missions-data';
 import { getQuizQuestions } from '@/lib/quiz-questions';
 import { 
@@ -33,8 +37,10 @@ export default function MissionPage() {
   
   const [user, setUser] = useState<UserProgress | null>(null);
   const [showQuiz, setShowQuiz] = useState(false);
+  const [showInteractive, setShowInteractive] = useState(false);
   const [missionCompleted, setMissionCompleted] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [interactiveScore, setInteractiveScore] = useState<number | null>(null);
   
   const mission = getMissionById(missionId);
   const quizQuestions = mission ? getQuizQuestions(mission.id) : [];
@@ -46,7 +52,9 @@ export default function MissionPage() {
       return;
     }
     
-    const updatedUser = updateStreak(userProgress);
+    // Migrate old user data to include preferences  
+    const migratedUser = migrateUserProgress(userProgress);
+    const updatedUser = updateStreak(migratedUser);
     setUser(updatedUser);
     setMissionCompleted(updatedUser.completedMissions.includes(missionId));
     setIsLoading(false);
@@ -97,6 +105,17 @@ export default function MissionPage() {
       setUser(updatedUser);
       saveUserProgress(updatedUser);
     }
+  };
+
+  const handleInteractiveComplete = (score?: number) => {
+    if (score !== undefined) {
+      setInteractiveScore(score);
+    }
+    setShowQuiz(true);
+  };
+
+  const handleStartInteractive = () => {
+    setShowInteractive(true);
   };
   
   if (isLoading) {
@@ -291,29 +310,82 @@ export default function MissionPage() {
         </Card>
       )}
 
+      {/* Interactive Mission Content */}
+      {!missionCompleted && (
+        <Card className="mb-8">
+          <CardHeader>
+            <CardTitle>
+              {missionId === 'cuidemos-contrasenas' && 'Verificá tus contraseñas'}
+              {missionId === 'activar-2fa-email-whatsapp' && 'Activá el 2FA'}
+              {missionId === 'detectar-estafas' && 'Practicá detectando estafas'}
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            {!showInteractive && !showQuiz ? (
+              <div className="text-center py-6">
+                <p className="text-gray-600 mb-6">
+                  {missionId === 'cuidemos-contrasenas' && 'Ahora vamos a verificar si alguna de tus contraseñas fue comprometida'}
+                  {missionId === 'activar-2fa-email-whatsapp' && 'Seguí las guías personalizadas para activar 2FA en tus cuentas'}
+                  {missionId === 'detectar-estafas' && 'Practicá identificando estafas reales de internet'}
+                </p>
+                <Button onClick={handleStartInteractive} size="lg">
+                  {missionId === 'cuidemos-contrasenas' && 'Verificar contraseñas'}
+                  {missionId === 'activar-2fa-email-whatsapp' && 'Empezar configuración'}
+                  {missionId === 'detectar-estafas' && 'Comenzar práctica'}
+                </Button>
+              </div>
+            ) : showInteractive ? (
+              <div>
+                {missionId === 'cuidemos-contrasenas' && (
+                  <PasswordBreachChecker
+                    userPreferences={user.preferences || { browser: null, device: null, email: null, os: null, isPersonalized: false }}
+                    userEmail={user.email}
+                    onComplete={handleInteractiveComplete}
+                  />
+                )}
+                {missionId === 'activar-2fa-email-whatsapp' && (
+                  <TwoFactorSetup
+                    userPreferences={user.preferences || { browser: null, device: null, email: null, os: null, isPersonalized: false }}
+                    onComplete={handleInteractiveComplete}
+                  />
+                )}
+                {missionId === 'detectar-estafas' && (
+                  <ScamDetector
+                    onComplete={handleInteractiveComplete}
+                  />
+                )}
+              </div>
+            ) : null}
+          </CardContent>
+        </Card>
+      )}
+
       {/* Quiz Section */}
-      {quizQuestions.length > 0 && (
+      {quizQuestions.length > 0 && (showQuiz || missionCompleted) && (
         <Card className="mb-8">
           <CardHeader>
             <CardTitle>Verificá tu conocimiento</CardTitle>
           </CardHeader>
           <CardContent>
-            {!showQuiz && !missionCompleted ? (
-              <div className="text-center py-6">
-                <p className="text-gray-600 mb-6">
-                  Una vez que hayas seguido todos los pasos, respondé este quiz para demostrar que entendiste los conceptos clave.
-                </p>
-                <Button onClick={handleStartQuiz} size="lg">
-                  Empezar Quiz
-                </Button>
+            {showQuiz && !missionCompleted ? (
+              <div>
+                {interactiveScore !== null && (
+                  <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                    <h4 className="font-medium text-blue-800 mb-1">
+                      Resultado de la práctica: {interactiveScore}%
+                    </h4>
+                    <p className="text-blue-700 text-sm">
+                      ¡Bien hecho! Ahora respondé el quiz final para completar la misión.
+                    </p>
+                  </div>
+                )}
+                <Quiz 
+                  questions={quizQuestions}
+                  onComplete={handleQuizComplete}
+                  missionTitle={mission.title}
+                />
               </div>
-            ) : showQuiz ? (
-              <Quiz 
-                questions={quizQuestions}
-                onComplete={handleQuizComplete}
-                missionTitle={mission.title}
-              />
-            ) : (
+            ) : missionCompleted ? (
               <div className="text-center py-6">
                 <CheckCircle2 className="h-12 w-12 text-security-green mx-auto mb-4" />
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">
@@ -328,7 +400,7 @@ export default function MissionPage() {
                   </p>
                 </div>
               </div>
-            )}
+            ) : null}
             
             {userQuizScore && (
               <div className="mt-4 p-4 bg-gray-50 rounded-lg">
