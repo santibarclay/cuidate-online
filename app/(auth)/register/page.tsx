@@ -6,8 +6,9 @@ import Link from 'next/link';
 import { Shield, ArrowLeft, User, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { createNewUser, saveUserProgress } from '@/lib/gamification';
+import { createNewUser, saveUserProgress, UserPreferences } from '@/lib/gamification';
 import { SITE_NAME } from '@/lib/constants';
+import { PersonalizationFlow } from '@/components/personalization/PersonalizationFlow';
 
 const AVATARS = [
   '👨‍💻', '👩‍💻', '🧑‍💼', '👩‍💼', '🧑‍🎓', '👩‍🎓'
@@ -15,6 +16,7 @@ const AVATARS = [
 
 export default function RegisterPage() {
   const router = useRouter();
+  const [step, setStep] = useState<'register' | 'personalize'>('register');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -42,18 +44,8 @@ export default function RegisterPage() {
         throw new Error('Por favor ingresá un email válido');
       }
 
-      // Create new user
-      const newUser = createNewUser(
-        formData.name.trim(),
-        formData.email.trim().toLowerCase(),
-        formData.avatar
-      );
-
-      // Save to localStorage
-      saveUserProgress(newUser);
-
-      // Redirect to dashboard
-      router.push('/dashboard');
+      // Move to personalization step
+      setStep('personalize');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error al registrarse');
     } finally {
@@ -61,10 +53,66 @@ export default function RegisterPage() {
     }
   };
 
+  const handlePersonalizationComplete = (preferences: UserPreferences) => {
+    // Create new user with preferences
+    const newUser = createNewUser(
+      formData.name.trim(),
+      formData.email.trim().toLowerCase(),
+      formData.avatar,
+      preferences
+    );
+
+    // Save to localStorage
+    saveUserProgress(newUser);
+
+    // Redirect to dashboard
+    router.push('/dashboard');
+  };
+
+  const handlePersonalizationSkip = () => {
+    // Create new user without personalization
+    const newUser = createNewUser(
+      formData.name.trim(),
+      formData.email.trim().toLowerCase(),
+      formData.avatar
+    );
+
+    // Save to localStorage
+    saveUserProgress(newUser);
+
+    // Redirect to dashboard
+    router.push('/dashboard');
+  };
+
   const handleInputChange = (field: keyof typeof formData, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
     if (error) setError(''); // Clear error when user starts typing
   };
+
+  if (step === 'personalize') {
+    return (
+      <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+        <div className="sm:mx-auto sm:w-full sm:max-w-4xl">
+          <div className="text-center mb-8">
+            <Link href="/" className="inline-flex items-center space-x-2 text-security-blue hover:text-blue-700 mb-6">
+              <ArrowLeft className="h-5 w-5" />
+              <span>Volver al inicio</span>
+            </Link>
+            
+            <div className="flex items-center justify-center space-x-2 mb-4">
+              <Shield className="h-8 w-8 text-security-blue" />
+              <h1 className="text-2xl font-bold text-gray-900">{SITE_NAME}</h1>
+            </div>
+          </div>
+          
+          <PersonalizationFlow
+            onComplete={handlePersonalizationComplete}
+            onSkip={handlePersonalizationSkip}
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">

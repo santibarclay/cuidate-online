@@ -49,16 +49,6 @@ export function Header() {
               Ranking
             </Link>
             <Link 
-              href="/resources"
-              className={`text-sm font-medium transition-colors ${
-                pathname === '/resources' 
-                  ? 'text-security-blue' 
-                  : 'text-gray-600 hover:text-gray-900'
-              }`}
-            >
-              Recursos
-            </Link>
-            <Link 
               href="/profile"
               className={`text-sm font-medium transition-colors ${
                 pathname === '/profile' 
@@ -105,17 +95,6 @@ export function Header() {
               onClick={() => setIsMenuOpen(false)}
             >
               Ranking
-            </Link>
-            <Link 
-              href="/resources"
-              className={`block px-3 py-2 text-base font-medium rounded-md ${
-                pathname === '/resources'
-                  ? 'text-security-blue bg-blue-50'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-              }`}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Recursos
             </Link>
             <Link 
               href="/profile"

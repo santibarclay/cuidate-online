@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ProgressBar } from '@/components/dashboard/progress-bar';
 import { BadgeShowcase } from '@/components/dashboard/badge-showcase';
-import { loadUserProgress, saveUserProgress, UserProgress } from '@/lib/gamification';
+import { loadUserProgress, saveUserProgress, UserProgress, updateUserPreferences, migrateUserProgress } from '@/lib/gamification';
 import { MISSIONS } from '@/lib/missions-data';
 import { BADGES } from '@/lib/constants';
 import { 
@@ -17,19 +17,32 @@ import {
   Target,
   Download,
   Trash2,
-  Edit
+  Edit,
+  Settings,
+  Chrome,
+  Smartphone,
+  Monitor
 } from 'lucide-react';
+import { PersonalizationFlow } from '@/components/personalization/PersonalizationFlow';
 
 export default function ProfilePage() {
   const [user, setUser] = useState<UserProgress | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editName, setEditName] = useState('');
+  const [showPersonalization, setShowPersonalization] = useState(false);
 
   useEffect(() => {
     const userProgress = loadUserProgress();
     if (userProgress) {
-      setUser(userProgress);
-      setEditName(userProgress.name);
+      // Migrate old user data to include preferences
+      const migratedUser = migrateUserProgress(userProgress);
+      setUser(migratedUser);
+      setEditName(migratedUser.name);
+      
+      // Save migrated data if it was updated
+      if (migratedUser !== userProgress) {
+        saveUserProgress(migratedUser);
+      }
     }
   }, []);
 
@@ -85,6 +98,27 @@ export default function ProfilePage() {
       localStorage.removeItem('cuidate-online-user');
       window.location.href = '/';
     }
+  };
+
+  const handlePersonalizationUpdate = (preferences: any) => {
+    if (!user) return;
+    
+    const updatedUser = updateUserPreferences(user, preferences);
+    setUser(updatedUser);
+    saveUserProgress(updatedUser);
+    setShowPersonalization(false);
+  };
+
+  const getPersonalizationStatus = () => {
+    if (!user?.preferences) return 'No configurada';
+    if (!user.preferences.isPersonalized) return 'Genérica';
+    return 'Personalizada';
+  };
+
+  const getPersonalizationColor = () => {
+    if (!user?.preferences) return 'text-gray-500';
+    if (!user.preferences.isPersonalized) return 'text-orange-600';
+    return 'text-security-green';
   };
 
   if (!user) {
@@ -263,6 +297,80 @@ export default function ProfilePage() {
         <BadgeShowcase userBadges={user.badges} />
       </div>
 
+      {/* Personalization Settings */}
+      <Card className="mb-8">
+        <CardHeader>
+          <CardTitle className="flex items-center space-x-2">
+            <Settings className="h-5 w-5" />
+            <span>Personalización</span>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+              <div>
+                <h4 className="font-medium text-gray-900">Estado de personalización</h4>
+                <div className="flex items-center space-x-2 mt-1">
+                  <span className={`text-sm font-medium ${getPersonalizationColor()}`}>
+                    {getPersonalizationStatus()}
+                  </span>
+                  {user.preferences?.isPersonalized && (
+                    <div className="flex items-center space-x-1 text-xs text-gray-500">
+                      {user.preferences.browser && <Chrome className="h-3 w-3" />}
+                      {user.preferences.device && <Smartphone className="h-3 w-3" />}
+                      {user.preferences.os && <Monitor className="h-3 w-3" />}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <Button 
+                onClick={() => setShowPersonalization(true)}
+                variant="outline"
+              >
+                {user.preferences?.isPersonalized ? 'Modificar' : 'Configurar'}
+              </Button>
+            </div>
+            
+            {user.preferences?.isPersonalized && (
+              <div className="grid grid-cols-2 gap-4">
+                <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                  <div className="text-sm font-medium text-gray-700">Navegador</div>
+                  <div className="text-xs text-gray-600 capitalize">
+                    {user.preferences.browser || 'No especificado'}
+                  </div>
+                </div>
+                <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                  <div className="text-sm font-medium text-gray-700">Dispositivo</div>
+                  <div className="text-xs text-gray-600 capitalize">
+                    {user.preferences.device || 'No especificado'}
+                  </div>
+                </div>
+                <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                  <div className="text-sm font-medium text-gray-700">Email</div>
+                  <div className="text-xs text-gray-600 capitalize">
+                    {user.preferences.email || 'No especificado'}
+                  </div>
+                </div>
+                <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                  <div className="text-sm font-medium text-gray-700">Sistema</div>
+                  <div className="text-xs text-gray-600 capitalize">
+                    {user.preferences.os || 'No especificado'}
+                  </div>
+                </div>
+              </div>
+            )}
+            
+            <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+              <h4 className="font-medium text-yellow-800 mb-2">¿Qué significa esto?</h4>
+              <ul className="text-sm text-yellow-700 space-y-1">
+                <li>• <strong>Personalizada:</strong> Recibes guías específicas para tus herramientas</li>
+                <li>• <strong>Genérica:</strong> Recibes guías generales que funcionan para cualquiera</li>
+              </ul>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Data Management */}
       <Card className="mb-8">
         <CardHeader>
@@ -302,6 +410,19 @@ export default function ProfilePage() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Personalization Flow Modal */}
+      {showPersonalization && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="max-w-4xl w-full">
+            <PersonalizationFlow
+              onComplete={handlePersonalizationUpdate}
+              onSkip={() => setShowPersonalization(false)}
+              initialPreferences={user.preferences}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

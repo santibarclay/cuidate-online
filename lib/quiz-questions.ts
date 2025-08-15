@@ -8,117 +8,127 @@ export interface QuizQuestion {
 }
 
 export const QUIZ_QUESTIONS: Record<string, QuizQuestion[]> = {
-  "auditoria-contrasenas": [
+  "cuidemos-contrasenas": [
     {
-      id: "pwned-1",
-      question: "¿Qué es una brecha de datos?",
+      id: "pwd-1",
+      question: "¿Qué significa que una contraseña fue 'hackeada'?",
       type: "multiple-choice",
       options: [
-        "Cuando alguien hackea tu computadora personal",
-        "Cuando una empresa es hackeada y filtran datos de usuarios",
-        "Cuando olvidás tu contraseña",
-        "Cuando tu celular se rompe"
+        "Que alguien la adivinó mirando mi pantalla",
+        "Que fue expuesta en una brecha de datos de alguna empresa",
+        "Que es muy fácil de recordar",
+        "Que la uso en muchos sitios"
       ],
-      correct: "Cuando una empresa es hackeada y filtran datos de usuarios",
-      explanation: "Una brecha de datos ocurre cuando criminales acceden ilegalmente a los servidores de una empresa y roban información de usuarios, incluyendo emails y contraseñas."
+      correct: "Que fue expuesta en una brecha de datos de alguna empresa",
+      explanation: "Una contraseña 'hackeada' significa que fue expuesta públicamente cuando criminales atacaron los servidores de una empresa y robaron información de usuarios."
     },
     {
-      id: "pwned-2",
-      question: "Si mi email aparece en Have I Been Pwned, ¿debo cambiar todas mis contraseñas?",
-      type: "true-false",
-      options: ["Verdadero", "Falso"],
-      correct: "Falso",
-      explanation: "No necesariamente todas, pero sí debés pensar qué contraseña usabas en ese sitio comprometido y cambiarla. Es por eso que es importante usar contraseñas distintas para cada sitio en el que nos registramos. Sé que eso es imposible, pero más adelante aprenderemos a hacerlo usando un password manager."
-    },
-    {
-      id: "pwned-3",
-      question: "¿Cuál de estas contraseñas es más segura?",
+      id: "pwd-2",
+      question: "Si tu contraseña fue comprometida, ¿qué hacer?",
       type: "multiple-choice",
       options: [
-        "argentina2024",
-        "123456789",
-        "miNombre123",
-        "K8#mP9$xL2@vN5"
+        "Seguir usándola si es segura",
+        "Cambiarla solo en el sitio donde fue comprometida",
+        "Cambiarla inmediatamente en TODOS los sitios donde la uses",
+        "Esperar a que me hackeen para cambiarla"
       ],
-      correct: "K8#mP9$xL2@vN5",
-      explanation: "Una contraseña segura debe ser larga, aleatoria, y combinar letras mayúsculas, minúsculas, números y símbolos. Las contraseñas predecibles son fáciles de hackear."
+      correct: "Cambiarla inmediatamente en TODOS los sitios donde la uses",
+      explanation: "Si una contraseña fue comprometida, debe ser cambiada en todos los sitios donde la uses, porque los criminales probablemente intentarán usarla en otros servicios."
+    },
+    {
+      id: "pwd-3",
+      question: "¿Cuántas contraseñas hackeadas es aceptable tener?",
+      type: "multiple-choice",
+      options: [
+        "1-2 está bien",
+        "Hasta 5 es normal",
+        "Ninguna",
+        "No importa si son sitios poco importantes"
+      ],
+      correct: "Ninguna",
+      explanation: "No es aceptable tener ninguna contraseña hackeada activa. Todas las contraseñas comprometidas deben ser cambiadas inmediatamente, sin importar qué tan 'poco importante' parezca el sitio."
     }
   ],
-  "activar-2fa-gmail": [
+  "activar-2fa-email-whatsapp": [
     {
       id: "2fa-1",
-      question: "¿Qué significa 2FA?",
+      question: "¿Qué hace el 2FA (autenticación en dos pasos)?",
       type: "multiple-choice",
       options: [
-        "Two Factor Authentication (Autenticación de Dos Factores)",
-        "Fast Access (Acceso Rápido)",
-        "Second Password (Segunda Contraseña)",
-        "Security Code (Código de Seguridad)"
+        "Te hace recordar dos contraseñas",
+        "Requiere algo que sabés (contraseña) y algo que tenés (celular)",
+        "Duplica la velocidad de acceso",
+        "Te permite usar la misma contraseña en dos sitios"
       ],
-      correct: "Two Factor Authentication (Autenticación de Dos Factores)",
-      explanation: "2FA significa que necesitás dos cosas para acceder: algo que sabés (tu contraseña) y algo que tenés (tu celular o app autenticadora)."
+      correct: "Requiere algo que sabés (contraseña) y algo que tenés (celular)",
+      explanation: "El 2FA agrega una capa extra de seguridad: incluso si roban tu contraseña, necesitan también tu celular para acceder a tu cuenta."
     },
     {
       id: "2fa-2",
-      question: "¿Por qué SMS no es el método de 2FA más seguro?",
+      question: "¿Cuándo WhatsApp te pide el PIN de verificación en dos pasos?",
       type: "multiple-choice",
       options: [
-        "Es muy lento",
-        "Es caro",
-        "Puede ser interceptado por SIM Swapping",
-        "No funciona en Argentina"
+        "Cada vez que abrís la app",
+        "Solo al registrar WhatsApp en un dispositivo nuevo",
+        "Una vez por semana",
+        "Solo si te hackean"
       ],
-      correct: "Puede ser interceptado por SIM Swapping",
-      explanation: "Los criminales pueden engañar a tu operadora móvil para transferir tu número a su SIM y recibir tus códigos SMS. Por eso es mejor usar una app autenticadora."
+      correct: "Solo al registrar WhatsApp en un dispositivo nuevo",
+      explanation: "WhatsApp solo te pedirá el PIN cuando intentes registrar tu número en un dispositivo diferente, no para uso diario."
     },
     {
       id: "2fa-3",
-      question: "¿Qué son los códigos de respaldo?",
+      question: "¿Qué NUNCA deberías hacer con tu PIN de WhatsApp?",
       type: "multiple-choice",
       options: [
-        "Códigos para recuperar acceso si perdés tu celular",
-        "Contraseñas adicionales",
-        "Números de teléfono alternativos",
-        "Aplicaciones de seguridad"
+        "Anotarlo en papel",
+        "Compartirlo por teléfono con alguien que dice ser de WhatsApp",
+        "Usarlo para registrar WhatsApp en tu celular nuevo",
+        "Recordarlo de memoria"
       ],
-      correct: "Códigos para recuperar acceso si perdés tu celular",
-      explanation: "Los códigos de respaldo te permiten acceder a tu cuenta si perdés tu celular o no podés usar tu app autenticadora. Guardalos en un lugar seguro."
+      correct: "Compartirlo por teléfono con alguien que dice ser de WhatsApp",
+      explanation: "NUNCA compartas tu PIN por teléfono. WhatsApp JAMÁS te llamará pidiendo códigos. Es una estafa común para robarte la cuenta."
     }
   ],
-  "password-manager": [
+  "detectar-estafas": [
     {
-      id: "pm-1",
-      question: "¿Cuál es la principal ventaja de un password manager?",
+      id: "scam-1",
+      question: "¿Cuál de estos emails es probablemente phishing?",
       type: "multiple-choice",
       options: [
-        "Es gratis",
-        "Genera y recuerda contraseñas únicas para cada cuenta",
-        "Acelera tu navegación",
-        "Bloquea publicidades"
+        "Email de tu banco con tu nombre completo y datos correctos",
+        "Email urgente de 'Mercado Pago' pidiendo actualizar datos YA",
+        "Newsletter que recibís habitualmente",
+        "Confirmación de compra que acabás de hacer"
       ],
-      correct: "Genera y recuerda contraseñas únicas para cada cuenta",
-      explanation: "Un password manager te permite tener contraseñas diferentes y súper seguras para cada cuenta, sin tener que recordarlas. Solo necesitás recordar una Master Password."
+      correct: "Email urgente de 'Mercado Pago' pidiendo actualizar datos YA",
+      explanation: "Los emails de phishing crean urgencia artificial y piden datos personales. Los servicios legítimos nunca piden datos urgentemente por email."
     },
     {
-      id: "pm-2",
-      question: "¿Cuál sería una buena Master Password?",
+      id: "scam-2",
+      question: "Te llaman diciendo ser del banco y piden tu CVV. ¿Qué hacés?",
       type: "multiple-choice",
       options: [
-        "12345678",
-        "password",
-        "MiPerroFirulais2024!",
-        "argentina"
+        "Se lo doy si conocen mis datos",
+        "Les digo que los llamo de vuelta al número oficial del banco",
+        "Pregunto primero mi saldo para verificar",
+        "Cuelgo y no hago nada"
       ],
-      correct: "MiPerroFirulais2024!",
-      explanation: "Una buena Master Password es una frase memorable para vos pero difícil de adivinar, con mayúsculas, números y símbolos. Debe ser larga pero fácil de recordar."
+      correct: "Les digo que los llamo de vuelta al número oficial del banco",
+      explanation: "Los bancos NUNCA piden datos por teléfono. Siempre colgá y llamá vos al número oficial del banco para verificar si realmente necesitan algo."
     },
     {
-      id: "pm-3",
-      question: "¿Es seguro guardar contraseñas en el navegador?",
-      type: "true-false",
-      options: ["Verdadero", "Falso"],
-      correct: "Falso",
-      explanation: "Aunque es mejor que reutilizar contraseñas, los password managers dedicados como Bitwarden son más seguros, ofrecen mejor cifrado y funcionan en todos tus dispositivos."
+      id: "scam-3",
+      question: "Recibís un WhatsApp: 'Hola, cambié de número, soy tu primo. Necesito que me transfieras urgente'. ¿Qué hacés?",
+      type: "multiple-choice",
+      options: [
+        "Transfiero inmediatamente para ayudar",
+        "Llamo al número viejo de mi primo para confirmar",
+        "Pido una foto como prueba",
+        "Pregunto datos familiares para verificar"
+      ],
+      correct: "Llamo al número viejo de mi primo para confirmar",
+      explanation: "La estafa del 'cambié de número' es muy común. Siempre verificá por otro medio (llamada al número original) antes de transferir dinero."
     }
   ]
 };

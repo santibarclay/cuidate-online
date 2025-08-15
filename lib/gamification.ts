@@ -1,5 +1,13 @@
 import { LEVELS, BADGES } from './constants';
 
+export interface UserPreferences {
+  browser: 'chrome' | 'edge' | 'safari' | 'firefox' | null;
+  device: 'android' | 'ios' | null;
+  email: 'gmail' | 'outlook' | 'other' | null;
+  os: 'windows' | 'mac' | 'linux' | null;
+  isPersonalized: boolean;
+}
+
 export interface UserProgress {
   name: string;
   email: string;
@@ -11,6 +19,7 @@ export interface UserProgress {
   completedMissions: string[];
   badges: string[];
   quizScores: Record<string, { score: number; maxScore: number; attempts: number }>;
+  preferences: UserPreferences;
 }
 
 export function calculateLevel(totalXP: number): number {
@@ -57,7 +66,7 @@ export function checkBadgeEligibility(user: UserProgress): string[] {
   
   // Primera Línea: Complete Level 1
   if (!user.badges.includes(BADGES.PRIMERA_LINEA.id)) {
-    const level1Missions = ['auditoria-contrasenas', 'activar-2fa-gmail', 'password-manager'];
+    const level1Missions = ['cuidemos-contrasenas', 'activar-2fa-email-whatsapp', 'detectar-estafas'];
     const completedLevel1 = level1Missions.every(mission => user.completedMissions.includes(mission));
     if (completedLevel1) {
       newBadges.push(BADGES.PRIMERA_LINEA.id);
@@ -66,8 +75,8 @@ export function checkBadgeEligibility(user: UserProgress): string[] {
   
   // Guardián 2FA: Activate 2FA in 3+ services (simplified for MVP)
   if (!user.badges.includes(BADGES.GUARDIAN_2FA.id)) {
-    const twoFAMissions = ['activar-2fa-gmail']; // Will add more 2FA missions later
-    if (user.completedMissions.includes('activar-2fa-gmail')) {
+    const twoFAMissions = ['activar-2fa-email-whatsapp']; // Will add more 2FA missions later
+    if (user.completedMissions.includes('activar-2fa-email-whatsapp')) {
       newBadges.push(BADGES.GUARDIAN_2FA.id);
     }
   }
@@ -95,7 +104,15 @@ export function loadUserProgress(): UserProgress | null {
   }
 }
 
-export function createNewUser(name: string, email: string, avatar: string): UserProgress {
+export function createNewUser(name: string, email: string, avatar: string, preferences?: UserPreferences): UserProgress {
+  const defaultPreferences: UserPreferences = {
+    browser: null,
+    device: null,
+    email: null,
+    os: null,
+    isPersonalized: false
+  };
+  
   return {
     name,
     email,
@@ -106,7 +123,8 @@ export function createNewUser(name: string, email: string, avatar: string): User
     lastActiveDate: new Date().toDateString(),
     completedMissions: [],
     badges: [],
-    quizScores: {}
+    quizScores: {},
+    preferences: preferences || defaultPreferences
   };
 }
 
@@ -127,4 +145,28 @@ export function completeMission(user: UserProgress, missionId: string, xpReward:
   updatedUser.badges = [...updatedUser.badges, ...newBadges];
   
   return updateStreak(updatedUser);
+}
+
+export function updateUserPreferences(user: UserProgress, preferences: UserPreferences): UserProgress {
+  return {
+    ...user,
+    preferences
+  };
+}
+
+export function migrateUserProgress(user: UserProgress): UserProgress {
+  // Migrate old user data to include preferences if they don't exist
+  if (!user.preferences) {
+    return {
+      ...user,
+      preferences: {
+        browser: null,
+        device: null,
+        email: null,
+        os: null,
+        isPersonalized: false
+      }
+    };
+  }
+  return user;
 }
