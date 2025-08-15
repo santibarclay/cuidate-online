@@ -20,13 +20,7 @@ export const MISSIONS: Mission[] = [
     xp: 200,
     estimatedTime: "5 minutos",
     risk: "En Argentina, el 85% de las personas usa contraseñas débiles y el 42% fue víctima de algún tipo de fraude digital. Las contraseñas comprometidas son la puerta de entrada más común para criminales.",
-    steps: [
-      "Verificá si tus contraseñas fueron comprometidas usando la herramienta interactiva de esta misión",
-      "Si encontrás contraseñas hackeadas, cambialas inmediatamente en todos los sitios donde las uses",
-      "Para usuarios de Gmail: Usá Google Password Checkup (https://passwords.google.com/checkup/start) para una verificación completa",
-      "Nunca reutilices contraseñas entre diferentes sitios",
-      "Creá contraseñas únicas y seguras para cada cuenta - Consultá la guía de Google: https://support.google.com/accounts/answer/32040"
-    ],
+    steps: [],
     tips: [
       "Una contraseña 'hackeada' significa que fue expuesta en una brecha de datos de alguna empresa",
       "Si reconocés alguna contraseña comprometida, cambiala inmediatamente en todos los sitios donde la uses",
@@ -37,18 +31,13 @@ export const MISSIONS: Mission[] = [
   },
   {
     id: "activar-2fa-email-whatsapp",
-    title: "Activá el 2FA en tu correo y WhatsApp",
+    title: "Segundo Factor de Autenticación en correo y WhatsApp",
     description: "Protegé tus cuentas más importantes con autenticación en dos pasos",
     level: 1,
     xp: 300,
     estimatedTime: "10 minutos",
     risk: "Tu email es la puerta de entrada a todas tus otras cuentas. WhatsApp se usa cada vez más para estafas. El 73% de los argentinos no usa 2FA, quedando vulnerables a hackeos que se previenen fácilmente.",
-    steps: [
-      "Activá 2FA en tu correo electrónico principal (para Gmail: https://support.google.com/accounts/answer/185839)",
-      "Activá verificación en dos pasos en WhatsApp siguiendo la guía oficial: https://faq.whatsapp.com/1086027885177245",
-      "Anotá y guardá todos los códigos de respaldo en un lugar seguro",
-      "Probá que funcione correctamente antes de cerrar la configuración"
-    ],
+    steps: [],
     tips: [
       "El 2FA te protege incluso si tu contraseña es robada",
       "WhatsApp te pedirá el PIN solo al registrar la app en un dispositivo nuevo",

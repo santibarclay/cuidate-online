@@ -248,30 +248,32 @@ export default function MissionPage() {
         </CardContent>
       </Card>
 
-      {/* Mission Content */}
-      <Card className="mb-8">
-        <CardHeader>
-          <CardTitle>Guía paso a paso</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-gray-600 mb-6">
-            {mission.description}
-          </p>
-          
-          <ol className="space-y-4">
-            {mission.steps.map((step, index) => (
-              <li key={index} className="flex items-start space-x-3 sm:space-x-4">
-                <span className="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 bg-security-blue text-white rounded-full flex items-center justify-center text-xs sm:text-sm font-semibold">
-                  {index + 1}
-                </span>
-                <div className="text-gray-700 pt-1 flex-1 min-w-0 break-words">
-                  <LinkifiedText text={step} />
-                </div>
-              </li>
-            ))}
-          </ol>
-        </CardContent>
-      </Card>
+      {/* Mission Content - Only show if there are steps */}
+      {mission.steps.length > 0 && (
+        <Card className="mb-8">
+          <CardHeader>
+            <CardTitle>Guía paso a paso</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-gray-600 mb-6">
+              {mission.description}
+            </p>
+            
+            <ol className="space-y-4">
+              {mission.steps.map((step, index) => (
+                <li key={index} className="flex items-start space-x-3 sm:space-x-4">
+                  <span className="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 bg-security-blue text-white rounded-full flex items-center justify-center text-xs sm:text-sm font-semibold">
+                    {index + 1}
+                  </span>
+                  <div className="text-gray-700 pt-1 flex-1 min-w-0 break-words">
+                    <LinkifiedText text={step} />
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </CardContent>
+        </Card>
+      )}
 
 
       {/* Tips from Santiago */}

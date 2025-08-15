@@ -8,7 +8,7 @@ import { UserPreferences } from '@/lib/gamification';
 
 interface TwoFactorSetupProps {
   userPreferences: UserPreferences;
-  onComplete: () => void;
+  onComplete: (score?: number) => void;
 }
 
 export function TwoFactorSetup({ userPreferences, onComplete }: TwoFactorSetupProps) {
@@ -234,7 +234,7 @@ export function TwoFactorSetup({ userPreferences, onComplete }: TwoFactorSetupPr
 
       <div className="text-center">
         <Button
-          onClick={onComplete}
+          onClick={() => onComplete(100)}
           disabled={!allStepsCompleted}
           size="lg"
           className={allStepsCompleted ? 'bg-security-green hover:bg-green-700' : ''}
