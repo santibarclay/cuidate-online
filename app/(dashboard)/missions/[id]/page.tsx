@@ -203,30 +203,30 @@ export default function MissionPage() {
       </div>
 
       {/* Mission Info */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-6 mb-6 sm:mb-8">
+      <div className="grid grid-cols-3 gap-2 sm:gap-6 mb-6 sm:mb-8">
         <Card>
-          <CardContent className="p-4 sm:p-6 text-center">
-            <Star className="h-6 w-6 sm:h-8 sm:w-8 text-yellow-500 mx-auto mb-2" />
-            <p className="text-xl sm:text-2xl font-bold text-gray-900">{mission.xp}</p>
-            <p className="text-sm text-gray-600">XP</p>
+          <CardContent className="p-3 sm:p-6 text-center">
+            <Star className="h-4 w-4 sm:h-8 sm:w-8 text-yellow-500 mx-auto mb-1 sm:mb-2" />
+            <p className="text-lg sm:text-2xl font-bold text-gray-900">{mission.xp}</p>
+            <p className="text-xs sm:text-sm text-gray-600">XP</p>
           </CardContent>
         </Card>
         
         <Card>
-          <CardContent className="p-4 sm:p-6 text-center">
-            <Clock className="h-6 w-6 sm:h-8 sm:w-8 text-security-blue mx-auto mb-2" />
-            <p className="text-xl sm:text-2xl font-bold text-gray-900">{mission.estimatedTime}</p>
-            <p className="text-sm text-gray-600">estimado</p>
+          <CardContent className="p-3 sm:p-6 text-center">
+            <Clock className="h-4 w-4 sm:h-8 sm:w-8 text-security-blue mx-auto mb-1 sm:mb-2" />
+            <p className="text-sm sm:text-2xl font-bold text-gray-900">{mission.estimatedTime}</p>
+            <p className="text-xs sm:text-sm text-gray-600">estimado</p>
           </CardContent>
         </Card>
         
         <Card>
-          <CardContent className="p-4 sm:p-6 text-center">
-            <div className="text-xl sm:text-2xl mb-2">{missionCompleted ? '✅' : '⏳'}</div>
-            <p className="text-xl sm:text-2xl font-bold text-gray-900">
+          <CardContent className="p-3 sm:p-6 text-center">
+            <div className="text-lg sm:text-2xl mb-1 sm:mb-2">{missionCompleted ? '✅' : '⏳'}</div>
+            <p className="text-sm sm:text-2xl font-bold text-gray-900">
               {missionCompleted ? 'Completa' : 'Pendiente'}
             </p>
-            <p className="text-sm text-gray-600">Estado</p>
+            <p className="text-xs sm:text-sm text-gray-600">Estado</p>
           </CardContent>
         </Card>
       </div>
