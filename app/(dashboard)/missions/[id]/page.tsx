@@ -260,11 +260,11 @@ export default function MissionPage() {
           
           <ol className="space-y-4">
             {mission.steps.map((step, index) => (
-              <li key={index} className="flex items-start space-x-4">
-                <span className="flex-shrink-0 w-8 h-8 bg-security-blue text-white rounded-full flex items-center justify-center text-sm font-semibold">
+              <li key={index} className="flex items-start space-x-3 sm:space-x-4">
+                <span className="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 bg-security-blue text-white rounded-full flex items-center justify-center text-xs sm:text-sm font-semibold">
                   {index + 1}
                 </span>
-                <div className="text-gray-700 pt-1 flex-1">
+                <div className="text-gray-700 pt-1 flex-1 min-w-0 break-words">
                   <LinkifiedText text={step} />
                 </div>
               </li>
@@ -273,13 +273,6 @@ export default function MissionPage() {
         </CardContent>
       </Card>
 
-      {/* Interactive Indicator for Mobile */}
-      {!missionCompleted && !showInteractive && !showQuiz && (
-        <InteractiveIndicator
-          onClick={scrollToInteractive}
-          text="¡Práctica interactiva más abajo! 👇"
-        />
-      )}
 
       {/* Tips from Santiago */}
       {mission.tips.length > 0 && (
