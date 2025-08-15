@@ -34,6 +34,26 @@ export function Footer() {
               Santiago Barclay
             </a>
           </p>
+          <p className="mt-1 text-xs">
+            Desarrollado 100% con IA • Powered by{' '}
+            <a 
+              href="https://akua.la" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-security-blue hover:underline"
+            >
+              Akua
+            </a>
+            {' '}• Built with{' '}
+            <a 
+              href="https://claude.ai/code" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-security-blue hover:underline"
+            >
+              Claude Code
+            </a>
+          </p>
           <p className="mt-2">
             Protegé tu vida digital, paso a paso 🛡️
           </p>

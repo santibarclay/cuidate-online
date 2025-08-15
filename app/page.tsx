@@ -180,6 +180,27 @@ export default function HomePage() {
         </div>
       </div>
 
+      {/* AI Development Notice */}
+      <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white py-12">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="text-4xl mb-4">🤖</div>
+          <h2 className="text-2xl font-bold mb-4">
+            Desarrollado 100% con IA
+          </h2>
+          <p className="text-lg mb-4 opacity-90">
+            Este sitio fue creado completamente usando Claude Code. Costo: ~$5 USD en tokens.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-4 text-sm opacity-75">
+            <span>Powered by <a href="https://akua.la" target="_blank" rel="noopener noreferrer" className="underline font-medium">Akua</a></span>
+            <span className="hidden sm:block">•</span>
+            <span>Built with <a href="https://claude.ai/code" target="_blank" rel="noopener noreferrer" className="underline font-medium">Claude Code</a></span>
+          </div>
+          <div className="mt-4 p-3 bg-white/10 rounded-lg text-sm">
+            <p>⚠️ Paradoja: Un sitio sobre ciberseguridad creado por IA. ¿Qué riesgos implica esto?</p>
+          </div>
+        </div>
+      </div>
+
       {/* Final CTA */}
       <div className="bg-security-blue text-white py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

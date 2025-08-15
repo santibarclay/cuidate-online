@@ -64,6 +64,22 @@
   - DNS seguros (1.1.1.1, etc.)
   - Identificar sitios maliciosos
 
+### Riesgos y Educación sobre IA
+- [ ] **Misión: IA y Ciberseguridad** (350 XP)
+  - Cómo los criminales usan IA para phishing
+  - Deepfakes y fraudes de voz
+  - Detección de contenido generado por IA
+  
+- [ ] **Paradoja de este Sitio** (250 XP)
+  - Cómo fue creado 100% con IA
+  - Riesgos de confiar en código generado por IA
+  - Importancia de auditorias humanas
+  
+- [ ] **IA Social Engineering** (300 XP)
+  - Chatbots maliciosos
+  - Generación automatizada de spam
+  - Protección contra ataques de IA
+
 ---
 
 ## 🎮 Gamificación Avanzada

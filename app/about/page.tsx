@@ -268,6 +268,54 @@ export default function AboutPage() {
           </CardContent>
         </Card>
 
+        {/* AI Development Section */}
+        <Card className="mb-12 bg-gradient-to-r from-purple-100 to-blue-100 border-purple-200">
+          <CardHeader>
+            <CardTitle className="text-2xl flex items-center space-x-2">
+              <div className="text-2xl">🤖</div>
+              <span>Desarrollado 100% con IA</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="p-8">
+            <div className="grid md:grid-cols-2 gap-6 mb-6">
+              <div>
+                <h4 className="font-semibold text-gray-900 mb-3">Cómo se hizo</h4>
+                <ul className="space-y-2 text-gray-700">
+                  <li>• <strong>Plataforma:</strong> Claude Code by Anthropic</li>
+                  <li>• <strong>Costo:</strong> ~$5 USD en tokens</li>
+                  <li>• <strong>Tiempo:</strong> 1 sesión intensiva</li>
+                  <li>• <strong>Líneas:</strong> 10,552 de código</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-semibold text-gray-900 mb-3">Agradecimientos</h4>
+                <ul className="space-y-2 text-gray-700">
+                  <li>• <a href="https://akua.la" target="_blank" rel="noopener noreferrer" className="text-security-blue hover:underline"><strong>Akua</strong></a> por los tokens de Claude</li>
+                  <li>• <strong>Anthropic</strong> por Claude Code</li>
+                  <li>• <strong>Vercel</strong> por el hosting gratuito</li>
+                  <li>• <strong>Comunidad</strong> que inspirará mejoras</li>
+                </ul>
+              </div>
+            </div>
+            
+            <div className="bg-white/80 border border-orange-200 rounded-lg p-4">
+              <h4 className="font-semibold text-orange-800 mb-2 flex items-center">
+                <div className="mr-2">⚠️</div>
+                Reflexión sobre Riesgos de IA
+              </h4>
+              <p className="text-orange-800 text-sm mb-3">
+                Irónicamente, un sitio sobre <strong>ciberseguridad</strong> fue creado enteramente por IA. 
+                Esto demuestra cómo la IA puede democratizar la educación, pero también ilustra nuevos riesgos:
+              </p>
+              <ul className="text-sm text-orange-700 space-y-1">
+                <li>• Los criminales también usan IA para crear ataques más sofisticados</li>
+                <li>• El código generado por IA debe auditarse con el mismo rigor que el humano</li>
+                <li>• Necesitamos nuevas misiones educativas sobre IA y ciberseguridad</li>
+              </ul>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* CTA */}
         <Card className="bg-gradient-to-r from-security-blue to-blue-600 text-white text-center">
           <CardContent className="p-8">
@@ -282,6 +330,9 @@ export default function AboutPage() {
             </Button>
             <p className="mt-4 text-sm opacity-75">
               ✓ Sin registro complejo ✓ Sin spam ✓ 100% gratuito
+            </p>
+            <p className="mt-2 text-xs opacity-60">
+              Desarrollado con IA responsable • Powered by <a href="https://akua.la" className="underline">Akua</a>
             </p>
           </CardContent>
         </Card>

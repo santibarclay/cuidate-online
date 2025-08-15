@@ -136,14 +136,46 @@ Este proyecto está abierto a contribuciones de la comunidad:
 
 Este proyecto está bajo licencia MIT. Ver `LICENSE` para más detalles.
 
-## 🙏 Reconocimientos
+## 🤖 Desarrollo con IA
 
+**Este proyecto fue desarrollado 100% con Live Coding usando Claude Code**, demostrando el poder de la IA para crear soluciones educativas complejas:
+
+- **Plataforma**: [Claude Code](https://claude.ai/code) by Anthropic
+- **Costo total**: ~$5 USD en tokens de Claude
+- **Tiempo de desarrollo**: 1 sesión intensiva
+- **Líneas de código generadas**: 10,552
+
+### ⚠️ **Reflexión sobre Riesgos de IA**
+
+Irónicamente, un sitio sobre **ciberseguridad** fue creado enteramente por IA. Esto ilustra una paradoja importante:
+
+- ✅ **Beneficio**: IA democratiza la creación de herramientas educativas
+- ⚠️ **Riesgo**: Dependencia de IA puede introducir vulnerabilidades desconocidas
+- 🔍 **Lección**: Debemos auditar código generado por IA con el mismo rigor que código humano
+
+Esta misma tecnología que creó una herramienta educativa también podría ser usada por criminales para crear ataques más sofisticados.
+
+## 🙏 Agradecimientos
+
+### Sponsors y Colaboradores
+- **[Akua](https://akua.la)** - Por facilitar los tokens de Claude que hicieron posible este MVP
+- **Anthropic** - Por Claude Code y la tecnología que democratiza el desarrollo
+- **Vercel** - Por la plataforma de hosting gratuita
+
+### Inspiración
 - Comunidad argentina de ciberseguridad
-- Estudiantes de la UBA que inspiraron este proyecto
+- Estudiantes de la UBA que inspiraron este proyecto  
+- Familias argentinas que necesitan protección digital
 - Todos los usuarios que reportan bugs y sugieren mejoras
+
+### Transparencia
+- **Código 100% generado por IA**: Claude 3.5 Sonnet via Claude Code
+- **Auditoría humana**: Revisión completa de seguridad por Santiago Barclay
+- **Contenido educativo**: Validado por experiencia profesional en ciberseguridad
 
 ---
 
 **¡Protegé tu vida digital, paso a paso!** 🛡️
 
-Hecho con ❤️ en Argentina por Santiago Barclay
+*Desarrollado con IA responsable en Argentina por Santiago Barclay*  
+*Powered by [Akua](https://akua.la) • Built with [Claude Code](https://claude.ai/code)*
