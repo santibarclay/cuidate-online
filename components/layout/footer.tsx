@@ -16,6 +16,9 @@ export function Footer() {
             <Link href="/about" className="hover:text-gray-900">
               Sobre Santiago
             </Link>
+            <Link href="/privacy" className="hover:text-gray-900">
+              Privacidad
+            </Link>
           </div>
         </div>
         

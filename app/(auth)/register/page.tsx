@@ -111,9 +111,9 @@ export default function RegisterPage() {
                   placeholder="¿Cómo te gustaría que te llamemos?"
                   maxLength={50}
                 />
-                <p className="text-xs text-gray-500 mt-1">
+                {/* <p className="text-xs text-gray-500 mt-1">
                   ⚠️ Este nombre aparecerá en el ranking público
-                </p>
+                </p> */}
               </div>
 
 

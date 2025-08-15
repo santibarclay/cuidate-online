@@ -13,13 +13,16 @@ import {
   Award
 } from 'lucide-react';
 import { SITE_NAME, CREATOR } from '@/lib/constants';
+import { getCurrentStats, getAllData } from '@/lib/growth-data';
 
 export default function AboutPage() {
+  const currentStats = getCurrentStats();
+  const growthData = getAllData();
+  
   const stats = [
-    { label: "Usuarios protegidos", value: "500+", icon: Users },
-    { label: "Misiones educativas", value: "9", icon: BookOpen },
-    { label: "Conceptos de seguridad", value: "25+", icon: Shield },
-    { label: "Horas de contenido", value: "2+", icon: Target }
+    { label: "Misiones educativas", value: currentStats.missions.toString(), icon: BookOpen },
+    { label: "Conceptos de seguridad", value: currentStats.concepts.toString(), icon: Shield },
+    { label: "Horas de contenido", value: currentStats.hours.toString(), icon: Target }
   ];
 
   const timeline = [
@@ -31,7 +34,7 @@ export default function AboutPage() {
     {
       year: "2023",
       title: "Experiencia en Akua",
-      description: "Como Head of Cybersecurity, confirmé que la educación es la mejor defensa contra los ataques digitales."
+      description: "Como Responsable de Ciberseguridad, confirmé que la educación es la mejor defensa contra los ataques digitales."
     },
     {
       year: "2022",
@@ -62,37 +65,10 @@ export default function AboutPage() {
       </div>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Mission Statement */}
-        <Card className="mb-12">
-          <CardContent className="p-8 text-center">
-            <div className="text-4xl mb-4">🛡️</div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
-              Nuestra Misión
-            </h2>
-            <p className="text-lg text-gray-700 leading-relaxed">
-              Hacer que la seguridad digital sea accesible, práctica y fácil de entender para todas las familias argentinas. 
-              Creemos que todos merecen estar protegidos en el mundo digital, sin importar su nivel técnico.
-            </p>
-          </CardContent>
-        </Card>
-
-        {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
-          {stats.map((stat, index) => (
-            <Card key={index} className="text-center">
-              <CardContent className="p-6">
-                <stat.icon className="h-8 w-8 text-security-blue mx-auto mb-3" />
-                <div className="text-2xl font-bold text-gray-900 mb-1">{stat.value}</div>
-                <div className="text-sm text-gray-600">{stat.label}</div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
         {/* Santiago's Story */}
         <Card className="mb-12">
           <CardHeader>
-            <CardTitle className="text-2xl">La Historia de Santiago</CardTitle>
+            <CardTitle className="text-2xl">Mi historia</CardTitle>
           </CardHeader>
           <CardContent className="p-8">
             <div className="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
@@ -137,6 +113,71 @@ export default function AboutPage() {
                   </a>
                 </div>
               </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Mission Statement */}
+        <Card className="mb-12">
+          <CardContent className="p-8 text-center">
+            <div className="text-4xl mb-4">🛡️</div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              Mi Misión
+            </h2>
+            <p className="text-lg text-gray-700 leading-relaxed">
+              Hacer que la seguridad digital sea accesible, práctica y fácil de entender para todas las familias argentinas. 
+              Creemos que todos merecen estar protegidos en el mundo digital, sin importar su nivel técnico.
+            </p>
+          </CardContent>
+        </Card>
+
+        {/* Stats */}
+        <div className="grid grid-cols-3 gap-6 mb-8">
+          {stats.map((stat, index) => (
+            <Card key={index} className="text-center">
+              <CardContent className="p-6">
+                <stat.icon className="h-8 w-8 text-security-blue mx-auto mb-3" />
+                <div className="text-2xl font-bold text-gray-900 mb-1">{stat.value}</div>
+                <div className="text-sm text-gray-600">{stat.label}</div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        {/* Growth Projection */}
+        <Card className="mb-12 bg-gradient-to-r from-blue-50 to-green-50 border-blue-200">
+          <CardHeader>
+            <CardTitle className="text-2xl text-center">Proyección de Crecimiento 2025</CardTitle>
+          </CardHeader>
+          <CardContent className="p-8">
+            <p className="text-center text-gray-600 mb-6">
+              El plan es seguir agregando contenido educativo de calidad durante todo el año.
+            </p>
+            <div className="space-y-6">
+              {growthData.filter(d => d.isProjection).map((data, index) => (
+                <div key={index} className="border rounded-lg p-4 bg-white/50">
+                  <div className="flex justify-between items-center mb-3">
+                    <h4 className="font-semibold text-gray-900">
+                      {new Date(data.date + '-01').toLocaleDateString('es-AR', { month: 'long', year: 'numeric' })}
+                    </h4>
+                    <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Proyección</span>
+                  </div>
+                  <div className="grid grid-cols-3 gap-4 text-center">
+                    <div>
+                      <div className="text-2xl font-bold text-blue-600">{data.missions}</div>
+                      <div className="text-xs text-gray-600">Misiones</div>
+                    </div>
+                    <div>
+                      <div className="text-2xl font-bold text-green-600">{data.concepts}</div>
+                      <div className="text-xs text-gray-600">Conceptos</div>
+                    </div>
+                    <div>
+                      <div className="text-2xl font-bold text-purple-600">{data.hours}</div>
+                      <div className="text-xs text-gray-600">Horas</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </CardContent>
         </Card>

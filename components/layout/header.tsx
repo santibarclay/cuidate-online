@@ -38,7 +38,7 @@ export function Header() {
             >
               Dashboard
             </Link>
-            <Link 
+            {/* <Link 
               href="/leaderboard"
               className={`text-sm font-medium transition-colors ${
                 pathname === '/leaderboard' 
@@ -47,7 +47,7 @@ export function Header() {
               }`}
             >
               Ranking
-            </Link>
+            </Link> */}
             <Link 
               href="/profile"
               className={`text-sm font-medium transition-colors ${
@@ -85,7 +85,7 @@ export function Header() {
             >
               Dashboard
             </Link>
-            <Link 
+            {/* <Link 
               href="/leaderboard"
               className={`block px-3 py-2 text-base font-medium rounded-md ${
                 pathname === '/leaderboard'
@@ -95,7 +95,7 @@ export function Header() {
               onClick={() => setIsMenuOpen(false)}
             >
               Ranking
-            </Link>
+            </Link> */}
             <Link 
               href="/profile"
               className={`block px-3 py-2 text-base font-medium rounded-md ${

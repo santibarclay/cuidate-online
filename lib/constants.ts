@@ -4,7 +4,7 @@ export const SITE_DESCRIPTION = "Plataforma gratuita creada por Santiago Barclay
 
 export const CREATOR = {
   name: "Santiago Barclay",
-  role: "Head of Cybersecurity en Akua, profesor en UBA",
+  role: "Responsable de Ciberseguridad en Akua, profesor en UBA",
   bio: "Durante años vi cómo la gente común sufre por no conocer medidas básicas de seguridad. Cuidate Online es mi forma de ayudarte a protegerte en el mundo digital, paso a paso."
 };
 

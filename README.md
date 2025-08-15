@@ -14,15 +14,6 @@ Plataforma educativa gamificada para enseñar seguridad digital a familias argen
 - **Gratuita**: Sin costos, sin registro complejo, sin spam
 - **Privacidad**: Datos guardados solo localmente
 
-### 🎯 Misiones Disponibles
-
-**Nivel 1 - Fundamentos Críticos:**
-Misiones interactivas que enseñan los conceptos básicos de seguridad digital.
-
-**Próximamente:**
-- Nivel 2: Protección avanzada 
-- Nivel 3: Seguridad bancaria y datos personales
-
 ## 🚀 Instalación y Desarrollo
 
 ### Requisitos
@@ -50,6 +41,7 @@ npm run dev      # Servidor de desarrollo
 npm run build    # Build para producción
 npm run start    # Servidor de producción
 npm run lint     # Linting con ESLint
+npm run secrets  # Escaneo de secretos con GitLeaks
 ```
 
 ## 🛠️ Stack Tecnológico
@@ -88,24 +80,69 @@ npm run lint     # Linting con ESLint
 
 ## 🎮 Sistema de Gamificación
 
-### Niveles
-- **Nivel 1**: 0-899 XP (Fundamentos Críticos)
-- **Nivel 2**: 900-1799 XP (Protección Avanzada)  
-- **Nivel 3**: 1800+ XP (Guardián Digital)
-
-### Sistema de Badges
+### Sistema de Medallas
 Sistema de reconocimientos que premia el progreso del usuario:
-- Badges por completar niveles y misiones
+- Medallas por completar niveles y misiones
 - Reconocimientos por activar medidas de seguridad
 - Premios por mantener buenas prácticas
-- Badges especiales por actividad consistente
+- Medallas especiales por actividad consistente
 
-## 🔒 Privacidad
+## 🔒 Seguridad y Privacidad
 
-- **Sin tracking**: No usamos analytics invasivos
-- **Datos locales**: Todo se guarda en localStorage del navegador
-- **Sin servidor**: No almacenamos información personal
-- **Exportable**: Podés descargar todos tus datos
+### 🛡️ Medidas de Seguridad
+
+**Desarrollo Seguro:**
+- **Detección de Secretos**: GitLeaks pre-push hooks previenen commits accidentales de API keys y credenciales
+- **Linting Estricto**: ESLint configurado para detectar vulnerabilidades de código
+- **TypeScript**: Tipado fuerte reduce errores en tiempo de ejecución
+- **Dependencias Actualizadas**: Monitoreo continuo de vulnerabilidades con `npm audit`
+
+**Infraestructura en Vercel:**
+- **WAF (Web Application Firewall)**: Protección automática contra ataques comunes (XSS, SQL injection, etc.)
+- **DDoS Protection**: Mitigación automática de ataques de denegación de servicio
+- **Rate Limiting**: Límites de velocidad para prevenir abuso de APIs
+- **HTTPS Obligatorio**: Todo el tráfico encriptado con TLS 1.3
+- **Headers de Seguridad**: HSTS, CSP, X-Frame-Options configurados automáticamente
+- **Edge Security**: Protección distribuida a nivel global
+
+**Arquitectura Serverless:**
+- **Sin Base de Datos**: Elimina vectores de ataque comunes (SQL injection, data breaches)
+- **Superficie de Ataque Mínima**: Solo archivos estáticos y funciones edge
+- **Aislamiento por Request**: Cada request se ejecuta en un entorno aislado
+
+### 🔐 Privacidad
+
+**Zero Data Collection:**
+- **Sin Analytics Invasivos**: Solo métricas básicas de Vercel (pageviews, sin PII)
+- **Sin Cookies de Tracking**: No rastreamos usuarios entre sesiones
+- **Sin Fingerprinting**: No recolectamos información del dispositivo
+- **Sin Third-Party Trackers**: Código libre de Google Analytics, Facebook Pixel, etc.
+
+**Almacenamiento Local:**
+- **localStorage Únicamente**: Todos los datos del usuario se guardan en el navegador
+- **No Enviamos Datos**: Progreso, preferencias y configuración nunca salen del dispositivo
+- **Datos Exportables**: Funcionalidad para exportar/importar progreso
+- **Borrado Fácil**: Clear data desde el navegador elimina todo rastro
+
+**Transparencia:**
+- **Código Abierto**: Repositorio público para auditoría completa
+- **Sin Servidores Propios**: Hosting en Vercel con políticas de privacidad transparentes
+- **Sin Registro de Email**: Únicamente nombre/alias local
+- **Sin Logs Personales**: No almacenamos IPs, user agents, o datos identificatorios
+
+### 🔍 Auditorías y Compliance
+
+**Controles de Calidad:**
+- **Revisión Manual**: Auditoría completa del código por profesional de ciberseguridad
+- **Escaneo Automatizado**: Verificación continua de vulnerabilidades
+- **Validación de Contenido**: Todo el material educativo validado profesionalmente
+- **Testing de Seguridad**: Pruebas regulares de penetración básica
+
+**Cumplimiento Legal:**
+- **Ley 25.326**: Cumple con la Ley de Protección de Datos Personales de Argentina
+- **Normativas Locales**: Arquitectura compatible con regulaciones argentinas de privacidad
+- **Terms of Service**: Condiciones claras y transparentes
+- **Privacy Policy**: Política de privacidad detallada y accesible
 
 ## 🤝 Contribuir
 
@@ -120,7 +157,6 @@ Este proyecto está abierto a contribuciones de la comunidad:
 ### Ideas para Contribuir
 - Nuevas misiones educativas
 - Mejoras en UX/UI
-- Ejemplos más argentinos
 - Traducciones
 - Tests automatizados
 
@@ -140,14 +176,6 @@ Este proyecto está abierto a contribuciones de la comunidad:
 - **Plataforma**: [Claude Code](https://claude.ai/code) by Anthropic
 - **Desarrollo**: Completamente generado por IA
 - **Enfoque**: Desarrollo ético y transparente con IA
-
-### ⚠️ **Reflexión sobre Riesgos de IA**
-
-Un sitio sobre **ciberseguridad** creado enteramente por IA ilustra una paradoja importante:
-
-- ✅ **Beneficio**: IA democratiza la creación de herramientas educativas
-- ⚠️ **Riesgo**: Dependencia de IA puede introducir vulnerabilidades desconocidas
-- 🔍 **Lección**: Debemos auditar código generado por IA con el mismo rigor que código humano
 
 ## 🙏 Agradecimientos
 

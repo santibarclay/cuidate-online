@@ -1,0 +1,41 @@
+# Gitleaks configuration for Cuidate Online
+# This file customizes secret detection rules
+
+title = "Cuidate Online Gitleaks Config"
+
+# Allowlist files that should be ignored
+[allowlist]
+  description = "allowlisted files"
+  paths = [
+    '''.*\.(png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$''',
+    '''node_modules/.*''',
+    '''.git/.*''',
+    '''.next/.*''',
+    '''build/.*''',
+    '''dist/.*'''
+  ]
+
+# Additional rules for common patterns we want to catch
+[[rules]]
+  description = "Private Key"
+  id = "private-key"
+  regex = '''-----BEGIN (RSA |DSA |EC |OPENSSH |PGP )?PRIVATE KEY-----'''
+  tags = ["key", "private"]
+
+[[rules]]
+  description = "Generic API Key"
+  id = "generic-api-key"
+  regex = '''(?i)(api[_-]?key|apikey)['"]*\s*[:=]\s*['"][0-9a-zA-Z\-_]{16,}['"]'''
+  tags = ["key", "API", "generic"]
+
+[[rules]]
+  description = "Generic Secret"
+  id = "generic-secret"
+  regex = '''(?i)(secret|password|passwd|pwd)['"]*\s*[:=]\s*['"][0-9a-zA-Z\-_!@#$%^&*()]{8,}['"]'''
+  tags = ["secret", "generic"]
+
+[[rules]]
+  description = "Database URL"
+  id = "database-url"
+  regex = '''(?i)(database_url|db_url|database-url)['"]*\s*[:=]\s*['"][^'"]{20,}['"]'''
+  tags = ["database", "url"]
