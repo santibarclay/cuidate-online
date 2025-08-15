@@ -32,6 +32,10 @@ export function PasswordBreachChecker({ userPreferences, onComplete }: PasswordB
     setStep('results');
   };
 
+  const handleComplete = () => {
+    onComplete(100);
+  };
+
   const handleEmailCheck = async () => {
     if (!email.trim()) {
       setError('Por favor ingresá tu email');
@@ -305,7 +309,7 @@ export function PasswordBreachChecker({ userPreferences, onComplete }: PasswordB
       
       <div className="text-center">
         <Button 
-          onClick={() => onComplete(100)}
+          onClick={handleComplete}
           className="bg-security-green hover:bg-green-700"
         >
           ¡Entendido, continuar!

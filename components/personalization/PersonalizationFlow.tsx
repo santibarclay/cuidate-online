@@ -78,19 +78,20 @@ export function PersonalizationFlow({ onComplete, onSkip, initialPreferences }: 
                 <p className="text-sm text-gray-600 mt-1">Guías específicas para Chrome</p>
               </button>
               
-              {['Edge', 'Safari', 'Firefox'].map((browser) => (
-                <button
-                  key={browser}
-                  disabled
-                  className="p-4 rounded-lg border-2 border-gray-100 text-left opacity-50 cursor-not-allowed bg-gray-50"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="font-medium">{browser}</span>
-                    <span className="text-sm bg-gray-400 text-white px-2 py-1 rounded">Próximamente</span>
-                  </div>
-                  <p className="text-sm text-gray-500 mt-1">Soporte en desarrollo</p>
-                </button>
-              ))}
+              <button
+                onClick={() => setPreferences({ ...preferences, browser: 'firefox' })}
+                className={`p-4 rounded-lg border-2 text-left transition-colors ${
+                  preferences.browser === 'firefox'
+                    ? 'border-security-blue bg-blue-50 text-security-blue'
+                    : 'border-gray-200 hover:border-gray-300'
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <span className="font-medium">Otro navegador</span>
+                  <span className="text-sm bg-orange-500 text-white px-2 py-1 rounded">Genérico</span>
+                </div>
+                <p className="text-sm text-gray-600 mt-1">Edge, Safari, Firefox, etc.</p>
+              </button>
             </div>
           </div>
         );
@@ -119,14 +120,18 @@ export function PersonalizationFlow({ onComplete, onSkip, initialPreferences }: 
               </button>
               
               <button
-                disabled
-                className="p-4 rounded-lg border-2 border-gray-100 text-left opacity-50 cursor-not-allowed bg-gray-50"
+                onClick={() => setPreferences({ ...preferences, device: 'ios' })}
+                className={`p-4 rounded-lg border-2 text-left transition-colors ${
+                  preferences.device === 'ios'
+                    ? 'border-security-blue bg-blue-50 text-security-blue'
+                    : 'border-gray-200 hover:border-gray-300'
+                }`}
               >
                 <div className="flex items-center justify-between">
                   <span className="font-medium">iPhone (iOS)</span>
-                  <span className="text-sm bg-gray-400 text-white px-2 py-1 rounded">Próximamente</span>
+                  <span className="text-sm bg-orange-500 text-white px-2 py-1 rounded">Genérico</span>
                 </div>
-                <p className="text-sm text-gray-500 mt-1">Soporte en desarrollo</p>
+                <p className="text-sm text-gray-500 mt-1">Soporte genérico por ahora</p>
               </button>
             </div>
           </div>
@@ -207,19 +212,35 @@ export function PersonalizationFlow({ onComplete, onSkip, initialPreferences }: 
                 <p className="text-sm text-gray-600 mt-1">Windows 10, 11</p>
               </button>
               
-              {['macOS', 'Linux'].map((os) => (
-                <button
-                  key={os}
-                  disabled
-                  className="p-4 rounded-lg border-2 border-gray-100 text-left opacity-50 cursor-not-allowed bg-gray-50"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="font-medium">{os}</span>
-                    <span className="text-sm bg-gray-400 text-white px-2 py-1 rounded">Próximamente</span>
-                  </div>
-                  <p className="text-sm text-gray-500 mt-1">Soporte en desarrollo</p>
-                </button>
-              ))}
+              <button
+                onClick={() => setPreferences({ ...preferences, os: 'mac' })}
+                className={`p-4 rounded-lg border-2 text-left transition-colors ${
+                  preferences.os === 'mac'
+                    ? 'border-security-blue bg-blue-50 text-security-blue'
+                    : 'border-gray-200 hover:border-gray-300'
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <span className="font-medium">macOS</span>
+                  <span className="text-sm bg-orange-500 text-white px-2 py-1 rounded">Genérico</span>
+                </div>
+                <p className="text-sm text-gray-500 mt-1">Soporte genérico por ahora</p>
+              </button>
+
+              <button
+                onClick={() => setPreferences({ ...preferences, os: 'linux' })}
+                className={`p-4 rounded-lg border-2 text-left transition-colors ${
+                  preferences.os === 'linux'
+                    ? 'border-security-blue bg-blue-50 text-security-blue'
+                    : 'border-gray-200 hover:border-gray-300'
+                }`}
+              >
+                <div className="flex items-center justify-between">
+                  <span className="font-medium">Linux</span>
+                  <span className="text-sm bg-orange-500 text-white px-2 py-1 rounded">Genérico</span>
+                </div>
+                <p className="text-sm text-gray-500 mt-1">Soporte genérico por ahora</p>
+              </button>
             </div>
           </div>
         );
