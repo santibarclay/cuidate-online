@@ -20,5 +20,6 @@ export const BADGES = {
   CAZADOR_PHISHING: { id: "cazador_phishing", name: "Cazador de Phishing", emoji: "🎯", description: "100% en detector de phishing" },
   EN_LLAMAS: { id: "en_llamas", name: "En Llamas", emoji: "🔥", description: "7 días de streak" },
   LEYENDA: { id: "leyenda", name: "Leyenda", emoji: "💎", description: "Completar todos los niveles" },
-  EARLY_ADOPTER: { id: "early_adopter", name: "Early Adopter", emoji: "🌟", description: "De los primeros 100 usuarios" }
+  EARLY_ADOPTER: { id: "early_adopter", name: "Early Adopter", emoji: "🌟", description: "De los primeros 100 usuarios" },
+  VOY_EN_SERIO: { id: "voy_en_serio", name: "Voy en serio", emoji: "💪", description: "Completar personalización" }
 } as const;

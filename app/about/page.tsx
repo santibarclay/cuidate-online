@@ -135,16 +135,6 @@ export default function AboutPage() {
                     <ExternalLink className="h-4 w-4 mr-1" />
                     LinkedIn
                   </a>
-                  <span className="hidden sm:block text-gray-300">•</span>
-                  <a 
-                    href="https://twitter.com/santibarclay" 
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-security-blue hover:underline flex items-center"
-                  >
-                    <ExternalLink className="h-4 w-4 mr-1" />
-                    @santibarclay
-                  </a>
                 </div>
               </div>
             </div>

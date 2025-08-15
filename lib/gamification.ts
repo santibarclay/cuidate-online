@@ -86,7 +86,10 @@ export function checkBadgeEligibility(user: UserProgress): string[] {
     newBadges.push(BADGES.EN_LLAMAS.id);
   }
   
-  // Early Adopter: First 100 users (we'll implement this with leaderboard)
+  // Voy en serio: Complete personalization
+  if (!user.badges.includes(BADGES.VOY_EN_SERIO.id) && user.preferences.isPersonalized) {
+    newBadges.push(BADGES.VOY_EN_SERIO.id);
+  }
   
   return newBadges;
 }
@@ -117,12 +120,12 @@ export function createNewUser(name: string, email: string, avatar: string, prefe
     name,
     email,
     avatar,
-    totalXP: 0,
+    totalXP: 50, // Bonus XP for Early Adopter badge
     level: 1,
     streak: 0,
     lastActiveDate: new Date().toDateString(),
     completedMissions: [],
-    badges: [],
+    badges: [BADGES.EARLY_ADOPTER.id], // Give Early Adopter badge to all new users
     quizScores: {},
     preferences: preferences || defaultPreferences
   };
@@ -148,10 +151,36 @@ export function completeMission(user: UserProgress, missionId: string, xpReward:
 }
 
 export function updateUserPreferences(user: UserProgress, preferences: UserPreferences): UserProgress {
-  return {
+  const updatedUser = {
     ...user,
     preferences
   };
+  
+  // Check for new badges when updating preferences
+  const newBadges = checkBadgeEligibility(updatedUser);
+  if (newBadges.length > 0) {
+    updatedUser.badges = [...updatedUser.badges, ...newBadges];
+    updatedUser.totalXP += newBadges.length * 50; // 50 XP bonus per badge
+    updatedUser.level = calculateLevel(updatedUser.totalXP);
+  }
+  
+  return updatedUser;
+}
+
+export function awardBadge(user: UserProgress, badgeId: string): { user: UserProgress; newBadges: string[] } {
+  if (user.badges.includes(badgeId)) {
+    return { user, newBadges: [] };
+  }
+  
+  const updatedUser = {
+    ...user,
+    badges: [...user.badges, badgeId],
+    totalXP: user.totalXP + 50, // 50 XP bonus per badge
+  };
+  
+  updatedUser.level = calculateLevel(updatedUser.totalXP);
+  
+  return { user: updatedUser, newBadges: [badgeId] };
 }
 
 export function migrateUserProgress(user: UserProgress): UserProgress {

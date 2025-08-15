@@ -6,9 +6,10 @@ import Link from 'next/link';
 import { Shield, ArrowLeft, User, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { createNewUser, saveUserProgress, UserPreferences } from '@/lib/gamification';
-import { SITE_NAME } from '@/lib/constants';
+import { createNewUser, saveUserProgress, UserPreferences, updateUserPreferences } from '@/lib/gamification';
+import { SITE_NAME, BADGES } from '@/lib/constants';
 import { PersonalizationFlow } from '@/components/personalization/PersonalizationFlow';
+import { BadgeCelebration } from '@/components/ui/badge-celebration';
 
 const AVATARS = [
   '👨‍💻', '👩‍💻', '🧑‍💼', '👩‍💼', '🧑‍🎓', '👩‍🎓'
@@ -24,6 +25,8 @@ export default function RegisterPage() {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [showBadgeCelebration, setShowBadgeCelebration] = useState('');
+  const [pendingUser, setPendingUser] = useState<any>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,11 +65,15 @@ export default function RegisterPage() {
       preferences
     );
 
+    // Check for new badges (specifically "Voy en serio")
+    const updatedUser = updateUserPreferences(newUser, preferences);
+    
     // Save to localStorage
-    saveUserProgress(newUser);
+    saveUserProgress(updatedUser);
 
-    // Redirect to dashboard
-    router.push('/dashboard');
+    // Show "Voy en serio" badge celebration (which will be awarded for personalization)
+    setPendingUser(updatedUser);
+    setShowBadgeCelebration(BADGES.VOY_EN_SERIO.id);
   };
 
   const handlePersonalizationSkip = () => {
@@ -80,8 +87,18 @@ export default function RegisterPage() {
     // Save to localStorage
     saveUserProgress(newUser);
 
-    // Redirect to dashboard
-    router.push('/dashboard');
+    // Show Early Adopter badge celebration first
+    setPendingUser(newUser);
+    setShowBadgeCelebration(BADGES.EARLY_ADOPTER.id);
+  };
+
+  const handleBadgeCelebrationClose = () => {
+    setShowBadgeCelebration('');
+    
+    if (pendingUser) {
+      // Redirect to dashboard after badge celebration
+      router.push('/dashboard');
+    }
   };
 
   const handleInputChange = (field: keyof typeof formData, value: string) => {
@@ -240,6 +257,13 @@ export default function RegisterPage() {
           </p>
         </div>
       </div>
+      
+      {/* Badge Celebration */}
+      <BadgeCelebration
+        badgeId={showBadgeCelebration}
+        isVisible={!!showBadgeCelebration}
+        onClose={handleBadgeCelebrationClose}
+      />
     </div>
   );
 }

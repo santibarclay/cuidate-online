@@ -59,11 +59,20 @@ export default function HomePage() {
               Creada especialmente para familias argentinas.
             </p>
             
-            <Button asChild size="lg" className="bg-white text-security-blue hover:bg-gray-100 text-lg px-8 py-4">
-              <Link href="/register">
-                Empezá a cuidarte ahora
-              </Link>
-            </Button>
+            <div className="space-y-4">
+              <Button asChild size="lg" className="bg-white text-security-blue hover:bg-gray-100 text-lg px-8 py-4">
+                <Link href="/register">
+                  Empezá a cuidarte ahora
+                </Link>
+              </Button>
+              <div>
+                <Button asChild variant="outline" size="sm" className="border-white/30 text-white hover:bg-white/10">
+                  <Link href="/dashboard">
+                    ¿Ya te habías registrado?
+                  </Link>
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -209,20 +218,11 @@ export default function HomePage() {
           <p className="text-xl mb-8 opacity-90">
             Unite a cientos de argentinos que ya están protegiendo su vida digital
           </p>
-          <div className="space-y-4">
-            <Button asChild size="lg" className="bg-white text-security-blue hover:bg-gray-100 text-lg px-8 py-4">
-              <Link href="/register">
-                Registrarme gratis
-              </Link>
-            </Button>
-            <div>
-              <Button asChild variant="outline" size="sm" className="border-white/30 text-white hover:bg-white/10">
-                <Link href="/dashboard">
-                  ¿Ya te habías registrado?
-                </Link>
-              </Button>
-            </div>
-          </div>
+          <Button asChild size="lg" className="bg-white text-security-blue hover:bg-gray-100 text-lg px-8 py-4">
+            <Link href="/register">
+              Registrarme gratis
+            </Link>
+          </Button>
           <p className="mt-4 text-sm opacity-75">
             ✓ Sin tarjeta de crédito ✓ Sin spam ✓ Privacidad garantizada
           </p>

@@ -6,15 +6,19 @@ import { ProgressBar } from '@/components/dashboard/progress-bar';
 import { StreakCounter } from '@/components/dashboard/streak-counter';
 import { BadgeShowcase } from '@/components/dashboard/badge-showcase';
 import { MissionCard } from '@/components/missions/mission-card';
-import { loadUserProgress, saveUserProgress, updateStreak, UserProgress, migrateUserProgress } from '@/lib/gamification';
+import { loadUserProgress, saveUserProgress, updateStreak, UserProgress, migrateUserProgress, updateUserPreferences, UserPreferences } from '@/lib/gamification';
 import { MISSIONS, getMissionsByLevel } from '@/lib/missions-data';
-import { SITE_NAME } from '@/lib/constants';
+import { SITE_NAME, BADGES } from '@/lib/constants';
 import { TrendingUp, Target, Award, Settings, User } from 'lucide-react';
+import { PersonalizationFlow } from '@/components/personalization/PersonalizationFlow';
+import { BadgeCelebration } from '@/components/ui/badge-celebration';
 import Link from 'next/link';
 
 export default function DashboardPage() {
   const [user, setUser] = useState<UserProgress | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [showPersonalization, setShowPersonalization] = useState(false);
+  const [showBadgeCelebration, setShowBadgeCelebration] = useState('');
 
   useEffect(() => {
     const loadUser = () => {
@@ -37,6 +41,28 @@ export default function DashboardPage() {
 
     loadUser();
   }, []);
+
+  const handlePersonalizationComplete = (preferences: UserPreferences) => {
+    if (!user) return;
+    
+    const updatedUser = updateUserPreferences(user, preferences);
+    setUser(updatedUser);
+    saveUserProgress(updatedUser);
+    setShowPersonalization(false);
+    
+    // Check if "Voy en serio" badge was newly awarded
+    if (updatedUser.badges.includes(BADGES.VOY_EN_SERIO.id) && !user.badges.includes(BADGES.VOY_EN_SERIO.id)) {
+      setShowBadgeCelebration(BADGES.VOY_EN_SERIO.id);
+    }
+  };
+
+  const handlePersonalizationSkip = () => {
+    setShowPersonalization(false);
+  };
+
+  const handleBadgeCelebrationClose = () => {
+    setShowBadgeCelebration('');
+  };
 
   if (isLoading || !user) {
     return (
@@ -90,15 +116,16 @@ export default function DashboardPage() {
                 {user.preferences?.isPersonalized ? '✨ Personalizada' : '📋 Genérica'}
               </div>
             </div>
-            <Link href="/profile">
-              <div className="p-2 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer">
-                {user.preferences?.isPersonalized ? (
-                  <User className="h-6 w-6 text-security-blue" />
-                ) : (
-                  <Settings className="h-6 w-6 text-orange-600" />
-                )}
-              </div>
-            </Link>
+            <button 
+              onClick={() => setShowPersonalization(true)}
+              className="p-2 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
+            >
+              {user.preferences?.isPersonalized ? (
+                <User className="h-6 w-6 text-security-blue" />
+              ) : (
+                <Settings className="h-6 w-6 text-orange-600" />
+              )}
+            </button>
           </div>
         </div>
         
@@ -113,11 +140,12 @@ export default function DashboardPage() {
                   Configurá tus herramientas para recibir guías específicas para tu navegador, celular y email
                 </p>
               </div>
-              <Link href="/profile">
-                <div className="ml-4 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors cursor-pointer text-sm font-medium">
-                  Personalizar
-                </div>
-              </Link>
+              <button 
+                onClick={() => setShowPersonalization(true)}
+                className="ml-4 px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors cursor-pointer text-sm font-medium"
+              >
+                Personalizar
+              </button>
             </div>
           </div>
         )}
@@ -239,6 +267,24 @@ export default function DashboardPage() {
 
       {/* Badges Showcase */}
       <BadgeShowcase userBadges={user.badges} />
+      
+      {/* Personalization Modal */}
+      {showPersonalization && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <PersonalizationFlow
+            onComplete={handlePersonalizationComplete}
+            onSkip={handlePersonalizationSkip}
+            initialPreferences={user.preferences}
+          />
+        </div>
+      )}
+
+      {/* Badge Celebration */}
+      <BadgeCelebration
+        badgeId={showBadgeCelebration}
+        isVisible={!!showBadgeCelebration}
+        onClose={handleBadgeCelebrationClose}
+      />
     </div>
   );
 }

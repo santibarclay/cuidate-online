@@ -18,6 +18,8 @@ import {
 import { PasswordBreachChecker } from '@/components/missions/PasswordBreachChecker';
 import { TwoFactorSetup } from '@/components/missions/TwoFactorSetup';
 import { ScamDetector } from '@/components/missions/ScamDetector';
+import { LinkifiedText } from '@/components/ui/linkified-text';
+import { InteractiveIndicator } from '@/components/ui/interactive-indicator';
 import { getMissionById } from '@/lib/missions-data';
 import { getQuizQuestions } from '@/lib/quiz-questions';
 import { 
@@ -116,6 +118,13 @@ export default function MissionPage() {
 
   const handleStartInteractive = () => {
     setShowInteractive(true);
+  };
+
+  const scrollToInteractive = () => {
+    const element = document.getElementById('interactive-section');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
   
   if (isLoading) {
@@ -255,12 +264,22 @@ export default function MissionPage() {
                 <span className="flex-shrink-0 w-8 h-8 bg-security-blue text-white rounded-full flex items-center justify-center text-sm font-semibold">
                   {index + 1}
                 </span>
-                <p className="text-gray-700 pt-1">{step}</p>
+                <div className="text-gray-700 pt-1 flex-1">
+                  <LinkifiedText text={step} />
+                </div>
               </li>
             ))}
           </ol>
         </CardContent>
       </Card>
+
+      {/* Interactive Indicator for Mobile */}
+      {!missionCompleted && !showInteractive && !showQuiz && (
+        <InteractiveIndicator
+          onClick={scrollToInteractive}
+          text="¡Práctica interactiva más abajo! 👇"
+        />
+      )}
 
       {/* Tips from Santiago */}
       {mission.tips.length > 0 && (
@@ -312,7 +331,7 @@ export default function MissionPage() {
 
       {/* Interactive Mission Content */}
       {!missionCompleted && (
-        <Card className="mb-8">
+        <Card className="mb-8" id="interactive-section">
           <CardHeader>
             <CardTitle>
               {missionId === 'cuidemos-contrasenas' && 'Verificá tus contraseñas'}
