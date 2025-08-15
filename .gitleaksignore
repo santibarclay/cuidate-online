@@ -1,0 +1,6 @@
+# Archivos a ignorar por gitleaks
+# Estos contienen ejemplos educativos de contraseñas débiles, no secretos reales
+
+lib/quiz-questions.ts:108:password  # Ejemplo de contraseña débil "password"
+lib/missions-data.ts:73:123456      # Ejemplo de contraseña débil
+app/(dashboard)/resources/page.tsx:120:password123  # Ejemplo de contraseña débil
