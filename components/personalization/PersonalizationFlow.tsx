@@ -59,13 +59,13 @@ export function PersonalizationFlow({ onComplete, onSkip, initialPreferences }: 
         return (
           <div className="space-y-4">
             <div className="flex items-center space-x-3 mb-6">
-              <Chrome className="h-8 w-8 text-security-blue" />
-              <h3 className="text-xl font-semibold">¿Cuál es tu navegador principal?</h3>
+              <Chrome className="h-6 w-6 sm:h-8 sm:w-8 text-security-blue" />
+              <h3 className="text-lg sm:text-xl font-semibold">¿Cuál es tu navegador principal?</h3>
             </div>
             <div className="grid grid-cols-1 gap-3">
               <button
                 onClick={() => setPreferences({ ...preferences, browser: 'chrome' })}
-                className={`p-4 rounded-lg border-2 text-left transition-colors ${
+                className={`p-3 sm:p-4 rounded-lg border-2 text-left transition-colors ${
                   preferences.browser === 'chrome'
                     ? 'border-security-blue bg-blue-50 text-security-blue'
                     : 'border-gray-200 hover:border-gray-300'
@@ -80,7 +80,7 @@ export function PersonalizationFlow({ onComplete, onSkip, initialPreferences }: 
               
               <button
                 onClick={() => setPreferences({ ...preferences, browser: 'firefox' })}
-                className={`p-4 rounded-lg border-2 text-left transition-colors ${
+                className={`p-3 sm:p-4 rounded-lg border-2 text-left transition-colors ${
                   preferences.browser === 'firefox'
                     ? 'border-security-blue bg-blue-50 text-security-blue'
                     : 'border-gray-200 hover:border-gray-300'
@@ -100,13 +100,13 @@ export function PersonalizationFlow({ onComplete, onSkip, initialPreferences }: 
         return (
           <div className="space-y-4">
             <div className="flex items-center space-x-3 mb-6">
-              <Smartphone className="h-8 w-8 text-security-blue" />
-              <h3 className="text-xl font-semibold">¿Qué tipo de celular tenés?</h3>
+              <Smartphone className="h-6 w-6 sm:h-8 sm:w-8 text-security-blue" />
+              <h3 className="text-lg sm:text-xl font-semibold">¿Qué tipo de celular tenés?</h3>
             </div>
             <div className="grid grid-cols-1 gap-3">
               <button
                 onClick={() => setPreferences({ ...preferences, device: 'android' })}
-                className={`p-4 rounded-lg border-2 text-left transition-colors ${
+                className={`p-3 sm:p-4 rounded-lg border-2 text-left transition-colors ${
                   preferences.device === 'android'
                     ? 'border-security-blue bg-blue-50 text-security-blue'
                     : 'border-gray-200 hover:border-gray-300'
@@ -121,7 +121,7 @@ export function PersonalizationFlow({ onComplete, onSkip, initialPreferences }: 
               
               <button
                 onClick={() => setPreferences({ ...preferences, device: 'ios' })}
-                className={`p-4 rounded-lg border-2 text-left transition-colors ${
+                className={`p-3 sm:p-4 rounded-lg border-2 text-left transition-colors ${
                   preferences.device === 'ios'
                     ? 'border-security-blue bg-blue-50 text-security-blue'
                     : 'border-gray-200 hover:border-gray-300'
@@ -141,13 +141,13 @@ export function PersonalizationFlow({ onComplete, onSkip, initialPreferences }: 
         return (
           <div className="space-y-4">
             <div className="flex items-center space-x-3 mb-6">
-              <Mail className="h-8 w-8 text-security-blue" />
-              <h3 className="text-xl font-semibold">¿Cuál es tu correo principal?</h3>
+              <Mail className="h-6 w-6 sm:h-8 sm:w-8 text-security-blue" />
+              <h3 className="text-lg sm:text-xl font-semibold">¿Cuál es tu correo principal?</h3>
             </div>
             <div className="grid grid-cols-1 gap-3">
               <button
                 onClick={() => setPreferences({ ...preferences, email: 'gmail' })}
-                className={`p-4 rounded-lg border-2 text-left transition-colors ${
+                className={`p-3 sm:p-4 rounded-lg border-2 text-left transition-colors ${
                   preferences.email === 'gmail'
                     ? 'border-security-blue bg-blue-50 text-security-blue'
                     : 'border-gray-200 hover:border-gray-300'
@@ -162,7 +162,7 @@ export function PersonalizationFlow({ onComplete, onSkip, initialPreferences }: 
               
               <button
                 onClick={() => setPreferences({ ...preferences, email: 'outlook' })}
-                className={`p-4 rounded-lg border-2 text-left transition-colors ${
+                className={`p-3 sm:p-4 rounded-lg border-2 text-left transition-colors ${
                   preferences.email === 'outlook'
                     ? 'border-security-blue bg-blue-50 text-security-blue'
                     : 'border-gray-200 hover:border-gray-300'
@@ -177,7 +177,7 @@ export function PersonalizationFlow({ onComplete, onSkip, initialPreferences }: 
               
               <button
                 onClick={() => setPreferences({ ...preferences, email: 'other' })}
-                className={`p-4 rounded-lg border-2 text-left transition-colors ${
+                className={`p-3 sm:p-4 rounded-lg border-2 text-left transition-colors ${
                   preferences.email === 'other'
                     ? 'border-security-blue bg-blue-50 text-security-blue'
                     : 'border-gray-200 hover:border-gray-300'
@@ -197,13 +197,13 @@ export function PersonalizationFlow({ onComplete, onSkip, initialPreferences }: 
         return (
           <div className="space-y-4">
             <div className="flex items-center space-x-3 mb-6">
-              <Monitor className="h-8 w-8 text-security-blue" />
-              <h3 className="text-xl font-semibold">¿Qué sistema operativo usás?</h3>
+              <Monitor className="h-6 w-6 sm:h-8 sm:w-8 text-security-blue" />
+              <h3 className="text-lg sm:text-xl font-semibold">¿Qué sistema operativo usás?</h3>
             </div>
             <div className="grid grid-cols-1 gap-3">
               <button
                 onClick={() => setPreferences({ ...preferences, os: 'windows' })}
-                className={`p-4 rounded-lg border-2 text-left transition-colors ${
+                className={`p-3 sm:p-4 rounded-lg border-2 text-left transition-colors ${
                   preferences.os === 'windows'
                     ? 'border-security-blue bg-blue-50 text-security-blue'
                     : 'border-gray-200 hover:border-gray-300'
@@ -218,7 +218,7 @@ export function PersonalizationFlow({ onComplete, onSkip, initialPreferences }: 
               
               <button
                 onClick={() => setPreferences({ ...preferences, os: 'mac' })}
-                className={`p-4 rounded-lg border-2 text-left transition-colors ${
+                className={`p-3 sm:p-4 rounded-lg border-2 text-left transition-colors ${
                   preferences.os === 'mac'
                     ? 'border-security-blue bg-blue-50 text-security-blue'
                     : 'border-gray-200 hover:border-gray-300'
@@ -233,7 +233,7 @@ export function PersonalizationFlow({ onComplete, onSkip, initialPreferences }: 
 
               <button
                 onClick={() => setPreferences({ ...preferences, os: 'linux' })}
-                className={`p-4 rounded-lg border-2 text-left transition-colors ${
+                className={`p-3 sm:p-4 rounded-lg border-2 text-left transition-colors ${
                   preferences.os === 'linux'
                     ? 'border-security-blue bg-blue-50 text-security-blue'
                     : 'border-gray-200 hover:border-gray-300'
@@ -255,12 +255,12 @@ export function PersonalizationFlow({ onComplete, onSkip, initialPreferences }: 
   };
 
   return (
-    <Card className="max-w-2xl mx-auto">
+    <Card className="w-full max-w-2xl mx-auto max-h-[90vh] overflow-y-auto">
       <CardHeader>
-        <div className="flex items-center justify-between">
-          <div>
-            <CardTitle className="text-2xl">Personalizar experiencia</CardTitle>
-            <p className="text-gray-600 mt-2">
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between space-y-4 sm:space-y-0">
+          <div className="flex-1">
+            <CardTitle className="text-xl sm:text-2xl">Personalizar experiencia</CardTitle>
+            <p className="text-gray-600 mt-2 text-sm sm:text-base">
               Respondé estas preguntas para recibir guías específicas para tus herramientas
             </p>
           </div>
@@ -268,7 +268,7 @@ export function PersonalizationFlow({ onComplete, onSkip, initialPreferences }: 
             variant="secondary"
             size="sm"
             onClick={onSkip}
-            className="text-gray-500 hover:text-gray-700"
+            className="text-gray-500 hover:text-gray-700 self-end sm:self-start"
           >
             <X className="h-4 w-4 mr-2" />
             Omitir
@@ -291,27 +291,28 @@ export function PersonalizationFlow({ onComplete, onSkip, initialPreferences }: 
       <CardContent className="space-y-6">
         {renderStep()}
         
-        <div className="flex justify-between pt-6">
+        <div className="flex flex-col sm:flex-row sm:justify-between pt-6 space-y-3 sm:space-y-0">
           <Button
             variant="outline"
             onClick={handlePrevious}
             disabled={step === 1}
+            className="w-full sm:w-auto"
           >
             Anterior
           </Button>
           
-          <div className="flex space-x-3">
+          <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
             <Button
               variant="secondary"
               onClick={onSkip}
-              className="text-gray-600"
+              className="text-gray-600 w-full sm:w-auto text-xs sm:text-sm"
             >
               Omitir personalización
             </Button>
             <Button
               onClick={handleNext}
               disabled={!isStepComplete()}
-              className="bg-security-blue hover:bg-blue-700"
+              className="bg-security-blue hover:bg-blue-700 w-full sm:w-auto"
             >
               {step === 4 ? 'Completar' : 'Siguiente'}
               <ChevronRight className="h-4 w-4 ml-2" />

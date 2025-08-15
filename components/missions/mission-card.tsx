@@ -56,7 +56,7 @@ export function MissionCard({ mission, isCompleted, isLocked = false, completion
             </div>
           </div>
           
-          <div className="flex items-center justify-between text-sm text-gray-500">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0 text-sm text-gray-500">
             <div className="flex items-center space-x-4">
               <div className="flex items-center space-x-1">
                 <Star className="h-4 w-4" />
@@ -67,7 +67,7 @@ export function MissionCard({ mission, isCompleted, isLocked = false, completion
                 <span>{mission.estimatedTime}</span>
               </div>
             </div>
-            <span className="text-xs text-gray-400">
+            <span className="text-xs text-gray-400 text-right sm:text-left">
               Completá las misiones anteriores
             </span>
           </div>
@@ -101,8 +101,8 @@ export function MissionCard({ mission, isCompleted, isLocked = false, completion
           </div>
         </div>
         
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4 text-sm text-gray-500">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-gray-500">
             <div className="flex items-center space-x-1">
               <Star className="h-4 w-4" />
               <span>{mission.xp} XP</span>
@@ -118,12 +118,14 @@ export function MissionCard({ mission, isCompleted, isLocked = false, completion
             )}
           </div>
           
-          <Button asChild variant={isCompleted ? "secondary" : "primary"}>
-            <Link href={`/missions/${mission.id}`}>
-              {isCompleted ? 'Revisar' : 'Empezar'}
-              <ArrowRight className="h-4 w-4 ml-1" />
-            </Link>
-          </Button>
+          <div className="flex justify-end sm:justify-start">
+            <Button asChild variant={isCompleted ? "secondary" : "primary"} className="min-w-[100px]">
+              <Link href={`/missions/${mission.id}`}>
+                {isCompleted ? 'Revisar' : 'Empezar'}
+                <ArrowRight className="h-4 w-4 ml-1" />
+              </Link>
+            </Button>
+          </div>
         </div>
       </CardContent>
     </Card>
