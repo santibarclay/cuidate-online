@@ -358,7 +358,6 @@ export default function MissionPage() {
                 {missionId === 'cuidemos-contrasenas' && (
                   <PasswordBreachChecker
                     userPreferences={user.preferences || { browser: null, device: null, email: null, os: null, isPersonalized: false }}
-                    userEmail={user.email}
                     onComplete={handleInteractiveComplete}
                   />
                 )}

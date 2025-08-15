@@ -8,7 +8,6 @@ import { UserPreferences } from '@/lib/gamification';
 
 interface PasswordBreachCheckerProps {
   userPreferences: UserPreferences;
-  userEmail: string;
   onComplete: (score?: number) => void;
 }
 
@@ -18,7 +17,7 @@ interface BreachResult {
   source: string;
 }
 
-export function PasswordBreachChecker({ userPreferences, userEmail, onComplete }: PasswordBreachCheckerProps) {
+export function PasswordBreachChecker({ userPreferences, onComplete }: PasswordBreachCheckerProps) {
   const [step, setStep] = useState<'intro' | 'checking' | 'results'>('intro');
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);

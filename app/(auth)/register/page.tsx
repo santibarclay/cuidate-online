@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Shield, ArrowLeft, User, Mail } from 'lucide-react';
+import { Shield, ArrowLeft, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { createNewUser, saveUserProgress, UserPreferences, updateUserPreferences } from '@/lib/gamification';
@@ -20,7 +20,6 @@ export default function RegisterPage() {
   const [step, setStep] = useState<'register' | 'personalize'>('register');
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
     avatar: AVATARS[0]
   });
   const [isLoading, setIsLoading] = useState(false);
@@ -38,14 +37,6 @@ export default function RegisterPage() {
       if (!formData.name.trim()) {
         throw new Error('Por favor ingresá tu nombre');
       }
-      
-      if (!formData.email.trim()) {
-        throw new Error('Por favor ingresá tu email');
-      }
-      
-      if (!/\S+@\S+\.\S+/.test(formData.email)) {
-        throw new Error('Por favor ingresá un email válido');
-      }
 
       // Move to personalization step
       setStep('personalize');
@@ -60,7 +51,6 @@ export default function RegisterPage() {
     // Create new user with preferences
     const newUser = createNewUser(
       formData.name.trim(),
-      formData.email.trim().toLowerCase(),
       formData.avatar,
       preferences
     );
@@ -80,7 +70,6 @@ export default function RegisterPage() {
     // Create new user without personalization
     const newUser = createNewUser(
       formData.name.trim(),
-      formData.email.trim().toLowerCase(),
       formData.avatar
     );
 
@@ -178,24 +167,6 @@ export default function RegisterPage() {
                 </p>
               </div>
 
-              {/* Email Input */}
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                  <Mail className="inline h-4 w-4 mr-1" />
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  value={formData.email}
-                  onChange={(e) => handleInputChange('email', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-security-blue focus:border-transparent"
-                  placeholder="tu.email@ejemplo.com"
-                />
-                <p className="text-xs text-gray-500 mt-1">
-                  Solo se guarda localmente en tu dispositivo
-                </p>
-              </div>
 
               {/* Avatar Selection */}
               <div>

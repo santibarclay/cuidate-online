@@ -11,7 +11,6 @@ import { MISSIONS } from '@/lib/missions-data';
 import { BADGES } from '@/lib/constants';
 import { 
   User, 
-  Mail, 
   Calendar, 
   Award, 
   Target,
@@ -199,10 +198,6 @@ export default function ProfilePage() {
                 <div className="flex items-center space-x-1">
                   <User className="h-4 w-4" />
                   <span>Nivel {user.level}</span>
-                </div>
-                <div className="flex items-center space-x-1">
-                  <Mail className="h-4 w-4" />
-                  <span>{user.email}</span>
                 </div>
                 <div className="flex items-center space-x-1">
                   <Calendar className="h-4 w-4" />

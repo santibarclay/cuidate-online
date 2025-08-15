@@ -10,7 +10,6 @@ export interface UserPreferences {
 
 export interface UserProgress {
   name: string;
-  email: string;
   avatar: string;
   totalXP: number;
   level: number;
@@ -107,7 +106,7 @@ export function loadUserProgress(): UserProgress | null {
   }
 }
 
-export function createNewUser(name: string, email: string, avatar: string, preferences?: UserPreferences): UserProgress {
+export function createNewUser(name: string, avatar: string, preferences?: UserPreferences): UserProgress {
   const defaultPreferences: UserPreferences = {
     browser: null,
     device: null,
@@ -118,7 +117,6 @@ export function createNewUser(name: string, email: string, avatar: string, prefe
   
   return {
     name,
-    email,
     avatar,
     totalXP: 50, // Bonus XP for Early Adopter badge
     level: 1,
@@ -183,19 +181,23 @@ export function awardBadge(user: UserProgress, badgeId: string): { user: UserPro
   return { user: updatedUser, newBadges: [badgeId] };
 }
 
-export function migrateUserProgress(user: UserProgress): UserProgress {
+export function migrateUserProgress(user: any): UserProgress {
   // Migrate old user data to include preferences if they don't exist
   if (!user.preferences) {
-    return {
-      ...user,
-      preferences: {
-        browser: null,
-        device: null,
-        email: null,
-        os: null,
-        isPersonalized: false
-      }
+    user.preferences = {
+      browser: null,
+      device: null,
+      email: null,
+      os: null,
+      isPersonalized: false
     };
   }
-  return user;
+  
+  // Remove deprecated email field from UserProgress (moved to preferences only)
+  if ('email' in user) {
+    const { email, ...userWithoutEmail } = user;
+    return userWithoutEmail as UserProgress;
+  }
+  
+  return user as UserProgress;
 }
