@@ -22,7 +22,7 @@ const SCAM_EXAMPLES: ScamExample[] = [
     content: 'De: noreply@mercadopago.com.ar\nAsunto: ⚠️ URGENTE: Tu cuenta será suspendida en 24hs\n\nHola,\n\nDetectamos actividad sospechosa en tu cuenta. Hacé click ACÁ para verificar tus datos antes de las 24hs o tu cuenta será BLOQUEADA PERMANENTEMENTE.\n\nVerificar ahora: http://mercado-pago-seguridad.com.ar',
     isScam: true,
     explanation: 'Email de phishing que simula ser de MercadoPago',
-    redFlags: ['Urgencia artificial', 'URL sospechosa', 'Amenazas de bloqueo', 'Dominio falso']
+    redFlags: ['Urgencia artificial', 'Amenazas de bloqueo', 'Dominio falso']
   },
   {
     id: 'email-2', 
@@ -52,19 +52,19 @@ const SCAM_EXAMPLES: ScamExample[] = [
   {
     id: 'phone-2',
     type: 'phone',
-    content: '📞 Te llama tu banco:\n\n"Estimado cliente, le informamos que debe acercarse a la sucursal para renovar su tarjeta antes del vencimiento. El horario es de 9 a 15hs. Gracias."',
-    isScam: false,
-    explanation: 'Solo informa, no pide datos sensibles',
-    redFlags: []
+    content: '📞 Te llama alguien:\n\n"Hola, soy de soporte técnico de Google. Detectamos que alguien está intentando acceder a tu cuenta. Para protegerla, necesito que me digas el código de 6 dígitos que te va a aparecer en el celular ahora."',
+    isScam: true,
+    explanation: 'NUNCA compartir códigos de verificación por teléfono. Los códigos OTP/2FA son solo para vos. Google, WhatsApp, bancos NUNCA te llaman pidiendo estos códigos.',
+    redFlags: ['Pide código de verificación', 'Llamada no solicitada', 'Urgencia artificial', 'Se hace pasar por empresa legítima']
   },
   // WHATSAPP
   {
     id: 'whatsapp-1',
     type: 'whatsapp',
-    content: '💬 WhatsApp de número desconocido:\n\n"Hola! Cambié de número, soy tu primo Juan. Me urgeeee que me transfieras $20.000 que mañana te devuelvo. Es una emergencia, no puedo llamarte ahora. Mi CBU: 1234567890"',
+    content: '💬 WhatsApp de tu hermana (nombre real, foto real):\n\n"Hola! Necesito que me ayudes urgente con una transferencia. Estoy en el banco pero no me anda la app. ¿Podés transferirle $30.000 a un amigo mío? Te paso su CBU: 1234567890123456789012. Mañana te devuelvo todo."',
     isScam: true,
-    explanation: 'Estafa clásica del "cambié de número"',
-    redFlags: ['Número nuevo', 'Pide dinero urgente', 'No puede verificar identidad']
+    explanation: 'Es común que hackeen cuentas de WhatsApp de familiares y conocidos para hacer este tipo de estafas. Aunque aparezca el nombre y foto real, la cuenta puede estar comprometida.',
+    redFlags: ['Pide transferencia a terceros', 'Urgencia', 'No permite verificación directa', 'Excusa para no usar su propia app']
   },
   {
     id: 'whatsapp-2',
@@ -75,12 +75,12 @@ const SCAM_EXAMPLES: ScamExample[] = [
     redFlags: []
   },
   {
-    id: 'whatsapp-3',
-    type: 'whatsapp',
-    content: '💬 WhatsApp de número desconocido:\n\n"🎉 ¡FELICITACIONES! Fuiste seleccionado para ganar $500.000 en el sorteo de Coca-Cola. Para reclamar tu premio, hacé click acá y completá tus datos: http://sorteo-coca-cola.com.ar"',
-    isScam: true,
-    explanation: 'Sorteos no solicitados siempre son estafas',
-    redFlags: ['Premio no solicitado', 'URL sospechosa', 'Pide datos personales']
+    id: 'phone-3',
+    type: 'phone',
+    content: '📞 Te llama tu banco:\n\n"Estimado cliente, le recordamos que su tarjeta vence el próximo mes. Puede renovarla en cualquier sucursal o a través de nuestra app oficial. Horarios de atención: 9 a 15hs. Gracias."',
+    isScam: false,
+    explanation: 'Solo informa, no pide datos sensibles ni códigos',
+    redFlags: []
   },
   // WEBSITES
   {
@@ -210,7 +210,7 @@ export function ScamDetector({ onComplete }: ScamDetectorProps) {
                 onClick={() => handleAnswer(true)}
                 disabled={hasAnswered}
                 size="lg"
-                className={`${hasAnswered ? getAnswerColor(true) : 'bg-red-600 hover:bg-red-700'} min-w-[120px]`}
+                className={`${hasAnswered ? getAnswerColor(true) : 'bg-red-600 hover:bg-red-700 text-white'} min-w-[120px]`}
               >
                 {hasAnswered && answers[example.id] === true && (
                   answers[example.id] === example.isScam ? (
@@ -219,14 +219,14 @@ export function ScamDetector({ onComplete }: ScamDetectorProps) {
                     <AlertTriangle className="h-5 w-5 mr-2" />
                   )
                 )}
-                Sí, es estafa
+                Estafa
               </Button>
               
               <Button
                 onClick={() => handleAnswer(false)}
                 disabled={hasAnswered}
                 size="lg"
-                className={`${hasAnswered ? getAnswerColor(false) : 'bg-green-600 hover:bg-green-700'} min-w-[120px]`}
+                className={`${hasAnswered ? getAnswerColor(false) : 'bg-green-600 hover:bg-green-700 text-white'} min-w-[120px]`}
               >
                 {hasAnswered && answers[example.id] === false && (
                   answers[example.id] === example.isScam ? (
@@ -235,7 +235,7 @@ export function ScamDetector({ onComplete }: ScamDetectorProps) {
                     <AlertTriangle className="h-5 w-5 mr-2" />
                   )
                 )}
-                No, es legítimo
+                Legítimo
               </Button>
             </div>
           </div>
@@ -305,28 +305,6 @@ export function ScamDetector({ onComplete }: ScamDetectorProps) {
                 </div>
               )}
 
-              {example.type === 'website' && (
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                  <h4 className="font-semibold text-blue-800 mb-2">📚 Aprende a leer dominios:</h4>
-                  <div className="text-blue-700 text-sm space-y-2">
-                    <p><strong>Ejemplo:</strong> https://homebanking-santander.secure-login.com.ar/inicio</p>
-                    <div className="bg-white p-3 rounded border font-mono text-xs">
-                      <span className="text-green-600">https://</span>
-                      <span className="text-red-600">homebanking-santander</span>
-                      <span className="text-gray-500">.</span>
-                      <span className="text-purple-600 font-bold">secure-login.com.ar</span>
-                      <span className="text-gray-500">/inicio</span>
-                    </div>
-                    <ul className="space-y-1">
-                      <li>• <span className="text-purple-600 font-semibold">secure-login.com.ar</span> = Dominio principal</li>
-                      <li>• <span className="text-red-600">homebanking-santander</span> = Subdominio (puede ser falso)</li>
-                      <li>• <span className="text-gray-500">/inicio</span> = Página específica</li>
-                      <li>• <strong>.com.ar</strong> = Argentina, <strong>.com</strong> = internacional</li>
-                    </ul>
-                    <p className="text-xs"><strong>Regla:</strong> Solo confiá en el dominio principal. Santander real = santander.com.ar</p>
-                  </div>
-                </div>
-              )}
 
               <div className="text-center">
                 <Button onClick={handleNext} size="lg">

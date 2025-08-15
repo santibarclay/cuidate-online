@@ -324,6 +324,66 @@ export default function MissionPage() {
         </Card>
       )}
 
+      {/* Domain Guide for Scam Detection */}
+      {missionId === 'detectar-estafas' && (
+        <Card className="mb-8">
+          <CardHeader>
+            <CardTitle>📚 Aprende a leer dominios</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <p className="text-gray-600">
+                Una de las estafas más comunes son los sitios web falsos. Aprendé a leer URLs para identificar dominios falsos:
+              </p>
+              
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <h4 className="font-semibold text-blue-800 mb-3">Ejemplo de dominio falso:</h4>
+                <p className="mb-2"><strong>URL falsa:</strong> https://homebanking-santander.secure-login.com.ar/inicio</p>
+                <div className="bg-white p-3 rounded border font-mono text-sm">
+                  <span className="text-green-600">https://</span>
+                  <span className="text-red-600">homebanking-santander</span>
+                  <span className="text-gray-500">.</span>
+                  <span className="text-purple-600 font-bold">secure-login.com.ar</span>
+                  <span className="text-gray-500">/inicio</span>
+                </div>
+                <ul className="space-y-2 mt-3 text-sm">
+                  <li>• <span className="text-purple-600 font-semibold">secure-login.com.ar</span> = Dominio principal (¡ESTE es el que importa!)</li>
+                  <li>• <span className="text-red-600">homebanking-santander</span> = Subdominio (pueden poner cualquier cosa acá)</li>
+                  <li>• <span className="text-gray-500">/inicio</span> = Página específica</li>
+                </ul>
+                <div className="mt-3 p-3 bg-red-50 border border-red-200 rounded">
+                  <p className="text-red-800 font-semibold text-sm">
+                    ⚠️ Aunque diga "santander" en el subdominio, el dominio real es "secure-login.com.ar" - ¡ES FALSO!
+                  </p>
+                </div>
+              </div>
+              
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                <h4 className="font-semibold text-green-800 mb-2">✅ Dominio legítimo del Santander:</h4>
+                <div className="bg-white p-3 rounded border font-mono text-sm">
+                  <span className="text-green-600">https://</span>
+                  <span className="text-green-600 font-bold">santander.com.ar</span>
+                  <span className="text-gray-500">/homebanking</span>
+                </div>
+                <p className="text-green-700 text-sm mt-2">
+                  <strong>Regla de oro:</strong> Solo confiá en el dominio principal. Santander real = santander.com.ar
+                </p>
+              </div>
+              
+              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                <h4 className="font-semibold text-yellow-800 mb-2">💡 Extensiones de dominio:</h4>
+                <ul className="text-yellow-700 text-sm space-y-1">
+                  <li>• <strong>.com.ar</strong> = Empresas argentinas</li>
+                  <li>• <strong>.gov.ar</strong> = Gobierno argentino</li>
+                  <li>• <strong>.com</strong> = Internacional</li>
+                  <li>• <strong>.org</strong> = Organizaciones</li>
+                </ul>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Interactive Mission Content */}
       {!missionCompleted && (
         <Card className="mb-8" id="interactive-section">
@@ -388,7 +448,7 @@ export default function MissionPage() {
                       Resultado de la práctica: {interactiveScore}%
                     </h4>
                     <p className="text-blue-700 text-sm">
-                      ¡Bien hecho! Ahora respondé el quiz final para completar la misión.
+                      ¡Bien hecho! Ahora respondé la evaluación final para completar la misión.
                     </p>
                   </div>
                 )}
