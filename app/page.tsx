@@ -116,27 +116,6 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Stats Section */}
-      <div className="bg-gray-50 py-8 sm:py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-8 sm:mb-12 px-2">
-            Cuidando a la comunidad argentina
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
-            {stats.map((stat, index) => (
-              <Card key={index} className="text-center p-3 sm:p-6">
-                <stat.icon className="h-6 w-6 sm:h-8 sm:w-8 text-security-blue mx-auto mb-2 sm:mb-3" />
-                <div className="text-lg sm:text-2xl font-bold text-gray-900 mb-1">
-                  {stat.value}
-                </div>
-                <div className="text-xs sm:text-sm text-gray-600">
-                  {stat.label}
-                </div>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </div>
 
       {/* Features Section */}
       <div className="bg-white py-8 sm:py-16">
@@ -165,25 +144,31 @@ export default function HomePage() {
       {/* Cyber Crime Stats */}
       <div className="bg-red-50 border border-red-200 py-8 sm:py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-2xl sm:text-3xl font-bold text-red-900 mb-4 sm:mb-6 px-2">
-            La Realidad en Argentina
+          <h2 className="text-2xl sm:text-3xl font-bold text-red-900 mb-6 sm:mb-8 px-2">
+            Problemas de seguridad serios
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
-            <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm">
-              <div className="text-2xl sm:text-3xl font-bold text-red-600 mb-2">85%</div>
-              <p className="text-sm sm:text-base text-gray-600">de los argentinos usa contraseñas débiles</p>
+          <div className="space-y-4 sm:space-y-6 mb-6 sm:mb-8 max-w-2xl mx-auto">
+            <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm text-left">
+              <div className="flex items-start space-x-3">
+                <div className="text-2xl font-bold text-red-600 mt-1">1.</div>
+                <p className="text-base sm:text-lg text-gray-700">Tu contraseña fue hackeada y no lo sabés.</p>
+              </div>
             </div>
-            <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm">
-              <div className="text-2xl sm:text-3xl font-bold text-red-600 mb-2">42%</div>
-              <p className="text-sm sm:text-base text-gray-600">fue víctima de algún tipo de fraude digital</p>
+            <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm text-left">
+              <div className="flex items-start space-x-3">
+                <div className="text-2xl font-bold text-red-600 mt-1">2.</div>
+                <p className="text-base sm:text-lg text-gray-700">No usás segundo factor de autenticación.</p>
+              </div>
             </div>
-            <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm">
-              <div className="text-2xl sm:text-3xl font-bold text-red-600 mb-2">73%</div>
-              <p className="text-sm sm:text-base text-gray-600">no usa autenticación en dos pasos</p>
+            <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm text-left">
+              <div className="flex items-start space-x-3">
+                <div className="text-2xl font-bold text-red-600 mt-1">3.</div>
+                <p className="text-base sm:text-lg text-gray-700">No te detenés a pensar antes de hacer click o dar algún dato personal.</p>
+              </div>
             </div>
           </div>
           <p className="text-base sm:text-lg text-red-800 mb-4 sm:mb-6 px-2">
-            No seas parte de estas estadísticas. Protegete hoy.
+            ¿Te identificás con alguna? Es momento de actuar.
           </p>
           <Button asChild size="lg" className="bg-red-600 hover:bg-red-700 w-full sm:w-auto">
             <Link href="/register">

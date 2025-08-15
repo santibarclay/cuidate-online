@@ -12,6 +12,11 @@ export const metadata: Metadata = {
   keywords: ['seguridad digital', 'ciberseguridad', 'educación', 'Argentina', 'password manager', '2FA', 'phishing'],
   authors: [{ name: 'Santiago Barclay' }],
   creator: 'Santiago Barclay',
+  icons: {
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+    apple: '/favicon.svg',
+  },
   openGraph: {
     type: 'website',
     locale: 'es_AR',
