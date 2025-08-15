@@ -188,13 +188,10 @@ export default function HomePage() {
             Desarrollado 100% con IA
           </h2>
           <p className="text-lg mb-4 opacity-90">
-            Este sitio fue creado completamente usando Vibe Coding con Claude Code.
+            Este sitio fue creado completamente haciendo Vibe Coding con Claude Code.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-4 text-sm opacity-75">
             <span>Built with <a href="https://claude.ai/code" target="_blank" rel="noopener noreferrer" className="underline font-medium">Claude Code</a></span>
-          </div>
-          <div className="mt-4 p-3 bg-white/10 rounded-lg text-sm">
-            <p>⚠️ Paradoja: Un sitio sobre ciberseguridad creado por IA. ¿Qué riesgos implica esto?</p>
           </div>
         </div>
       </div>
@@ -208,11 +205,20 @@ export default function HomePage() {
           <p className="text-xl mb-8 opacity-90">
             Unite a cientos de argentinos que ya están protegiendo su vida digital
           </p>
-          <Button asChild size="lg" className="bg-white text-security-blue hover:bg-gray-100 text-lg px-8 py-4">
-            <Link href="/register">
-              Registrarme gratis
-            </Link>
-          </Button>
+          <div className="space-y-4">
+            <Button asChild size="lg" className="bg-white text-security-blue hover:bg-gray-100 text-lg px-8 py-4">
+              <Link href="/register">
+                Registrarme gratis
+              </Link>
+            </Button>
+            <div>
+              <Button asChild variant="outline" size="sm" className="border-white/30 text-white hover:bg-white/10">
+                <Link href="/dashboard">
+                  ¿Ya te habías registrado?
+                </Link>
+              </Button>
+            </div>
+          </div>
           <p className="mt-4 text-sm opacity-75">
             ✓ Sin tarjeta de crédito ✓ Sin spam ✓ Privacidad garantizada
           </p>

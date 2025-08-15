@@ -332,7 +332,7 @@ export default function AboutPage() {
               ✓ Sin registro complejo ✓ Sin spam ✓ 100% gratuito
             </p>
             <p className="mt-2 text-xs opacity-60">
-              Desarrollado con IA responsable • Powered by <a href="https://akua.la" className="underline">Akua</a>
+              Desarrollado con IA responsable
             </p>
           </CardContent>
         </Card>
