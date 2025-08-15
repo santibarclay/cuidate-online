@@ -181,11 +181,12 @@ export function TwoFactorSetup({ userPreferences, onComplete }: TwoFactorSetupPr
               <AlertTriangle className="h-4 w-4 mr-2" />
               ⚠️ MUY IMPORTANTE
             </h5>
-            <ul className="text-red-700 text-sm space-y-1">
+            <ul className="text-red-700 text-sm space-y-2">
               <li>• <strong>ANOTÁ tu PIN en papel</strong> y guardalo en un lugar seguro</li>
-              <li>• <strong>NUNCA</strong> compartas tu PIN por teléfono con nadie</li>
-              <li>• WhatsApp <strong>JAMÁS</strong> te va a llamar pidiendo el PIN</li>
-              <li>• Solo te pedirá el PIN al instalar WhatsApp en un celular nuevo</li>
+              <li>• <strong>NADIE te va a pedir tu PIN</strong> - ni por chat, ni por teléfono, ni verbalmente</li>
+              <li>• Solo la <strong>propia aplicación de WhatsApp</strong> te lo pedirá cada tanto para asegurarse que no te lo olvides</li>
+              <li>• WhatsApp también te pedirá el PIN solo al instalar la app en un celular nuevo</li>
+              <li>• <strong>NUNCA lo compartas</strong> con nadie bajo ninguna circunstancia</li>
             </ul>
           </div>
           
