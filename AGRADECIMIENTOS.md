@@ -2,7 +2,9 @@
 
 ## 🤖 Desarrollo con Inteligencia Artificial
 
-**Este proyecto fue desarrollado 100% mediante Live Coding con Claude Code**, representando una nueva era en el desarrollo de software educativo.
+**Este proyecto fue desarrollado 100% mediante Vibe Coding con Claude Code**, representando una nueva era en el desarrollo de software educativo.
+
+**Vibe Coding** es una práctica de desarrollo de software que utiliza IA, específicamente modelos de lenguaje grandes (LLMs), para generar código a partir de prompts en lenguaje natural. Enfatiza un enfoque conversacional y hands-off donde el desarrollador guía la IA en lugar de escribir código manualmente. Este método busca acelerar el desarrollo y hacer la creación de apps más accesible, particularmente para aquellos con experiencia limitada en programación.
 
 ### 📊 Estadísticas del Desarrollo
 
@@ -129,7 +131,3 @@ Sin embargo, también nos recuerda que **debemos ser cautelosos y responsables**
 **La clave está en la transparencia, la auditoría constante, y el uso ético de la tecnología.**
 
 ---
-
-*Desarrollado con IA responsable en Argentina • Enero 2025*
-
-**Powered by [Akua](https://akua.la) • Built with [Claude Code](https://claude.ai/code) • Made with ❤️ for the Argentine community**

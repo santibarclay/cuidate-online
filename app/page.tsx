@@ -188,7 +188,7 @@ export default function HomePage() {
             Desarrollado 100% con IA
           </h2>
           <p className="text-lg mb-4 opacity-90">
-            Este sitio fue creado completamente usando Claude Code. Costo: ~$5 USD en tokens.
+            Este sitio fue creado completamente usando Vibe Coding con Claude Code. Costo: ~$5 USD en tokens.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-4 text-sm opacity-75">
             <span>Powered by <a href="https://akua.la" target="_blank" rel="noopener noreferrer" className="underline font-medium">Akua</a></span>

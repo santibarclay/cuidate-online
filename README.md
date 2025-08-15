@@ -138,7 +138,9 @@ Este proyecto está bajo licencia MIT. Ver `LICENSE` para más detalles.
 
 ## 🤖 Desarrollo con IA
 
-**Este proyecto fue desarrollado 100% con Live Coding usando Claude Code**, demostrando el poder de la IA para crear soluciones educativas complejas:
+**Este proyecto fue desarrollado 100% con Vibe Coding usando Claude Code**, demostrando el poder de la IA para crear soluciones educativas complejas:
+
+**Vibe Coding** es una práctica de desarrollo de software que utiliza IA, específicamente modelos de lenguaje grandes (LLMs), para generar código a partir de prompts en lenguaje natural. Enfatiza un enfoque conversacional y hands-off donde el desarrollador guía la IA en lugar de escribir código manualmente. Este método busca acelerar el desarrollo y hacer la creación de apps más accesible, particularmente para aquellos con experiencia limitada en programación.
 
 - **Plataforma**: [Claude Code](https://claude.ai/code) by Anthropic
 - **Costo total**: ~$5 USD en tokens de Claude
