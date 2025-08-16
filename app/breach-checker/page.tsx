@@ -263,7 +263,7 @@ export default function BreachCheckerPage() {
                     disabled={!isProduction}
                     className="flex flex-col h-auto p-4"
                   >
-                    <div className="text-sm font-semibold">Have I Been Pwned</div>
+                    <div className="text-sm font-semibold" translate="no">Have I Been Pwned</div>
                     <div className="text-xs mt-1">Base de datos completa</div>
                     {!isProduction && (
                       <div className="text-xs text-gray-500 mt-1">(Solo en producción)</div>
@@ -283,7 +283,7 @@ export default function BreachCheckerPage() {
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                 <h4 className="font-medium text-blue-800 mb-2">🔒 Privacidad</h4>
                 <div className="text-sm text-blue-700">
-                  <p>Este email será enviado a un proveedor externo en el que confío ({selectedProvider === 'hibp' ? 'Have I Been Pwned' : 'ProxyNova'}), pero podés leer su <a href={selectedProvider === 'hibp' ? 'https://haveibeenpwned.com/Privacy' : '#'} target="_blank" className="underline">política de privacidad</a>.</p>
+                  <p>Este email será enviado a un proveedor externo en el que confío ({selectedProvider === 'hibp' ? <span translate="no">Have I Been Pwned</span> : 'ProxyNova'}), pero podés leer su <a href={selectedProvider === 'hibp' ? 'https://haveibeenpwned.com/Privacy' : '#'} target="_blank" className="underline">política de privacidad</a>.</p>
                 </div>
               </div>
             </div>
@@ -338,7 +338,7 @@ export default function BreachCheckerPage() {
           </h1>
           <p className="text-gray-600">
             {isHIBP 
-              ? 'Resultados de Have I Been Pwned (base de datos completa)'
+              ? <span translate="no">Resultados de Have I Been Pwned (base de datos completa)</span>
               : 'Resultados de ProxyNova (desarrollo/local)'}
           </p>
         </div>

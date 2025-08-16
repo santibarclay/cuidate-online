@@ -185,7 +185,7 @@ export function PasswordBreachChecker({ userPreferences, onComplete }: PasswordB
               <div className="bg-green-50 border border-green-200 rounded-lg p-3">
                 <h4 className="font-medium text-green-800 mb-2">🔒 Privacidad</h4>
                 <div className="text-sm text-green-700 space-y-2">
-                  <p>Este email será enviado a un proveedor externo en el que confío (Have I Been Pwned), pero podés leer su <a href="https://haveibeenpwned.com/Privacy" target="_blank" className="underline">política de privacidad</a>.</p>
+                  <p>Este email será enviado a un proveedor externo en el que confío (<span translate="no">Have I Been Pwned</span>), pero podés leer su <a href="https://haveibeenpwned.com/Privacy" target="_blank" className="underline">política de privacidad</a>.</p>
                   <p>Si preferís no usar este servicio, podés continuar sin hacer esta verificación.</p>
                 </div>
               </div>
