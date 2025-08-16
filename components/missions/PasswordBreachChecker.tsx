@@ -24,6 +24,7 @@ export function PasswordBreachChecker({ userPreferences, onComplete }: PasswordB
   const [breaches, setBreaches] = useState<BreachResult[]>([]);
   const [error, setError] = useState('');
   const [visiblePasswords, setVisiblePasswords] = useState<Set<number>>(new Set());
+  const [skippedVerification, setSkippedVerification] = useState(false);
 
   const isGmailUser = userPreferences.email === 'gmail';
 
@@ -37,6 +38,13 @@ export function PasswordBreachChecker({ userPreferences, onComplete }: PasswordB
     onComplete(100);
   };
 
+  const handleSkipVerification = () => {
+    setSkippedVerification(true);
+    setStep('results');
+    // Pasar -1 para indicar que se saltó la práctica
+    onComplete(-1);
+  };
+
   const togglePasswordVisibility = (index: number) => {
     const newVisible = new Set(visiblePasswords);
     if (newVisible.has(index)) {
@@ -45,6 +53,10 @@ export function PasswordBreachChecker({ userPreferences, onComplete }: PasswordB
       newVisible.add(index);
     }
     setVisiblePasswords(newVisible);
+  };
+
+  const stripHtmlTags = (html: string): string => {
+    return html.replace(/<[^>]*>/g, '');
   };
 
   const handleEmailCheck = async () => {
@@ -171,28 +183,37 @@ export function PasswordBreachChecker({ userPreferences, onComplete }: PasswordB
               </div>
               
               <div className="bg-green-50 border border-green-200 rounded-lg p-3">
-                <h4 className="font-medium text-green-800 mb-2">🔒 Tu privacidad está protegida</h4>
-                <ul className="text-sm text-green-700 space-y-1">
-                  <li>• Esta verificación es anónima</li>
-                  <li>• No guardamos tu email ni contraseñas</li>
-                  <li>• Solo mostramos resultados parcialmente ocultos</li>
-                </ul>
+                <h4 className="font-medium text-green-800 mb-2">🔒 Privacidad</h4>
+                <div className="text-sm text-green-700 space-y-2">
+                  <p>Este email será enviado a un proveedor externo en el que confío (Have I Been Pwned), pero podés leer su <a href="https://haveibeenpwned.com/Privacy" target="_blank" className="underline">política de privacidad</a>.</p>
+                  <p>Si preferís no usar este servicio, podés continuar sin hacer esta verificación.</p>
+                </div>
               </div>
               
-              <Button 
-                onClick={handleEmailCheck}
-                disabled={isLoading}
-                className="w-full"
-              >
-                {isLoading ? (
-                  <>
-                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                    Verificando...
-                  </>
-                ) : (
-                  'Verificar contraseñas'
-                )}
-              </Button>
+              <div className="space-y-3">
+                <Button 
+                  onClick={handleEmailCheck}
+                  disabled={isLoading}
+                  className="w-full"
+                >
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                      Verificando...
+                    </>
+                  ) : (
+                    'Verificar contraseñas'
+                  )}
+                </Button>
+                
+                <Button 
+                  onClick={handleSkipVerification}
+                  variant="outline"
+                  className="w-full"
+                >
+                  Continuar sin verificar
+                </Button>
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -202,7 +223,16 @@ export function PasswordBreachChecker({ userPreferences, onComplete }: PasswordB
 
   const renderResultsStep = () => (
     <div className="space-y-6">
-      {isGmailUser ? (
+      {skippedVerification ? (
+        <div className="space-y-4">
+          <div className="text-center">
+            <div className="text-6xl mb-4">📚</div>
+            <p className="text-gray-600">
+              Continuá con la evaluación final para completar la misión
+            </p>
+          </div>
+        </div>
+      ) : isGmailUser ? (
         <div className="space-y-4">
           <div className="text-center">
             <div className="text-6xl mb-4">🔍</div>
@@ -297,12 +327,11 @@ export function PasswordBreachChecker({ userPreferences, onComplete }: PasswordB
                   ))}
                   
                   <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-                    <h4 className="font-medium text-yellow-800 mb-2">⚡ Acción inmediata requerida</h4>
+                    <h4 className="font-medium text-yellow-800 mb-2">🚨 Qué hacer ahora</h4>
                     <ul className="text-sm text-yellow-700 space-y-1">
-                      <li>• Si reconocés alguna de estas contraseñas, <strong>cambiala YA</strong></li>
-                      <li>• Cambiala en TODOS los sitios donde la uses</li>
-                      <li>• Creá una contraseña única y diferente para cada cuenta</li>
-                      <li>• Nunca más reutilices contraseñas</li>
+                      <li>• <strong>Pensá qué contraseña usaste en este o estos sitios</strong>, y cambiala en todos los lugares donde la estés usando, y no la uses más</li>
+                      <li>• Usá contraseñas únicas y seguras para cada cuenta</li>
+                      <li>• Activá la autenticación de dos factores donde sea posible (misión disponible en la plataforma)</li>
                     </ul>
                   </div>
                 </div>

@@ -140,6 +140,10 @@ export default function BreachCheckerPage() {
     return 'name' in breach && 'title' in breach;
   };
 
+  const stripHtmlTags = (html: string): string => {
+    return html.replace(/<[^>]*>/g, '');
+  };
+
   const togglePasswordVisibility = (index: number) => {
     const newVisible = new Set(visiblePasswords);
     if (newVisible.has(index)) {
@@ -270,19 +274,16 @@ export default function BreachCheckerPage() {
                   >
                     <div className="text-sm font-semibold">ProxyNova</div>
                     <div className="text-xs mt-1">Base de datos básica</div>
-                    <div className="text-xs text-green-600 mt-1">(Disponible siempre)</div>
                   </Button>
                 </div>
               </div>
 
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                 <h4 className="font-medium text-blue-800 mb-2">🔒 Privacidad</h4>
-                <ul className="text-sm text-blue-700 space-y-1">
-                  <li>• Esta consulta es completamente anónima</li>
-                  <li>• No guardamos tu email ni ningún dato personal</li>
-                  <li>• {selectedProvider === 'hibp' ? 'HIBP' : 'ProxyNova'} como fuente de datos</li>
-                  <li>• Los resultados son solo informativos</li>
-                </ul>
+                <div className="text-sm text-blue-700 space-y-2">
+                  <p>Este email será enviado a un proveedor externo en el que confío ({selectedProvider === 'hibp' ? 'Have I Been Pwned' : 'ProxyNova'}), pero podés leer su <a href={selectedProvider === 'hibp' ? 'https://haveibeenpwned.com/Privacy' : '#'} target="_blank" className="underline">política de privacidad</a>.</p>
+                  <p>Si preferís no usar este servicio, podés <Link href="/dashboard" className="underline">saltar este paso</Link> y continuar con otras misiones.</p>
+                </div>
               </div>
             </div>
             
@@ -394,7 +395,7 @@ export default function BreachCheckerPage() {
                       </div>
                       
                       <div className="bg-white p-3 rounded border border-red-200">
-                        <p className="text-sm text-gray-700">{breach.description}</p>
+                        <p className="text-sm text-gray-700">{stripHtmlTags(breach.description)}</p>
                       </div>
                       
                       {!breach.isVerified && (
@@ -449,11 +450,10 @@ export default function BreachCheckerPage() {
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2 text-orange-700">
-                  <li>• <strong>Cambiá tu contraseña inmediatamente</strong> en todos los sitios afectados</li>
+                  <li>• <strong>Pensá qué contraseña usaste en este o estos sitios</strong>, y cambiala en todos los lugares donde la estés usando, y no la uses más</li>
                   <li>• Usá contraseñas únicas y seguras para cada cuenta</li>
-                  <li>• Activá la autenticación de dos factores donde sea posible</li>
-                  <li>• Considerá usar un administrador de contraseñas</li>
-                  <li>• Monitoreá tus cuentas bancarias y financieras</li>
+                  <li>• Activá la autenticación de dos factores donde sea posible (misión disponible en la plataforma)</li>
+                  <li>• Considerá usar un administrador de contraseñas (próximamente será una misión disponible)</li>
                 </ul>
               </CardContent>
             </Card>

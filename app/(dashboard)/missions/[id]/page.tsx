@@ -446,13 +446,23 @@ export default function MissionPage() {
           <CardContent>
             {showQuiz && !missionCompleted ? (
               <div>
-                {interactiveScore !== null && (
+                {interactiveScore !== null && interactiveScore >= 0 && (
                   <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
                     <h4 className="font-medium text-blue-800 mb-1">
                       Resultado de la práctica: {interactiveScore}%
                     </h4>
                     <p className="text-blue-700 text-sm">
                       ¡Bien hecho! Ahora respondé la evaluación final para completar la misión.
+                    </p>
+                  </div>
+                )}
+                {interactiveScore === -1 && (
+                  <div className="mb-6 p-4 bg-gray-50 border border-gray-200 rounded-lg">
+                    <h4 className="font-medium text-gray-800 mb-1">
+                      Práctica no realizada
+                    </h4>
+                    <p className="text-gray-700 text-sm">
+                      Respondé la evaluación final para completar la misión.
                     </p>
                   </div>
                 )}
