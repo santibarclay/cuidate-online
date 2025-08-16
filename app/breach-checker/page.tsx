@@ -282,9 +282,8 @@ export default function BreachCheckerPage() {
 
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                 <h4 className="font-medium text-blue-800 mb-2">🔒 Privacidad</h4>
-                <div className="text-sm text-blue-700 space-y-2">
+                <div className="text-sm text-blue-700">
                   <p>Este email será enviado a un proveedor externo en el que confío ({selectedProvider === 'hibp' ? 'Have I Been Pwned' : 'ProxyNova'}), pero podés leer su <a href={selectedProvider === 'hibp' ? 'https://haveibeenpwned.com/Privacy' : '#'} target="_blank" className="underline">política de privacidad</a>.</p>
-                  <p>Si preferís no usar este servicio, podés <Link href="/dashboard" className="underline">saltar este paso</Link> y continuar con otras misiones.</p>
                 </div>
               </div>
             </div>
@@ -351,7 +350,7 @@ export default function BreachCheckerPage() {
                 <CardHeader>
                   <CardTitle className="text-lg text-red-800 flex items-center space-x-2">
                     <AlertTriangle className="h-5 w-5" />
-                    <span>
+                    <span translate={isHIBPBreach(breach) ? 'yes' : 'no'}>
                       {isHIBPBreach(breach) ? breach.title : 'Contraseña Expuesta'}
                     </span>
                   </CardTitle>
@@ -386,7 +385,7 @@ export default function BreachCheckerPage() {
                               <span className="font-medium">Datos comprometidos:</span>
                               <div className="mt-1 flex flex-wrap gap-1">
                                 {breach.dataClasses.map((dataClass, i) => (
-                                  <span key={i} className="bg-red-100 text-red-800 text-xs px-2 py-1 rounded">
+                                  <span key={i} className="bg-red-100 text-red-800 text-xs px-2 py-1 rounded" translate="yes">
                                     {dataClass}
                                   </span>
                                 ))}
@@ -397,7 +396,7 @@ export default function BreachCheckerPage() {
                       </div>
                       
                       <div className="bg-white p-3 rounded border border-red-200">
-                        <p className="text-sm text-gray-700">{stripHtmlTags(breach.description)}</p>
+                        <p className="text-sm text-gray-700" translate="yes">{stripHtmlTags(breach.description)}</p>
                       </div>
                       
                       {!breach.isVerified && (
