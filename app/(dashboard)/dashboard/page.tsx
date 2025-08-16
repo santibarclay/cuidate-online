@@ -94,21 +94,21 @@ export default function DashboardPage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Welcome Header */}
       <div className="mb-8">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
               Hola {user.name}, seguí cuidándote {user.avatar}
             </h1>
-            <p className="text-gray-600">
+            <p className="text-gray-600 mb-3 sm:mb-0">
               Bienvenido a tu dashboard de {SITE_NAME}. Aquí podés ver tu progreso y continuar con tus misiones.
             </p>
           </div>
           
           {/* Personalization Status */}
-          <div className="flex items-center space-x-4">
-            <div className="text-right">
+          <div className="flex items-center justify-between sm:justify-start sm:space-x-4">
+            <div className="sm:text-right">
               <div className="text-sm text-gray-500">Experiencia</div>
-              <div className={`text-sm font-medium ${
+              <div className={`text-sm font-medium whitespace-nowrap ${
                 user.preferences?.isPersonalized 
                   ? 'text-security-green' 
                   : 'text-orange-600'
