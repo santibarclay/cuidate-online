@@ -252,7 +252,7 @@ export default function BreachCheckerPage() {
                 </label>
                 <div className="grid grid-cols-2 gap-3">
                   <Button
-                    variant={selectedProvider === 'hibp' ? 'default' : 'outline'}
+                    variant={selectedProvider === 'hibp' ? 'primary' : 'outline'}
                     onClick={() => setSelectedProvider('hibp')}
                     disabled={!isProduction}
                     className="flex flex-col h-auto p-4"
@@ -264,7 +264,7 @@ export default function BreachCheckerPage() {
                     )}
                   </Button>
                   <Button
-                    variant={selectedProvider === 'proxynova' ? 'default' : 'outline'}
+                    variant={selectedProvider === 'proxynova' ? 'primary' : 'outline'}
                     onClick={() => setSelectedProvider('proxynova')}
                     className="flex flex-col h-auto p-4"
                   >
