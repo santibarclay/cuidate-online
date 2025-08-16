@@ -126,19 +126,19 @@ export default function AboutPage() {
             </h2>
             <p className="text-lg text-gray-700 leading-relaxed">
               Hacer que la seguridad digital sea accesible, práctica y fácil de entender para todas las familias argentinas. 
-              Creemos que todos merecen estar protegidos en el mundo digital, sin importar su nivel técnico.
+              Creo que todos merecen estar protegidos en el mundo digital, sin importar su nivel técnico.
             </p>
           </CardContent>
         </Card>
 
         {/* Stats */}
-        <div className="grid grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-3 gap-3 sm:gap-6 mb-8">
           {stats.map((stat, index) => (
             <Card key={index} className="text-center">
-              <CardContent className="p-6">
-                <stat.icon className="h-8 w-8 text-security-blue mx-auto mb-3" />
-                <div className="text-2xl font-bold text-gray-900 mb-1">{stat.value}</div>
-                <div className="text-sm text-gray-600">{stat.label}</div>
+              <CardContent className="p-3 sm:p-6">
+                <stat.icon className="h-6 w-6 sm:h-8 sm:w-8 text-security-blue mx-auto mb-2 sm:mb-3" />
+                <div className="text-lg sm:text-2xl font-bold text-gray-900 mb-1">{stat.value}</div>
+                <div className="text-xs sm:text-sm text-gray-600">{stat.label}</div>
               </CardContent>
             </Card>
           ))}
@@ -182,28 +182,6 @@ export default function AboutPage() {
           </CardContent>
         </Card>
 
-        {/* Timeline */}
-        <Card className="mb-12">
-          <CardHeader>
-            <CardTitle className="text-2xl">El Camino hacia {SITE_NAME}</CardTitle>
-          </CardHeader>
-          <CardContent className="p-8">
-            <div className="space-y-6">
-              {timeline.map((item, index) => (
-                <div key={index} className="flex items-start space-x-4">
-                  <div className="flex-shrink-0 w-16 h-16 bg-security-blue text-white rounded-full flex items-center justify-center font-bold">
-                    {item.year}
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="text-lg font-semibold text-gray-900 mb-1">{item.title}</h4>
-                    <p className="text-gray-600">{item.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-
         {/* Why Free */}
         <Card className="mb-12 bg-security-green/5 border-security-green/20">
           <CardHeader>
@@ -233,10 +211,10 @@ export default function AboutPage() {
         {/* Values */}
         <Card className="mb-12">
           <CardHeader>
-            <CardTitle className="text-2xl">Nuestros Valores</CardTitle>
+            <CardTitle className="text-2xl">Valores</CardTitle>
           </CardHeader>
           <CardContent className="p-8">
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 gap-8">
               <div className="text-center">
                 <div className="text-3xl mb-3">🎯</div>
                 <h4 className="font-semibold text-gray-900 mb-2">Simplicidad</h4>
@@ -249,13 +227,6 @@ export default function AboutPage() {
                 <h4 className="font-semibold text-gray-900 mb-2">Contexto Local</h4>
                 <p className="text-gray-600 text-sm">
                   Ejemplos y casos reales del ecosistema digital argentino
-                </p>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl mb-3">🤝</div>
-                <h4 className="font-semibold text-gray-900 mb-2">Comunidad</h4>
-                <p className="text-gray-600 text-sm">
-                  Construimos una comunidad más segura, paso a paso
                 </p>
               </div>
             </div>
@@ -317,9 +288,9 @@ export default function AboutPage() {
                 <h4 className="font-semibold text-gray-900 mb-3">Cómo se hizo</h4>
                 <ul className="space-y-2 text-gray-700">
                   <li>• <strong>Plataforma:</strong> Claude Code by Anthropic</li>
-                  <li>• <strong>Costo:</strong> ~$5 USD en tokens</li>
-                  <li>• <strong>Tiempo:</strong> 1 sesión intensiva</li>
-                  <li>• <strong>Líneas:</strong> 10,552 de código</li>
+                  <li>• <strong>Costo:</strong> ~$35 USD en tokens</li>
+                  <li>• <strong>Tiempo:</strong> 2 sesiones intensivas</li>
+                  <li>• <strong>Líneas:</strong> 5,479 de código</li>
                 </ul>
               </div>
               <div>
@@ -331,22 +302,6 @@ export default function AboutPage() {
                   <li>• <strong>Comunidad</strong> que inspirará mejoras</li>
                 </ul>
               </div>
-            </div>
-            
-            <div className="bg-white/80 border border-orange-200 rounded-lg p-4">
-              <h4 className="font-semibold text-orange-800 mb-2 flex items-center">
-                <div className="mr-2">⚠️</div>
-                Reflexión sobre Riesgos de IA
-              </h4>
-              <p className="text-orange-800 text-sm mb-3">
-                Irónicamente, un sitio sobre <strong>ciberseguridad</strong> fue creado enteramente por IA. 
-                Esto demuestra cómo la IA puede democratizar la educación, pero también ilustra nuevos riesgos:
-              </p>
-              <ul className="text-sm text-orange-700 space-y-1">
-                <li>• Los criminales también usan IA para crear ataques más sofisticados</li>
-                <li>• El código generado por IA debe auditarse con el mismo rigor que el humano</li>
-                <li>• Necesitamos nuevas misiones educativas sobre IA y ciberseguridad</li>
-              </ul>
             </div>
           </CardContent>
         </Card>

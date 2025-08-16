@@ -50,13 +50,13 @@ export default function PrivacyPolicyPage() {
               </div>
               
               <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-                <h4 className="font-semibold text-red-800 mb-2">❌ Lo que NO recolectamos:</h4>
+                <h4 className="font-semibold text-red-800 mb-2">❌ Lo que NO recolectamos nosotros:</h4>
                 <ul className="text-red-700 space-y-1">
                   <li>• Email o datos de contacto</li>
                   <li>• Información personal identificatoria</li>
-                  <li>• Dirección IP o ubicación</li>
-                  <li>• Datos del navegador o dispositivo</li>
-                  <li>• Cookies de tracking</li>
+                  <li>• Datos del navegador o dispositivo para tracking</li>
+                  <li>• Cookies de seguimiento o publicitarias</li>
+                  <li>• Historial de navegación fuera del sitio</li>
                 </ul>
               </div>
             </div>
@@ -72,7 +72,7 @@ export default function PrivacyPolicyPage() {
             <div className="space-y-3 text-gray-700">
               <p><strong>Propósito único:</strong> Mejorar tu experiencia educativa en ciberseguridad.</p>
               <p><strong>Almacenamiento:</strong> Toda tu información se guarda únicamente en el localStorage de tu navegador.</p>
-              <p><strong>No compartimos:</strong> Nunca enviamos tus datos a servidores externos.</p>
+              <p><strong>No compartimos:</strong> Nunca enviamos tus datos personales a servidores externos (solo analytics anónimos de Vercel).</p>
               <p><strong>No comercializamos:</strong> No vendemos ni monetizamos información personal.</p>
             </div>
           </CardContent>
@@ -118,14 +118,24 @@ export default function PrivacyPolicyPage() {
                 Utilizamos <strong>Vercel Analytics</strong> para entender el uso básico del sitio:
               </p>
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <h5 className="font-semibold text-blue-800 mb-2">✅ Lo que sí recolecta Vercel (anónimamente):</h5>
                 <ul className="text-blue-700 space-y-1">
-                  <li>• Número de visitantes (sin identificación personal)</li>
-                  <li>• Páginas más visitadas</li>
-                  <li>• Datos agregados y anónimos únicamente</li>
+                  <li>• Número de visitantes únicos (sin identificación personal)</li>
+                  <li>• Páginas visitadas y tiempo en el sitio</li>
+                  <li>• País de origen (basado en IP, pero sin almacenar la IP)</li>
+                  <li>• Tipo de dispositivo (móvil/desktop) y navegador</li>
+                  <li>• Datos completamente agregados y anonimizados</li>
                 </ul>
               </div>
-              <p className="text-sm text-gray-600">
-                Estos datos nos ayudan a mejorar la plataforma sin comprometer tu privacidad.
+              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 mt-3">
+                <p className="text-sm text-yellow-800">
+                  <strong>Importante:</strong> Vercel procesa direcciones IP para determinar ubicación geográfica, 
+                  pero las IPs son inmediatamente anonimizadas y nunca almacenadas. Solo se conservan 
+                  estadísticas agregadas por país/región.
+                </p>
+              </div>
+              <p className="text-sm text-gray-600 mt-3">
+                Estos datos nos ayudan a mejorar la plataforma sin comprometer tu identidad o privacidad personal.
               </p>
             </div>
           </CardContent>

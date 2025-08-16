@@ -30,26 +30,26 @@ export function StreakCounter({ streak, lastActiveDate }: StreakCounterProps) {
   return (
     <Card>
       <CardContent className="p-6">
-        <div className="flex items-center space-x-4">
-          <div className={`${getStreakColor(streak)}`}>
-            <Flame className="h-8 w-8" />
+        <div className="flex items-center space-x-3 sm:space-x-4">
+          <div className={`${getStreakColor(streak)} flex-shrink-0`}>
+            <Flame className="h-6 w-6 sm:h-8 sm:w-8" />
           </div>
-          <div className="flex-1">
-            <div className="flex items-baseline space-x-2">
-              <span className="text-2xl font-bold text-gray-900">
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center space-x-2">
+              <span className="text-xl sm:text-2xl font-bold text-gray-900">
                 {streak}
               </span>
-              <span className="text-sm text-gray-600">
+              <span className="text-xs sm:text-sm text-gray-600 whitespace-nowrap">
                 {streak === 1 ? 'día' : 'días'} consecutivos
               </span>
             </div>
-            <p className="text-sm text-gray-600 mt-1">
+            <p className="text-xs sm:text-sm text-gray-600 mt-1">
               {getStreakMessage(streak)}
             </p>
           </div>
-          <div className="text-right">
+          <div className="text-right flex-shrink-0">
             <div className={`flex items-center space-x-1 ${isActiveToday ? 'text-security-green' : 'text-gray-400'}`}>
-              <Calendar className="h-4 w-4" />
+              <Calendar className="h-3 w-3 sm:h-4 sm:w-4" />
               <span className="text-xs font-medium">
                 {isActiveToday ? 'Activo hoy' : 'Inactivo'}
               </span>

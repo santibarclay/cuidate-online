@@ -238,7 +238,9 @@ export default function MissionPage() {
             <AlertTriangle className="h-6 w-6 text-orange-600 flex-shrink-0 mt-1" />
             <div>
               <h3 className="font-semibold text-orange-800 mb-2">
-                ¿Por qué es importante esta misión?
+                {mission.id === 'activar-2fa-email-whatsapp' 
+                  ? '¿Qué es el segundo factor de autenticación?' 
+                  : '¿Por qué es importante esta misión?'}
               </h3>
               <p className="text-orange-700">
                 {mission.risk}

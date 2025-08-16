@@ -71,10 +71,7 @@ export function PersonalizationFlow({ onComplete, onSkip, initialPreferences }: 
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
               >
-                <div className="flex items-center justify-between">
-                  <span className="font-medium">Google Chrome</span>
-                  <span className="text-sm bg-security-green text-white px-2 py-1 rounded">Disponible</span>
-                </div>
+                <span className="font-medium">Google Chrome</span>
                 <p className="text-sm text-gray-600 mt-1">Guías específicas para Chrome</p>
               </button>
               
@@ -86,10 +83,7 @@ export function PersonalizationFlow({ onComplete, onSkip, initialPreferences }: 
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
               >
-                <div className="flex items-center justify-between">
-                  <span className="font-medium">Otro navegador</span>
-                  <span className="text-sm bg-orange-500 text-white px-2 py-1 rounded">Genérico</span>
-                </div>
+                <span className="font-medium">Otro navegador</span>
                 <p className="text-sm text-gray-600 mt-1">Edge, Safari, Firefox, etc.</p>
               </button>
             </div>
@@ -112,10 +106,7 @@ export function PersonalizationFlow({ onComplete, onSkip, initialPreferences }: 
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
               >
-                <div className="flex items-center justify-between">
-                  <span className="font-medium">Android</span>
-                  <span className="text-sm bg-security-green text-white px-2 py-1 rounded">Disponible</span>
-                </div>
+                <span className="font-medium">Android</span>
                 <p className="text-sm text-gray-600 mt-1">Samsung, Xiaomi, Motorola, etc.</p>
               </button>
               
@@ -127,11 +118,8 @@ export function PersonalizationFlow({ onComplete, onSkip, initialPreferences }: 
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
               >
-                <div className="flex items-center justify-between">
-                  <span className="font-medium">iPhone (iOS)</span>
-                  <span className="text-sm bg-orange-500 text-white px-2 py-1 rounded">Genérico</span>
-                </div>
-                <p className="text-sm text-gray-500 mt-1">Soporte genérico por ahora</p>
+                <span className="font-medium">iPhone (iOS)</span>
+                <p className="text-sm text-gray-600 mt-1">iPhone y iPad</p>
               </button>
             </div>
           </div>
@@ -153,10 +141,7 @@ export function PersonalizationFlow({ onComplete, onSkip, initialPreferences }: 
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
               >
-                <div className="flex items-center justify-between">
-                  <span className="font-medium">Gmail (@gmail.com)</span>
-                  <span className="text-sm bg-security-green text-white px-2 py-1 rounded">Disponible</span>
-                </div>
+                <span className="font-medium">Gmail (@gmail.com)</span>
                 <p className="text-sm text-gray-600 mt-1">Guías específicas para Gmail</p>
               </button>
               
@@ -168,10 +153,7 @@ export function PersonalizationFlow({ onComplete, onSkip, initialPreferences }: 
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
               >
-                <div className="flex items-center justify-between">
-                  <span className="font-medium">Outlook/Hotmail</span>
-                  <span className="text-sm bg-orange-500 text-white px-2 py-1 rounded">Genérico</span>
-                </div>
+                <span className="font-medium">Outlook/Hotmail</span>
                 <p className="text-sm text-gray-600 mt-1">@outlook.com, @hotmail.com</p>
               </button>
               
@@ -183,10 +165,7 @@ export function PersonalizationFlow({ onComplete, onSkip, initialPreferences }: 
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
               >
-                <div className="flex items-center justify-between">
-                  <span className="font-medium">Otro proveedor</span>
-                  <span className="text-sm bg-orange-500 text-white px-2 py-1 rounded">Genérico</span>
-                </div>
+                <span className="font-medium">Otro proveedor</span>
                 <p className="text-sm text-gray-600 mt-1">Yahoo, empresa, otros</p>
               </button>
             </div>
@@ -209,10 +188,7 @@ export function PersonalizationFlow({ onComplete, onSkip, initialPreferences }: 
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
               >
-                <div className="flex items-center justify-between">
-                  <span className="font-medium">Windows</span>
-                  <span className="text-sm bg-security-green text-white px-2 py-1 rounded">Disponible</span>
-                </div>
+                <span className="font-medium">Windows</span>
                 <p className="text-sm text-gray-600 mt-1">Windows 10, 11</p>
               </button>
               
@@ -224,11 +200,8 @@ export function PersonalizationFlow({ onComplete, onSkip, initialPreferences }: 
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
               >
-                <div className="flex items-center justify-between">
-                  <span className="font-medium">macOS</span>
-                  <span className="text-sm bg-orange-500 text-white px-2 py-1 rounded">Genérico</span>
-                </div>
-                <p className="text-sm text-gray-500 mt-1">Soporte genérico por ahora</p>
+                <span className="font-medium">macOS</span>
+                <p className="text-sm text-gray-600 mt-1">Mac, iMac, MacBook</p>
               </button>
 
               <button
@@ -239,11 +212,8 @@ export function PersonalizationFlow({ onComplete, onSkip, initialPreferences }: 
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
               >
-                <div className="flex items-center justify-between">
-                  <span className="font-medium">Linux</span>
-                  <span className="text-sm bg-orange-500 text-white px-2 py-1 rounded">Genérico</span>
-                </div>
-                <p className="text-sm text-gray-500 mt-1">Soporte genérico por ahora</p>
+                <span className="font-medium">Linux</span>
+                <p className="text-sm text-gray-600 mt-1">Ubuntu, Debian, otras distros</p>
               </button>
             </div>
           </div>

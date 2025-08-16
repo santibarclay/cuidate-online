@@ -36,7 +36,7 @@ export const MISSIONS: Mission[] = [
     level: 1,
     xp: 300,
     estimatedTime: "10 minutos",
-    risk: "Tu email es la puerta de entrada a todas tus otras cuentas. WhatsApp se usa cada vez más para estafas. El 73% de los argentinos no usa 2FA, quedando vulnerables a hackeos que se previenen fácilmente.",
+    risk: "El segundo factor de autenticación (2FA) es una capa extra de seguridad que requiere dos métodos para verificar tu identidad: tu contraseña (algo que sabés) y un código temporal de tu teléfono (algo que tenés). Incluso si hackean tu contraseña, no podrán acceder sin tu teléfono.",
     steps: [],
     tips: [
       "El 2FA te protege incluso si tu contraseña es robada",

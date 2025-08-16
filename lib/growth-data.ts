@@ -19,33 +19,33 @@ export const GROWTH_DATA: GrowthDataPoint[] = [
     isProjection: false
   },
   
-  // Future projections
-  {
-    date: "2025-03",
-    missions: 6,
-    concepts: 25,
-    hours: 3,
-    isProjection: true
-  },
-  {
-    date: "2025-06",
-    missions: 12,
-    concepts: 40,
-    hours: 6,
-    isProjection: true
-  },
+  // Future projections - Starting September, incrementing 6 missions per quarter
   {
     date: "2025-09",
-    missions: 18,
-    concepts: 55,
-    hours: 9,
+    missions: 9,
+    concepts: 30,
+    hours: 4.5,
     isProjection: true
   },
   {
     date: "2025-12",
-    missions: 25,
-    concepts: 70,
-    hours: 12,
+    missions: 15,
+    concepts: 45,
+    hours: 7.5,
+    isProjection: true
+  },
+  {
+    date: "2026-03",
+    missions: 21,
+    concepts: 60,
+    hours: 10.5,
+    isProjection: true
+  },
+  {
+    date: "2026-06",
+    missions: 27,
+    concepts: 75,
+    hours: 13.5,
     isProjection: true
   }
 ];
