@@ -330,7 +330,6 @@ export function PasswordBreachChecker({ userPreferences, onComplete }: PasswordB
                     <h4 className="font-medium text-yellow-800 mb-2">🚨 Qué hacer ahora</h4>
                     <ul className="text-sm text-yellow-700 space-y-1">
                       <li>• <strong>Pensá qué contraseña usaste en este o estos sitios</strong>, y cambiala en todos los lugares donde la estés usando, y no la uses más</li>
-                      <li>• Usá contraseñas únicas y seguras para cada cuenta</li>
                       <li>• Activá la autenticación de dos factores donde sea posible (misión disponible en la plataforma)</li>
                     </ul>
                   </div>

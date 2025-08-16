@@ -128,6 +128,9 @@ export default function BreachCheckerPage() {
 
       setResults(data);
       setStep('results');
+      
+      // Scroll to top to show results from the beginning
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
       console.error('Search error:', err);
       setError('Error al conectar con el servicio');
@@ -221,7 +224,6 @@ export default function BreachCheckerPage() {
       <Card>
         <CardHeader className="text-center">
           <div className="text-6xl mb-4">🔍</div>
-          <CardTitle className="text-2xl">Verificador de Brechas de Datos</CardTitle>
           <p className="text-gray-600">
             Verificá si tu email apareció en alguna brecha de datos conocida
           </p>
@@ -451,7 +453,6 @@ export default function BreachCheckerPage() {
               <CardContent>
                 <ul className="space-y-2 text-orange-700">
                   <li>• <strong>Pensá qué contraseña usaste en este o estos sitios</strong>, y cambiala en todos los lugares donde la estés usando, y no la uses más</li>
-                  <li>• Usá contraseñas únicas y seguras para cada cuenta</li>
                   <li>• Activá la autenticación de dos factores donde sea posible (misión disponible en la plataforma)</li>
                   <li>• Considerá usar un administrador de contraseñas (próximamente será una misión disponible)</li>
                 </ul>
