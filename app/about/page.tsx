@@ -6,46 +6,20 @@ import {
   ArrowLeft, 
   ExternalLink, 
   Shield, 
-  Users, 
   Heart,
   Target,
-  BookOpen,
-  Award
+  BookOpen
 } from 'lucide-react';
 import { SITE_NAME, CREATOR } from '@/lib/constants';
-import { getCurrentStats, getAllData } from '@/lib/growth-data';
+import { getCurrentStats } from '@/lib/growth-data';
 
 export default function AboutPage() {
   const currentStats = getCurrentStats();
-  const growthData = getAllData();
   
   const stats = [
     { label: "Misiones educativas", value: currentStats.missions.toString(), icon: BookOpen },
     { label: "Conceptos de seguridad", value: currentStats.concepts.toString(), icon: Shield },
     { label: "Horas de contenido", value: currentStats.hours.toString(), icon: Target }
-  ];
-
-  const timeline = [
-    {
-      year: "2024",
-      title: "Nace Cuidate Online",
-      description: "Después de ver tantos casos de hackeos evitables, decidí crear una plataforma educativa gratuita para la comunidad argentina."
-    },
-    {
-      year: "2023",
-      title: "Experiencia en Akua",
-      description: "Como Responsable de Ciberseguridad, confirmé que la educación es la mejor defensa contra los ataques digitales."
-    },
-    {
-      year: "2022",
-      title: "Docencia en UBA",
-      description: "Empecé a enseñar en la Universidad de Buenos Aires, descubriendo mi pasión por la educación en ciberseguridad."
-    },
-    {
-      year: "2020",
-      title: "Especialización",
-      description: "Me enfoqué en ciberseguridad después de trabajar en múltiples startups y ver los riesgos digitales firsthand."
-    }
   ];
 
   return (
@@ -154,30 +128,89 @@ export default function AboutPage() {
               El plan es seguir agregando contenido educativo de calidad durante todo el año.
             </p>
             <div className="space-y-6">
-              {growthData.filter(d => d.isProjection).map((data, index) => (
-                <div key={index} className="border rounded-lg p-4 bg-white/50">
-                  <div className="flex justify-between items-center mb-3">
-                    <h4 className="font-semibold text-gray-900">
-                      {new Date(data.date + '-01').toLocaleDateString('es-AR', { month: 'long', year: 'numeric' })}
-                    </h4>
-                    <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Proyección</span>
+              <div className="border rounded-lg p-4 bg-white/50">
+                <div className="flex justify-between items-center mb-3">
+                  <h4 className="font-semibold text-gray-900">septiembre 2025</h4>
+                  <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Proyección</span>
+                </div>
+                <div className="grid grid-cols-3 gap-4 text-center">
+                  <div>
+                    <div className="text-2xl font-bold text-blue-600">9</div>
+                    <div className="text-xs text-gray-600">Misiones</div>
                   </div>
-                  <div className="grid grid-cols-3 gap-4 text-center">
-                    <div>
-                      <div className="text-2xl font-bold text-blue-600">{data.missions}</div>
-                      <div className="text-xs text-gray-600">Misiones</div>
-                    </div>
-                    <div>
-                      <div className="text-2xl font-bold text-green-600">{data.concepts}</div>
-                      <div className="text-xs text-gray-600">Conceptos</div>
-                    </div>
-                    <div>
-                      <div className="text-2xl font-bold text-purple-600">{data.hours}</div>
-                      <div className="text-xs text-gray-600">Horas</div>
-                    </div>
+                  <div>
+                    <div className="text-2xl font-bold text-green-600">30</div>
+                    <div className="text-xs text-gray-600">Conceptos</div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold text-purple-600">4.5</div>
+                    <div className="text-xs text-gray-600">Horas</div>
                   </div>
                 </div>
-              ))}
+              </div>
+
+              <div className="border rounded-lg p-4 bg-white/50">
+                <div className="flex justify-between items-center mb-3">
+                  <h4 className="font-semibold text-gray-900">diciembre 2025</h4>
+                  <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Proyección</span>
+                </div>
+                <div className="grid grid-cols-3 gap-4 text-center">
+                  <div>
+                    <div className="text-2xl font-bold text-blue-600">15</div>
+                    <div className="text-xs text-gray-600">Misiones</div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold text-green-600">45</div>
+                    <div className="text-xs text-gray-600">Conceptos</div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold text-purple-600">7.5</div>
+                    <div className="text-xs text-gray-600">Horas</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="border rounded-lg p-4 bg-white/50">
+                <div className="flex justify-between items-center mb-3">
+                  <h4 className="font-semibold text-gray-900">marzo 2026</h4>
+                  <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Proyección</span>
+                </div>
+                <div className="grid grid-cols-3 gap-4 text-center">
+                  <div>
+                    <div className="text-2xl font-bold text-blue-600">21</div>
+                    <div className="text-xs text-gray-600">Misiones</div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold text-green-600">60</div>
+                    <div className="text-xs text-gray-600">Conceptos</div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold text-purple-600">10.5</div>
+                    <div className="text-xs text-gray-600">Horas</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="border rounded-lg p-4 bg-white/50">
+                <div className="flex justify-between items-center mb-3">
+                  <h4 className="font-semibold text-gray-900">junio 2026</h4>
+                  <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Proyección</span>
+                </div>
+                <div className="grid grid-cols-3 gap-4 text-center">
+                  <div>
+                    <div className="text-2xl font-bold text-blue-600">27</div>
+                    <div className="text-xs text-gray-600">Misiones</div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold text-green-600">75</div>
+                    <div className="text-xs text-gray-600">Conceptos</div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold text-purple-600">13.5</div>
+                    <div className="text-xs text-gray-600">Horas</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </CardContent>
         </Card>
