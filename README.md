@@ -1,18 +1,21 @@
-# Cuidate Online
+# 🛡️ Cuidate Online
 
-Plataforma educativa gamificada para enseñar seguridad digital a familias argentinas.
+**Plataforma educativa de ciberseguridad para familias argentinas**
+
+Una aplicación web gratuita diseñada para enseñar conceptos fundamentales de seguridad digital de manera práctica y accesible, enfocada en el contexto argentino.
 
 ## 🛡️ Sobre el Proyecto
 
-**Cuidate Online** es una plataforma gratuita creada por Santiago Barclay (Head of Cybersecurity en Akua, profesor en UBA) para democratizar el acceso a educación de ciberseguridad práctica y relevante para el contexto argentino.
+**Cuidate Online** es una plataforma gratuita creada por Santiago Barclay (Responsable de Ciberseguridad en Akua, profesor en UBA) para democratizar el acceso a educación de ciberseguridad práctica y relevante para el contexto argentino.
 
 ### ✨ Características
 
-- **Gamificación**: Sistema de niveles, XP y badges
-- **Contexto Local**: Ejemplos con Mercado Pago, AFIP, bancos argentinos
-- **Práctica**: Guías paso a paso con screenshots
-- **Gratuita**: Sin costos, sin registro complejo, sin spam
-- **Privacidad**: Datos guardados solo localmente
+- **🎯 Gamificación**: Sistema de niveles, XP y badges para motivar el aprendizaje
+- **🇦🇷 Contexto Local**: Ejemplos con Mercado Pago, AFIP, bancos argentinos
+- **📚 Práctica**: Guías paso a paso con herramientas interactivas
+- **🔍 Verificación de Brechas**: Búsqueda anónima de emails en brechas de datos conocidas
+- **💰 Gratuita**: Sin costos, sin registro complejo, sin spam
+- **🔒 Privacidad**: Datos guardados solo localmente, máxima transparencia
 
 ## 🚀 Instalación y Desarrollo
 
@@ -29,10 +32,26 @@ cd cuidate-online
 # Instalar dependencias
 npm install
 
+# Configurar variables de entorno
+cp .env.example .env.local
+# Editar .env.local con tus valores
+
 # Ejecutar en desarrollo
 npm run dev
 
-# Abrir http://localhost:3000
+# Abrir http://localhost:3001
+```
+
+### Variables de Entorno
+```bash
+# Have I Been Pwned API (para verificación de brechas)
+HIBP_API_KEY=tu_api_key_aqui
+
+# Contraseña para acceder a /breach-checker
+HIBP_PAGE_PASSWD=contraseña_segura
+
+# Analytics (opcional)
+VERCEL_ANALYTICS_ID=tu_analytics_id
 ```
 
 ### Scripts Disponibles
@@ -86,6 +105,39 @@ Sistema de reconocimientos que premia el progreso del usuario:
 - Reconocimientos por activar medidas de seguridad
 - Premios por mantener buenas prácticas
 - Medallas especiales por actividad consistente
+
+## 🔍 APIs y Servicios de Verificación de Brechas
+
+### Have I Been Pwned (HIBP)
+- **Uso**: Base de datos principal para verificación de brechas
+- **Cobertura**: +13 mil millones de credenciales expuestas
+- **Costo**: ~$45 USD/año por API key
+- **Rate Limit**: 3 consultas por IP cada 24 horas
+- **Privacidad**: [Política oficial de HIBP](https://haveibeenpwned.com/Privacy)
+
+### ProxyNova
+- **Uso**: Base de datos secundaria/desarrollo
+- **Cobertura**: Colección básica de credenciales públicas
+- **Costo**: Gratuito
+- **Rate Limit**: Sin límites
+- **Limitaciones**: Menor cobertura que HIBP
+
+### Transparencia en el Procesamiento de Emails
+
+**⚠️ IMPORTANTE: Cómo manejamos tu email durante la verificación**
+
+1. **Ingresas tu email** en la misión o página /breach-checker
+2. **Tu email se envía temporalmente** via HTTPS a HIBP o ProxyNova
+3. **El servicio externo procesa** tu consulta y devuelve información de brechas
+4. **Mostramos los resultados** inmediatamente en tu pantalla
+5. **Tu email se descarta** - NO queda almacenado en nuestros servidores
+
+**Garantías de Privacidad:**
+- ✅ NO almacenamos emails en ningún servidor
+- ✅ NO creamos bases de datos de consultas
+- ✅ NO asociamos emails con usuarios
+- ✅ Cada consulta es anónima e independiente
+- ✅ Rate limiting previene abuso del servicio
 
 ## 🔒 Seguridad y Privacidad
 
@@ -167,13 +219,28 @@ Este proyecto está abierto a contribuciones de la comunidad:
 - Email: Para consultas profesionales vía LinkedIn
 
 
+## 💰 Costos y Sustentabilidad
+
+### Costos de Desarrollo y Operación
+- **Claude Code API**: ~$35 USD (desarrollo inicial)
+- **Have I Been Pwned API**: ~$45 USD/año (verificación de brechas)
+- **Hosting Vercel**: $0 USD (plan gratuito)
+- **Dominio**: ~$20 USD/año
+- **Total anual**: ~$65 USD
+
+### Modelo de Sustentabilidad
+- **100% gratuito** para todos los usuarios
+- **Autofinanciado** por compromiso social de democratizar la ciberseguridad
+- **Open source** para transparencia total y contribuciones de la comunidad
+- **Sin monetización** - proyecto sin fines de lucro
+
 ## 🤖 Desarrollo con IA
 
 **Este proyecto fue desarrollado 100% con Vibe Coding usando Claude Code**, demostrando el poder de la IA para crear soluciones educativas complejas:
 
 **Vibe Coding** es una práctica de desarrollo de software que utiliza IA, específicamente modelos de lenguaje grandes (LLMs), para generar código a partir de prompts en lenguaje natural. Enfatiza un enfoque conversacional y hands-off donde el desarrollador guía la IA en lugar de escribir código manualmente. Este método busca acelerar el desarrollo y hacer la creación de apps más accesible, particularmente para aquellos con experiencia limitada en programación.
 
-- **Plataforma**: [Claude Code](https://claude.ai/code) by Anthropic
+- **Plataforma**: [Claude Code](https://claude.ai/code) by Anthropic (gracias Akua)
 - **Desarrollo**: Completamente generado por IA
 - **Enfoque**: Desarrollo ético y transparente con IA
 

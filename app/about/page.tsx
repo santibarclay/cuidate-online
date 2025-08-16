@@ -320,8 +320,10 @@ export default function AboutPage() {
               <div>
                 <h4 className="font-semibold text-gray-900 mb-3">Cómo se hizo</h4>
                 <ul className="space-y-2 text-gray-700">
-                  <li>• <strong>Plataforma:</strong> Claude Code by Anthropic</li>
-                  <li>• <strong>Costo:</strong> ~$35 USD en tokens</li>
+                  <li>• <strong>Plataforma:</strong> Claude Code by Anthropic (gracias Akua)</li>
+                  <li>• <strong>Costo desarrollo:</strong> ~$35 USD en tokens</li>
+                  <li>• <strong>API Key HIBP:</strong> ~$45 USD/año (verificación de brechas)</li>
+                  <li>• <strong>Dominio:</strong> ~$20 USD/año</li>
                   <li>• <strong>Tiempo:</strong> 2 sesiones intensivas</li>
                   <li>• <strong>Líneas:</strong> 5,479 de código</li>
                 </ul>

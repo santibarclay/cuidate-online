@@ -19,13 +19,13 @@ export const MISSIONS: Mission[] = [
     level: 1,
     xp: 200,
     estimatedTime: "5 minutos",
-    risk: "En Argentina, el 85% de las personas usa contraseñas débiles y el 42% fue víctima de algún tipo de fraude digital. Las contraseñas comprometidas son la puerta de entrada más común para criminales.",
+    risk: "",
     steps: [],
     tips: [
-      "Una contraseña 'hackeada' significa que fue expuesta en una brecha de datos de alguna empresa",
-      "Si reconocés alguna contraseña comprometida, cambiala inmediatamente en todos los sitios donde la uses",
-      "Las contraseñas más seguras combinan mayúsculas, minúsculas, números y símbolos",
-      "Es mejor tener una contraseña larga y fácil de recordar que una corta y compleja"
+      "Una contraseña 'expuesta' significa que está publicada en internet. Esto puede pasar cuando hackean un sitio web donde te registraste, caes en phishing, o un virus la roba de tu dispositivo",
+      "Si reconocés alguna contraseña expuesta, cambiala inmediatamente en todos los sitios donde la uses",
+      "Es mejor tener una contraseña larga y fácil de recordar que una corta y compleja",
+      "Más adelante aprenderemos cómo protegernos del phishing y los virus que roban contraseñas"
     ],
     resources: []
   },

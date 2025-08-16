@@ -141,6 +141,84 @@ export default function PrivacyPolicyPage() {
           </CardContent>
         </Card>
 
+        {/* Verificación de Brechas */}
+        <Card className="mb-8">
+          <CardHeader>
+            <CardTitle>🔍 Verificación de Brechas de Datos</CardTitle>
+          </CardHeader>
+          <CardContent className="p-6">
+            <div className="space-y-6">
+              <p className="text-gray-700">
+                <strong>Cuidate Online</strong> ofrece un servicio de verificación de brechas de datos para ayudarte 
+                a identificar si tu información personal fue comprometida en ataques cibernéticos conocidos.
+              </p>
+
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                <h5 className="font-semibold text-green-800 mb-3">🔒 Tu privacidad está 100% protegida:</h5>
+                <ul className="text-green-700 space-y-2">
+                  <li>• <strong>NO almacenamos tu email:</strong> Tu dirección de correo se procesa únicamente durante la consulta y se descarta inmediatamente</li>
+                  <li>• <strong>NO guardamos resultados:</strong> Los datos de brechas encontradas no se almacenan en nuestros servidores</li>
+                  <li>• <strong>NO creamos perfiles:</strong> No asociamos consultas con usuarios individuales</li>
+                  <li>• <strong>Consultas anónimas:</strong> Cada verificación es completamente independiente y anónima</li>
+                </ul>
+              </div>
+
+              <div className="space-y-4">
+                <h5 className="font-semibold text-gray-800">Proveedores de datos utilizados:</h5>
+                
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <h6 className="font-semibold text-blue-800 mb-2">Have I Been Pwned (HIBP)</h6>
+                  <ul className="text-blue-700 text-sm space-y-1">
+                    <li>• <strong>Uso:</strong> Base de datos principal en producción</li>
+                    <li>• <strong>Datos:</strong> Información de brechas verificadas y confirmadas</li>
+                    <li>• <strong>Transmisión:</strong> Tu email se envía via HTTPS a la API oficial de HIBP</li>
+                    <li>• <strong>Procesamiento:</strong> HIBP procesa tu consulta y devuelve información de brechas (sin contraseñas)</li>
+                    <li>• <strong>Límites:</strong> 3 consultas por IP cada 24 horas para prevenir abuso</li>
+                    <li>• <strong>Política de HIBP:</strong> <a href="https://haveibeenpwned.com/Privacy" target="_blank" className="underline">haveibeenpwned.com/Privacy</a></li>
+                  </ul>
+                </div>
+
+                <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                  <h6 className="font-semibold text-gray-800 mb-2">ProxyNova</h6>
+                  <ul className="text-gray-700 text-sm space-y-1">
+                    <li>• <strong>Uso:</strong> Base de datos de desarrollo/respaldo</li>
+                    <li>• <strong>Datos:</strong> Colección de credenciales expuestas públicamente</li>
+                    <li>• <strong>Limitaciones:</strong> Base de datos más básica, puede mostrar contraseñas parciales</li>
+                    <li>• <strong>Disponibilidad:</strong> Sin límites de consulta</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                <h5 className="font-semibold text-yellow-800 mb-2">⚠️ Importante sobre el procesamiento de emails:</h5>
+                <ul className="text-yellow-700 text-sm space-y-1">
+                  <li>• Tu email se transmite temporalmente a servicios externos (HIBP/ProxyNova) para realizar la consulta</li>
+                  <li>• Esta transmisión es necesaria para verificar si tu email apareció en brechas conocidas</li>
+                  <li>• Los servicios externos tienen sus propias políticas de privacidad (enlazadas arriba)</li>
+                  <li>• Una vez completada la consulta, tu email no queda almacenado en Cuidate Online</li>
+                  <li>• Puedes elegir qué proveedor usar en la página de verificación avanzada</li>
+                </ul>
+              </div>
+
+              <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
+                <h5 className="font-semibold text-orange-800 mb-2">🛡️ Medidas de protección implementadas:</h5>
+                <ul className="text-orange-700 text-sm space-y-1">
+                  <li>• <strong>Rate limiting:</strong> Máximo 3 consultas HIBP por IP cada 24 horas</li>
+                  <li>• <strong>Validación de entrada:</strong> Solo emails válidos son procesados</li>
+                  <li>• <strong>HTTPS obligatorio:</strong> Toda comunicación está encriptada</li>
+                  <li>• <strong>Sin logs persistentes:</strong> No guardamos registros de consultas de emails</li>
+                  <li>• <strong>Acceso controlado:</strong> Página avanzada protegida por contraseña</li>
+                </ul>
+              </div>
+
+              <p className="text-sm text-gray-600 mt-4">
+                <strong>Recomendación:</strong> Usa un email de prueba o secundario si prefieres máxima privacidad, 
+                aunque tu email principal no será almacenado bajo ninguna circunstancia.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Seguridad */}
         <Card className="mb-8">
           <CardHeader>

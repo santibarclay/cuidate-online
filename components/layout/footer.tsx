@@ -14,10 +14,13 @@ export function Footer() {
           
           <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-sm text-gray-600">
             <Link href="/about" className="hover:text-gray-900">
-              Sobre Santiago
+              Sobre el sitio
             </Link>
             <Link href="/privacy" className="hover:text-gray-900">
               Privacidad
+            </Link>
+            <Link href="/breach-checker" className="hover:text-gray-900">
+              Verificar brechas
             </Link>
           </div>
         </div>
@@ -35,15 +38,7 @@ export function Footer() {
             </a>
           </p>
           <p className="mt-1 text-xs">
-            Desarrollado 100% con IA • Built with{' '}
-            <a 
-              href="https://claude.ai/code" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-security-blue hover:underline"
-            >
-              Claude Code
-            </a>
+            Desarrollado 100% con IA
           </p>
           <p className="mt-2">
             Protegé tu vida digital, paso a paso 🛡️

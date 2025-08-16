@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Mail, AlertTriangle, CheckCircle, Loader2, ExternalLink } from 'lucide-react';
+import { Mail, AlertTriangle, CheckCircle, Loader2, ExternalLink, Eye, EyeOff } from 'lucide-react';
 import { UserPreferences } from '@/lib/gamification';
 
 interface PasswordBreachCheckerProps {
@@ -23,6 +23,7 @@ export function PasswordBreachChecker({ userPreferences, onComplete }: PasswordB
   const [isLoading, setIsLoading] = useState(false);
   const [breaches, setBreaches] = useState<BreachResult[]>([]);
   const [error, setError] = useState('');
+  const [visiblePasswords, setVisiblePasswords] = useState<Set<number>>(new Set());
 
   const isGmailUser = userPreferences.email === 'gmail';
 
@@ -34,6 +35,16 @@ export function PasswordBreachChecker({ userPreferences, onComplete }: PasswordB
 
   const handleComplete = () => {
     onComplete(100);
+  };
+
+  const togglePasswordVisibility = (index: number) => {
+    const newVisible = new Set(visiblePasswords);
+    if (newVisible.has(index)) {
+      newVisible.delete(index);
+    } else {
+      newVisible.add(index);
+    }
+    setVisiblePasswords(newVisible);
   };
 
   const handleEmailCheck = async () => {
@@ -51,48 +62,39 @@ export function PasswordBreachChecker({ userPreferences, onComplete }: PasswordB
     setError('');
     
     try {
-      // Extract username from email (part before @)
-      const username = email.split('@')[0];
-      
-      // Call the ProxyNova API
-      const response = await fetch(`https://api.proxynova.com/comb?query=${username}&start=0&limit=15`);
-      
-      if (!response.ok) {
-        throw new Error('Error al verificar contraseñas');
-      }
+      // Use our new API endpoint that handles both HIBP and ProxyNova
+      const response = await fetch('/api/hibp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email })
+      });
       
       const data = await response.json();
       
-      if (data && data.lines && Array.isArray(data.lines)) {
-        // Process the results to show partial passwords
-        const processedBreaches = data.lines.map((line: any) => {
-          const password = line.password || '';
-          let partialPassword = '';
-          
-          if (password.length > 0) {
-            if (password.length <= 3) {
-              partialPassword = password.charAt(0) + '*'.repeat(password.length - 1);
-            } else {
-              partialPassword = password.charAt(0) + '*'.repeat(Math.min(password.length - 2, 8)) + (password.length > 1 ? password.charAt(password.length - 1) : '');
-            }
-          }
-          
-          return {
-            password: password,
-            partialPassword: partialPassword,
-            source: line.source || 'Base de datos comprometida'
-          };
-        }).filter((breach: BreachResult) => breach.password.length > 0);
-        
-        setBreaches(processedBreaches);
+      if (!response.ok) {
+        setError(data.error || 'Error al verificar contraseñas');
+        return;
+      }
+      
+      if (data.source === 'hibp') {
+        // HIBP returns breach objects, not password data
+        // Convert to our expected format for display
+        const hibpBreaches = data.breaches.map((breach: any) => ({
+          password: `Brecha: ${breach.title}`,
+          partialPassword: `🔓 ${breach.title}`,
+          source: `${breach.domain} (${new Date(breach.breachDate).getFullYear()})`
+        }));
+        setBreaches(hibpBreaches);
       } else {
-        setBreaches([]);
+        // ProxyNova format - already processed
+        setBreaches(data.breaches);
       }
       
       setStep('results');
     } catch (err) {
       console.error('Error checking breaches:', err);
-      // Don't expose the actual error, show generic message
       setError('No pudimos verificar tus contraseñas en este momento. Esto no significa que estés seguro. Te recomendamos usar contraseñas únicas y seguras para cada cuenta.');
     } finally {
       setIsLoading(false);
@@ -105,7 +107,7 @@ export function PasswordBreachChecker({ userPreferences, onComplete }: PasswordB
         <div className="text-6xl mb-4">🔐</div>
         <h3 className="text-xl font-semibold mb-2">Verificación de contraseñas</h3>
         <p className="text-gray-600">
-          Vamos a verificar si alguna de tus contraseñas fue comprometida en brechas de datos
+          Vamos a verificar si alguna de tus contraseñas fue expuesta en brechas de datos
         </p>
       </div>
       
@@ -206,7 +208,7 @@ export function PasswordBreachChecker({ userPreferences, onComplete }: PasswordB
             <div className="text-6xl mb-4">🔍</div>
             <h3 className="text-xl font-semibold mb-2">Revisá tus resultados en Google</h3>
             <p className="text-gray-600">
-              Google te mostrará si encontró contraseñas hackeadas en tu navegador
+              Google te mostrará si encontró contraseñas expuestas en tu navegador
             </p>
           </div>
           
@@ -219,7 +221,7 @@ export function PasswordBreachChecker({ userPreferences, onComplete }: PasswordB
                 <div className="flex items-start space-x-2">
                   <AlertTriangle className="h-5 w-5 text-orange-600 mt-0.5 flex-shrink-0" />
                   <div>
-                    <p className="font-medium">Si Google encontró contraseñas hackeadas:</p>
+                    <p className="font-medium">Si Google encontró contraseñas expuestas:</p>
                     <p className="text-sm">Cambiá inmediatamente esas contraseñas. Google te mostrará en qué sitios las usás.</p>
                   </div>
                 </div>
@@ -242,8 +244,8 @@ export function PasswordBreachChecker({ userPreferences, onComplete }: PasswordB
             </div>
             <h3 className="text-xl font-semibold mb-2">
               {breaches.length > 0 
-                ? `Encontramos ${breaches.length} contraseña${breaches.length > 1 ? 's' : ''} comprometida${breaches.length > 1 ? 's' : ''}` 
-                : 'No encontramos contraseñas comprometidas'
+                ? `Encontramos ${breaches.length} contraseña${breaches.length > 1 ? 's' : ''} expuesta${breaches.length > 1 ? 's' : ''}` 
+                : 'No encontramos contraseñas expuestas'
               }
             </h3>
           </div>
@@ -261,10 +263,31 @@ export function PasswordBreachChecker({ userPreferences, onComplete }: PasswordB
                   {breaches.map((breach, index) => (
                     <div key={index} className="bg-white p-3 rounded border border-red-200">
                       <div className="flex items-center justify-between">
-                        <div>
-                          <p className="font-mono text-lg font-bold text-red-600">
-                            {breach.partialPassword}
-                          </p>
+                        <div className="flex-1">
+                          <div className="flex items-center space-x-2 mb-2">
+                            <p className="font-mono text-lg font-bold text-red-600">
+                              {visiblePasswords.has(index) 
+                                ? breach.password 
+                                : breach.partialPassword}
+                            </p>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => togglePasswordVisibility(index)}
+                            >
+                              {visiblePasswords.has(index) ? (
+                                <>
+                                  <EyeOff className="h-3 w-3 mr-1" />
+                                  Ocultar
+                                </>
+                              ) : (
+                                <>
+                                  <Eye className="h-3 w-3 mr-1" />
+                                  Mostrar
+                                </>
+                              )}
+                            </Button>
+                          </div>
                           <p className="text-sm text-gray-600">
                             Fuente: {breach.source}
                           </p>
@@ -302,7 +325,6 @@ export function PasswordBreachChecker({ userPreferences, onComplete }: PasswordB
                   <div className="bg-white p-3 rounded border border-green-200">
                     <h4 className="font-medium text-green-800 mb-2">Recordatorios importantes:</h4>
                     <ul className="text-sm space-y-1">
-                      <li>• Seguí usando contraseñas únicas para cada cuenta</li>
                       <li>• Las brechas nuevas ocurren todo el tiempo</li>
                       <li>• Mantené tus contraseñas seguras</li>
                     </ul>

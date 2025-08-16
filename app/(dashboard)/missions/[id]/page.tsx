@@ -231,24 +231,26 @@ export default function MissionPage() {
         </Card>
       </div>
 
-      {/* Risk Alert */}
-      <Card className="mb-8 border-orange-200 bg-orange-50">
-        <CardContent className="p-6">
-          <div className="flex items-start space-x-3">
-            <AlertTriangle className="h-6 w-6 text-orange-600 flex-shrink-0 mt-1" />
-            <div>
-              <h3 className="font-semibold text-orange-800 mb-2">
-                {mission.id === 'activar-2fa-email-whatsapp' 
-                  ? '¿Qué es el segundo factor de autenticación?' 
-                  : '¿Por qué es importante esta misión?'}
-              </h3>
-              <p className="text-orange-700">
-                {mission.risk}
-              </p>
+      {/* Risk Alert - Only show if there's risk content */}
+      {mission.risk && mission.risk.trim().length > 0 && (
+        <Card className="mb-8 border-orange-200 bg-orange-50">
+          <CardContent className="p-6">
+            <div className="flex items-start space-x-3">
+              <AlertTriangle className="h-6 w-6 text-orange-600 flex-shrink-0 mt-1" />
+              <div>
+                <h3 className="font-semibold text-orange-800 mb-2">
+                  {mission.id === 'activar-2fa-email-whatsapp' 
+                    ? '¿Qué es el segundo factor de autenticación?' 
+                    : '¿Por qué es importante esta misión?'}
+                </h3>
+                <p className="text-orange-700">
+                  {mission.risk}
+                </p>
+              </div>
             </div>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Mission Content - Only show if there are steps */}
       {mission.steps.length > 0 && (
@@ -400,7 +402,7 @@ export default function MissionPage() {
             {!showInteractive && !showQuiz ? (
               <div className="text-center py-6">
                 <p className="text-gray-600 mb-6">
-                  {missionId === 'cuidemos-contrasenas' && 'Ahora vamos a verificar si alguna de tus contraseñas fue comprometida'}
+                  {missionId === 'cuidemos-contrasenas' && 'Ahora vamos a verificar si alguna de tus contraseñas está expuesta'}
                   {missionId === 'activar-2fa-email-whatsapp' && 'Seguí las guías personalizadas para activar 2FA en tus cuentas'}
                   {missionId === 'detectar-estafas' && 'Practicá identificando estafas reales de internet'}
                 </p>
