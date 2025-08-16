@@ -150,19 +150,19 @@ export default function HomePage() {
           <div className="space-y-4 sm:space-y-6 mb-6 sm:mb-8 max-w-2xl mx-auto">
             <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm text-left">
               <div className="flex items-start space-x-3">
-                <div className="text-2xl font-bold text-red-600 mt-1">1.</div>
+                <div className="text-base sm:text-lg font-bold text-red-600 flex-shrink-0">1.</div>
                 <p className="text-base sm:text-lg text-gray-700">Tu contraseña fue hackeada y no lo sabés.</p>
               </div>
             </div>
             <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm text-left">
               <div className="flex items-start space-x-3">
-                <div className="text-2xl font-bold text-red-600 mt-1">2.</div>
+                <div className="text-base sm:text-lg font-bold text-red-600 flex-shrink-0">2.</div>
                 <p className="text-base sm:text-lg text-gray-700">No usás segundo factor de autenticación.</p>
               </div>
             </div>
             <div className="bg-white p-4 sm:p-6 rounded-lg shadow-sm text-left">
               <div className="flex items-start space-x-3">
-                <div className="text-2xl font-bold text-red-600 mt-1">3.</div>
+                <div className="text-base sm:text-lg font-bold text-red-600 flex-shrink-0">3.</div>
                 <p className="text-base sm:text-lg text-gray-700">No te detenés a pensar antes de hacer click o dar algún dato personal.</p>
               </div>
             </div>
