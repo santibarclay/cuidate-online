@@ -11,11 +11,31 @@ interface PasswordBreachCheckerProps {
   onComplete: (score?: number) => void;
 }
 
-interface BreachResult {
+interface HIBPBreach {
+  name: string;
+  title: string;
+  domain: string;
+  breachDate: string;
+  addedDate: string;
+  modifiedDate: string;
+  pwnCount: number;
+  description: string;
+  logoPath?: string;
+  dataClasses: string[];
+  isVerified: boolean;
+  isFabricated: boolean;
+  isSensitive: boolean;
+  isRetired: boolean;
+  isSpamList: boolean;
+}
+
+interface ProxyNovaBreachResult {
   password: string;
   partialPassword: string;
   source: string;
 }
+
+type BreachResult = HIBPBreach | ProxyNovaBreachResult;
 
 export function PasswordBreachChecker({ userPreferences, onComplete }: PasswordBreachCheckerProps) {
   const [step, setStep] = useState<'intro' | 'checking' | 'results'>('intro');
@@ -24,7 +44,9 @@ export function PasswordBreachChecker({ userPreferences, onComplete }: PasswordB
   const [breaches, setBreaches] = useState<BreachResult[]>([]);
   const [error, setError] = useState('');
   const [visiblePasswords, setVisiblePasswords] = useState<Set<number>>(new Set());
+  const [expandedBreaches, setExpandedBreaches] = useState<Set<number>>(new Set());
   const [skippedVerification, setSkippedVerification] = useState(false);
+  const [apiResponse, setApiResponse] = useState<{ breaches: BreachResult[]; source: 'hibp' | 'proxynova' } | null>(null);
 
   const isGmailUser = userPreferences.email === 'gmail';
 
@@ -53,6 +75,20 @@ export function PasswordBreachChecker({ userPreferences, onComplete }: PasswordB
       newVisible.add(index);
     }
     setVisiblePasswords(newVisible);
+  };
+
+  const toggleBreachExpansion = (index: number) => {
+    const newExpanded = new Set(expandedBreaches);
+    if (newExpanded.has(index)) {
+      newExpanded.delete(index);
+    } else {
+      newExpanded.add(index);
+    }
+    setExpandedBreaches(newExpanded);
+  };
+
+  const isHIBPBreach = (breach: BreachResult): breach is HIBPBreach => {
+    return 'name' in breach && 'title' in breach;
   };
 
   const stripHtmlTags = (html: string): string => {
@@ -84,25 +120,14 @@ export function PasswordBreachChecker({ userPreferences, onComplete }: PasswordB
       });
       
       const data = await response.json();
-      
+
       if (!response.ok) {
         setError(data.error || 'Error al verificar contraseñas');
         return;
       }
-      
-      if (data.source === 'hibp') {
-        // HIBP returns breach objects, not password data
-        // Convert to our expected format for display
-        const hibpBreaches = data.breaches.map((breach: any) => ({
-          password: `Brecha: ${breach.title}`,
-          partialPassword: `🔓 ${breach.title}`,
-          source: `${breach.domain} (${new Date(breach.breachDate).getFullYear()})`
-        }));
-        setBreaches(hibpBreaches);
-      } else {
-        // ProxyNova format - already processed
-        setBreaches(data.breaches);
-      }
+
+      setApiResponse(data);
+      setBreaches(data.breaches);
       
       setStep('results');
     } catch (err) {
@@ -281,61 +306,167 @@ export function PasswordBreachChecker({ userPreferences, onComplete }: PasswordB
           </div>
           
           {breaches.length > 0 ? (
-            <Card className="bg-red-50 border-red-200">
-              <CardHeader>
-                <CardTitle className="text-lg text-red-800 flex items-center space-x-2">
-                  <AlertTriangle className="h-5 w-5" />
-                  <span>Contraseñas encontradas en brechas</span>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  {breaches.map((breach, index) => (
-                    <div key={index} className="bg-white p-3 rounded border border-red-200">
-                      <div className="flex items-center justify-between">
-                        <div className="flex-1">
-                          <div className="flex items-center space-x-2 mb-2">
+            <div className="space-y-4">
+              {breaches.map((breach, index) => (
+                <Card key={index} className="bg-red-50 border-red-200">
+                  <CardHeader>
+                    <CardTitle className="text-lg text-red-800 flex items-center space-x-2">
+                      <AlertTriangle className="h-5 w-5" />
+                      <span>
+                        {isHIBPBreach(breach) ? breach.title : 'Contraseña Expuesta'}
+                      </span>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    {isHIBPBreach(breach) ? (
+                      <div className="space-y-4">
+                        {/* Información básica - siempre visible */}
+                        <div className="space-y-2">
+                          <div className="flex items-center space-x-2">
+                            <span className="font-medium">Fecha de la brecha:</span>
+                            <span>{new Date(breach.breachDate).toLocaleDateString('es-AR')}</span>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <span className="font-medium">Cuentas afectadas:</span>
+                            <span>{breach.pwnCount.toLocaleString('es-AR')}</span>
+                          </div>
+                          {breach.domain && (
+                            <div className="flex items-center space-x-2">
+                              <span className="font-medium">Sitio:</span>
+                              <span>{breach.domain}</span>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Botón Ver más */}
+                        <div className="flex justify-center">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => toggleBreachExpansion(index)}
+                            className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                          >
+                            {expandedBreaches.has(index) ? (
+                              <>
+                                <EyeOff className="h-4 w-4 mr-1" />
+                                Ver menos
+                              </>
+                            ) : (
+                              <>
+                                <Eye className="h-4 w-4 mr-1" />
+                                Ver más
+                              </>
+                            )}
+                          </Button>
+                        </div>
+
+                        {/* Información detallada - solo visible cuando está expandido */}
+                        {expandedBreaches.has(index) && (
+                          <div className="space-y-4">
+                            <div>
+                              <span className="font-medium">Datos comprometidos:</span>
+                              <div className="mt-1 flex flex-wrap gap-1">
+                                {breach.dataClasses.map((dataClass, i) => (
+                                  <span key={i} className="bg-red-100 text-red-800 text-xs px-2 py-1 rounded">
+                                    {dataClass}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+
+                            <div className="bg-white p-3 rounded border border-red-200">
+                              <h4 className="font-medium text-gray-800 mb-2">Descripción de la brecha:</h4>
+                              <p className="text-sm text-gray-700">{stripHtmlTags(breach.description)}</p>
+                            </div>
+
+                            <div className="bg-gray-50 p-3 rounded border border-gray-200">
+                              <div className="text-xs text-gray-600 space-y-1">
+                                <div className="flex justify-between">
+                                  <span>Agregado a HIBP:</span>
+                                  <span>{new Date(breach.addedDate).toLocaleDateString('es-AR')}</span>
+                                </div>
+                                {breach.modifiedDate && (
+                                  <div className="flex justify-between">
+                                    <span>Última modificación:</span>
+                                    <span>{new Date(breach.modifiedDate).toLocaleDateString('es-AR')}</span>
+                                  </div>
+                                )}
+                                <div className="flex justify-between">
+                                  <span>Estado de verificación:</span>
+                                  <span className={breach.isVerified ? 'text-green-600' : 'text-yellow-600'}>
+                                    {breach.isVerified ? 'Verificado' : 'No verificado'}
+                                  </span>
+                                </div>
+                                {breach.isSensitive && (
+                                  <div className="flex justify-between">
+                                    <span>Brecha sensible:</span>
+                                    <span className="text-red-600">Sí</span>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+
+                            {!breach.isVerified && (
+                              <div className="bg-yellow-50 border border-yellow-200 rounded p-3">
+                                <p className="text-yellow-800 text-sm">
+                                  ⚠️ Esta brecha no ha sido verificada completamente
+                                </p>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <div className="space-y-2">
+                        <div className="bg-white p-3 rounded border border-red-200">
+                          <div className="flex items-center justify-between mb-2">
                             <p className="font-mono text-lg font-bold text-red-600">
-                              {visiblePasswords.has(index) 
-                                ? breach.password 
-                                : breach.partialPassword}
+                              {visiblePasswords.has(index)
+                                ? (breach as ProxyNovaBreachResult).password
+                                : (breach as ProxyNovaBreachResult).partialPassword}
                             </p>
                             <Button
                               variant="outline"
                               size="sm"
                               onClick={() => togglePasswordVisibility(index)}
+                              className="ml-2"
                             >
                               {visiblePasswords.has(index) ? (
                                 <>
-                                  <EyeOff className="h-3 w-3 mr-1" />
+                                  <EyeOff className="h-4 w-4 mr-1" />
                                   Ocultar
                                 </>
                               ) : (
                                 <>
-                                  <Eye className="h-3 w-3 mr-1" />
+                                  <Eye className="h-4 w-4 mr-1" />
                                   Mostrar
                                 </>
                               )}
                             </Button>
                           </div>
                           <p className="text-sm text-gray-600">
-                            Fuente: {breach.source}
+                            Fuente: {(breach as ProxyNovaBreachResult).source}
                           </p>
                         </div>
                       </div>
-                    </div>
-                  ))}
-                  
-                  <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-                    <h4 className="font-medium text-yellow-800 mb-2">🚨 Qué hacer ahora</h4>
-                    <ul className="text-sm text-yellow-700 space-y-1">
-                      <li>• <strong>Pensá qué contraseña usaste en este o estos sitios</strong>, y cambiala en todos los lugares donde la estés usando, y no la uses más</li>
-                      <li>• Activá la autenticación de dos factores donde sea posible (misión disponible en la plataforma)</li>
-                    </ul>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                    )}
+                  </CardContent>
+                </Card>
+              ))}
+
+              <Card className="bg-orange-50 border-orange-200">
+                <CardHeader>
+                  <CardTitle className="text-orange-800">🚨 Qué hacer ahora</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2 text-orange-700">
+                    <li>• <strong>Pensá qué contraseña usaste en este o estos sitios</strong>, y cambiala en todos los lugares donde la estés usando, y no la uses más</li>
+                    <li>• Activá la autenticación de dos factores donde sea posible (misión disponible en la plataforma)</li>
+                    <li>• Considerá usar un administrador de contraseñas</li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </div>
           ) : (
             <Card className="bg-green-50 border-green-200">
               <CardHeader>

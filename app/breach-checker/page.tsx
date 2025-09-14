@@ -60,6 +60,7 @@ export default function BreachCheckerPage() {
   const [error, setError] = useState('');
   const [authError, setAuthError] = useState('');
   const [visiblePasswords, setVisiblePasswords] = useState<Set<number>>(new Set());
+  const [expandedBreaches, setExpandedBreaches] = useState<Set<number>>(new Set());
   // Check if we're in production (HIBP available) or development (ProxyNova only)
   const isProduction = process.env.NODE_ENV === 'production';
   const [selectedProvider, setSelectedProvider] = useState<'hibp' | 'proxynova'>(
@@ -155,6 +156,16 @@ export default function BreachCheckerPage() {
       newVisible.add(index);
     }
     setVisiblePasswords(newVisible);
+  };
+
+  const toggleBreachExpansion = (index: number) => {
+    const newExpanded = new Set(expandedBreaches);
+    if (newExpanded.has(index)) {
+      newExpanded.delete(index);
+    } else {
+      newExpanded.add(index);
+    }
+    setExpandedBreaches(newExpanded);
   };
 
   const renderAuthStep = () => (
@@ -338,8 +349,8 @@ export default function BreachCheckerPage() {
           </h1>
           <p className="text-gray-600">
             {isHIBP 
-              ? <span translate="no">Resultados de Have I Been Pwned (base de datos completa)</span>
-              : 'Resultados de ProxyNova (desarrollo/local)'}
+              ? <span translate="no">Resultados de Have I Been Pwned</span>
+              : 'Resultados de ProxyNova'}
           </p>
         </div>
 
@@ -358,27 +369,52 @@ export default function BreachCheckerPage() {
                 <CardContent>
                   {isHIBPBreach(breach) ? (
                     <div className="space-y-4">
-                      <div className="grid md:grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <div className="flex items-center space-x-2">
-                            <Calendar className="h-4 w-4 text-red-600" />
-                            <span className="font-medium">Fecha de la brecha:</span>
-                            <span>{new Date(breach.breachDate).toLocaleDateString('es-AR')}</span>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <Users className="h-4 w-4 text-red-600" />
-                            <span className="font-medium">Cuentas afectadas:</span>
-                            <span>{breach.pwnCount.toLocaleString('es-AR')}</span>
-                          </div>
-                          {breach.domain && (
-                            <div className="flex items-center space-x-2">
-                              <ExternalLink className="h-4 w-4 text-red-600" />
-                              <span className="font-medium">Sitio:</span>
-                              <span>{breach.domain}</span>
-                            </div>
-                          )}
+                      {/* Información básica - siempre visible */}
+                      <div className="space-y-2">
+                        <div className="flex items-center space-x-2">
+                          <Calendar className="h-4 w-4 text-red-600" />
+                          <span className="font-medium">Fecha de la brecha:</span>
+                          <span>{new Date(breach.breachDate).toLocaleDateString('es-AR')}</span>
                         </div>
-                        <div>
+                        <div className="flex items-center space-x-2">
+                          <Users className="h-4 w-4 text-red-600" />
+                          <span className="font-medium">Cuentas afectadas:</span>
+                          <span>{breach.pwnCount.toLocaleString('es-AR')}</span>
+                        </div>
+                        {breach.domain && (
+                          <div className="flex items-center space-x-2">
+                            <ExternalLink className="h-4 w-4 text-red-600" />
+                            <span className="font-medium">Sitio:</span>
+                            <span>{breach.domain}</span>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Botón Ver más */}
+                      <div className="flex justify-center">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => toggleBreachExpansion(index)}
+                          className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                        >
+                          {expandedBreaches.has(index) ? (
+                            <>
+                              <EyeOff className="h-4 w-4 mr-1" />
+                              Ver menos
+                            </>
+                          ) : (
+                            <>
+                              <Eye className="h-4 w-4 mr-1" />
+                              Ver más
+                            </>
+                          )}
+                        </Button>
+                      </div>
+
+                      {/* Información detallada - solo visible cuando está expandido */}
+                      {expandedBreaches.has(index) && (
+                        <div className="space-y-4">
                           <div className="flex items-start space-x-2">
                             <Database className="h-4 w-4 text-red-600 mt-1" />
                             <div>
@@ -392,18 +428,46 @@ export default function BreachCheckerPage() {
                               </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                      
-                      <div className="bg-white p-3 rounded border border-red-200">
-                        <p className="text-sm text-gray-700" translate="yes">{stripHtmlTags(breach.description)}</p>
-                      </div>
-                      
-                      {!breach.isVerified && (
-                        <div className="bg-yellow-50 border border-yellow-200 rounded p-3">
-                          <p className="text-yellow-800 text-sm">
-                            ⚠️ Esta brecha no ha sido verificada completamente
-                          </p>
+
+                          <div className="bg-white p-3 rounded border border-red-200">
+                            <h4 className="font-medium text-gray-800 mb-2">Descripción de la brecha:</h4>
+                            <p className="text-sm text-gray-700" translate="yes">{stripHtmlTags(breach.description)}</p>
+                          </div>
+
+                          <div className="bg-gray-50 p-3 rounded border border-gray-200">
+                            <div className="text-xs text-gray-600 space-y-1">
+                              <div className="flex justify-between">
+                                <span>Agregado a HIBP:</span>
+                                <span>{new Date(breach.addedDate).toLocaleDateString('es-AR')}</span>
+                              </div>
+                              {breach.modifiedDate && (
+                                <div className="flex justify-between">
+                                  <span>Última modificación:</span>
+                                  <span>{new Date(breach.modifiedDate).toLocaleDateString('es-AR')}</span>
+                                </div>
+                              )}
+                              <div className="flex justify-between">
+                                <span>Estado de verificación:</span>
+                                <span className={breach.isVerified ? 'text-green-600' : 'text-yellow-600'}>
+                                  {breach.isVerified ? 'Verificado' : 'No verificado'}
+                                </span>
+                              </div>
+                              {breach.isSensitive && (
+                                <div className="flex justify-between">
+                                  <span>Brecha sensible:</span>
+                                  <span className="text-red-600">Sí</span>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+
+                          {!breach.isVerified && (
+                            <div className="bg-yellow-50 border border-yellow-200 rounded p-3">
+                              <p className="text-yellow-800 text-sm">
+                                ⚠️ Esta brecha no ha sido verificada completamente
+                              </p>
+                            </div>
+                          )}
                         </div>
                       )}
                     </div>
@@ -493,6 +557,7 @@ export default function BreachCheckerPage() {
             setEmail(''); 
             setResults(null); 
             setVisiblePasswords(new Set());
+            setExpandedBreaches(new Set());
           }}>
             Verificar otro email
           </Button>
