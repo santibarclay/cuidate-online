@@ -93,7 +93,7 @@ export function FeedbackWidget({ className = '' }: FeedbackWidgetProps) {
               <span>Feedback</span>
             </CardTitle>
             <Button
-              variant="ghost"
+              variant="outline"
               size="sm"
               onClick={() => setIsOpen(false)}
               className="h-8 w-8 p-0"

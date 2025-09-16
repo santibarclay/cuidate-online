@@ -220,40 +220,6 @@ export function PasswordBreachChecker({ userPreferences, onComplete }: PasswordB
             </p>
           </div>
         </div>
-      ) : isGmailUser ? (
-        <div className="space-y-4">
-          <div className="text-center">
-            <div className="text-6xl mb-4">🔍</div>
-            <h3 className="text-xl font-semibold mb-2">Revisá tus resultados en Google</h3>
-            <p className="text-gray-600">
-              Google te mostrará si encontró contraseñas expuestas en tu navegador
-            </p>
-          </div>
-          
-          <Card className="bg-orange-50 border-orange-200">
-            <CardHeader>
-              <CardTitle className="text-lg text-orange-800">¿Qué hacer con los resultados?</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3 text-orange-700">
-                <div className="flex items-start space-x-2">
-                  <AlertTriangle className="h-5 w-5 text-orange-600 mt-0.5 flex-shrink-0" />
-                  <div>
-                    <p className="font-medium">Si Google encontró contraseñas expuestas:</p>
-                    <p className="text-sm">Cambiá inmediatamente esas contraseñas. Google te mostrará en qué sitios las usás.</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-2">
-                  <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                  <div>
-                    <p className="font-medium">Si no encontró problemas:</p>
-                    <p className="text-sm">¡Excelente! Cuando llegues a nivel 3 aprenderás algo más. Por ahora estas son super buenas noticias!</p>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
       ) : (
         <div className="space-y-4">
           <div className="text-center">
