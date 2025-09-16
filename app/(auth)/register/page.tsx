@@ -172,7 +172,7 @@ export default function RegisterPage() {
           <p className="text-sm text-gray-600">
             ¿Ya tenés una cuenta?{' '}
             <Link href="/dashboard" className="text-security-blue hover:underline">
-              Ir al dashboard
+              Ir al panel principal
             </Link>
           </p>
         </div>

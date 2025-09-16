@@ -36,7 +36,7 @@ export function Header() {
                   : 'text-gray-600 hover:text-gray-900'
               }`}
             >
-              Dashboard
+              Panel Principal
             </Link>
             {/* <Link 
               href="/leaderboard"
@@ -83,7 +83,7 @@ export function Header() {
               }`}
               onClick={() => setIsMenuOpen(false)}
             >
-              Dashboard
+              Panel Principal
             </Link>
             {/* <Link 
               href="/leaderboard"

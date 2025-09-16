@@ -105,7 +105,7 @@ export default function DashboardPage() {
               Hola {user.name}, seguí cuidándote {user.avatar}
             </h1>
             <p className="text-gray-600 mb-3 sm:mb-0">
-              Bienvenido a tu dashboard de {SITE_NAME}. Aquí podés ver tu progreso y continuar con tus misiones.
+              Bienvenido a tu panel principal de {SITE_NAME}. Aquí podés ver tu progreso y continuar con tus misiones.
             </p>
           </div>
           

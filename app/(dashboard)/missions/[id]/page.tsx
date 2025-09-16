@@ -178,7 +178,7 @@ export default function MissionPage() {
             <Button asChild>
               <Link href="/dashboard">
                 <ArrowLeft className="h-4 w-4 mr-2" />
-                Volver al Dashboard
+                Volver al Panel Principal
               </Link>
             </Button>
           </CardContent>
