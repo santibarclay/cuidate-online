@@ -9,9 +9,11 @@ import { UserPreferences } from '@/lib/gamification';
 interface TwoFactorSetupProps {
   userPreferences: UserPreferences;
   onComplete: (score?: number) => void;
+  emailOnly?: boolean;
+  whatsappOnly?: boolean;
 }
 
-export function TwoFactorSetup({ userPreferences, onComplete }: TwoFactorSetupProps) {
+export function TwoFactorSetup({ userPreferences, onComplete, emailOnly = false, whatsappOnly = false }: TwoFactorSetupProps) {
   const [completedSteps, setCompletedSteps] = useState<Set<string>>(new Set());
   
   const isGmailUser = userPreferences.email === 'gmail';
@@ -23,14 +25,18 @@ export function TwoFactorSetup({ userPreferences, onComplete }: TwoFactorSetupPr
     setCompletedSteps(newCompleted);
   };
 
-  const allStepsCompleted = completedSteps.has('email') && completedSteps.has('whatsapp');
+  const allStepsCompleted = emailOnly
+    ? completedSteps.has('email')
+    : whatsappOnly
+    ? completedSteps.has('whatsapp')
+    : completedSteps.has('email') && completedSteps.has('whatsapp');
 
   const renderEmailSection = () => (
     <Card className="mb-6">
       <CardHeader>
         <CardTitle className="flex items-center space-x-2">
           <Mail className="h-5 w-5 text-security-blue" />
-          <span>Parte A: Activar 2FA en tu correo</span>
+          <span>{emailOnly ? 'Activar 2FA en tu correo electrónico' : 'Parte A: Activar 2FA en tu correo'}</span>
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -142,7 +148,7 @@ export function TwoFactorSetup({ userPreferences, onComplete }: TwoFactorSetupPr
       <CardHeader>
         <CardTitle className="flex items-center space-x-2">
           <Smartphone className="h-5 w-5 text-green-600" />
-          <span>Parte B: Activar 2FA en WhatsApp</span>
+          <span>{whatsappOnly ? 'Activar 2FA en WhatsApp' : 'Parte B: Activar 2FA en WhatsApp'}</span>
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -223,14 +229,20 @@ export function TwoFactorSetup({ userPreferences, onComplete }: TwoFactorSetupPr
     <div className="max-w-4xl mx-auto space-y-6">
       <div className="text-center mb-8">
         <div className="text-6xl mb-4">🔐</div>
-        <h2 className="text-2xl font-semibold mb-2">Activar 2FA en Email y WhatsApp</h2>
+        <h2 className="text-2xl font-semibold mb-2">
+          {emailOnly ? 'Activar 2FA en tu correo electrónico' :
+           whatsappOnly ? 'Activar 2FA en WhatsApp' :
+           'Activar 2FA en Email y WhatsApp'}
+        </h2>
         <p className="text-gray-600">
-          Protegé tus cuentas más importantes con una capa extra de seguridad
+          {emailOnly ? 'Protegé tu correo electrónico con una capa extra de seguridad' :
+           whatsappOnly ? 'Protegé tu WhatsApp con verificación en dos pasos' :
+           'Protegé tus cuentas más importantes con una capa extra de seguridad'}
         </p>
       </div>
 
-      {renderEmailSection()}
-      {renderWhatsAppSection()}
+      {!whatsappOnly && renderEmailSection()}
+      {!emailOnly && renderWhatsAppSection()}
 
       <div className="text-center">
         <Button
@@ -245,13 +257,17 @@ export function TwoFactorSetup({ userPreferences, onComplete }: TwoFactorSetupPr
               ¡Completar misión!
             </>
           ) : (
-            'Completá ambas partes para continuar'
+            emailOnly ? 'Completá la configuración para continuar' :
+             whatsappOnly ? 'Completá la configuración para continuar' :
+             'Completá ambas partes para continuar'
           )}
         </Button>
         
         {!allStepsCompleted && (
           <p className="text-sm text-gray-500 mt-2">
-            Debés activar 2FA tanto en tu email como en WhatsApp
+            {emailOnly ? 'Debés activar 2FA en tu correo electrónico' :
+             whatsappOnly ? 'Debés activar 2FA en WhatsApp' :
+             'Debés activar 2FA tanto en tu email como en WhatsApp'}
           </p>
         )}
       </div>

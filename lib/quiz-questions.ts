@@ -49,10 +49,10 @@ export const QUIZ_QUESTIONS: Record<string, QuizQuestion[]> = {
       explanation: "No es aceptable tener ninguna contraseña hackeada activa. Todas las contraseñas comprometidas deben ser cambiadas inmediatamente, sin importar qué tan 'poco importante' parezca el sitio."
     }
   ],
-  "activar-2fa-email-whatsapp": [
+  "activar-2fa-email": [
     {
-      id: "2fa-1",
-      question: "¿Qué hace el 2FA (autenticación en dos pasos)?",
+      id: "2fa-email-1",
+      question: "¿Qué hace el 2FA (autenticación en dos pasos) en tu correo?",
       type: "multiple-choice",
       options: [
         "Te hace recordar dos contraseñas",
@@ -61,23 +61,47 @@ export const QUIZ_QUESTIONS: Record<string, QuizQuestion[]> = {
         "Te permite usar la misma contraseña en dos sitios"
       ],
       correct: "Requiere algo que sabés (contraseña) y algo que tenés (celular)",
-      explanation: "El 2FA agrega una capa extra de seguridad: incluso si roban tu contraseña, necesitan también tu celular para acceder a tu cuenta."
+      explanation: "El 2FA agrega una capa extra de seguridad: incluso si roban tu contraseña de email, necesitan también tu celular para acceder a tu cuenta."
     },
     {
-      id: "2fa-2",
-      question: "¿Cuándo WhatsApp te pide el PIN de verificación en dos pasos?",
+      id: "2fa-email-2",
+      question: "¿Qué es más seguro para el 2FA de tu correo?",
       type: "multiple-choice",
       options: [
-        "Cada vez que abrís la app",
-        "Solo al registrar WhatsApp en un dispositivo nuevo",
-        "Una vez por semana",
-        "Solo si te hackean"
+        "Recibir códigos por SMS",
+        "Usar una app autenticadora como Google Authenticator",
+        "Recibir códigos por email en otra cuenta",
+        "Usar preguntas de seguridad"
       ],
-      correct: "Solo al registrar WhatsApp en un dispositivo nuevo",
-      explanation: "WhatsApp solo te pedirá el PIN cuando intentes registrar tu número en un dispositivo diferente, no para uso diario."
+      correct: "Usar una app autenticadora como Google Authenticator",
+      explanation: "Las apps autenticadoras son más seguras que SMS porque no dependen de la red telefónica, que puede ser interceptada."
+    }
+  ],
+  "activar-2fa-whatsapp": [
+    {
+      id: "2fa-wa-1",
+      question: "Es normal que WhatsApp te pida tu PIN desde la aplicación cada cierto tiempo",
+      type: "true-false",
+      options: [
+        "Verdadero",
+        "Falso"
+      ],
+      correct: "Verdadero",
+      explanation: "Verdadero. WhatsApp te pide el PIN periódicamente (cada pocas semanas) desde la propia aplicación para asegurarse de que no te lo olvides."
     },
     {
-      id: "2fa-3",
+      id: "2fa-wa-2",
+      question: "Se debe ingresar el PIN cuando registro mi número en un dispositivo diferente",
+      type: "true-false",
+      options: [
+        "Verdadero",
+        "Falso"
+      ],
+      correct: "Verdadero",
+      explanation: "Verdadero. El PIN es obligatorio cuando intentás registrar tu número de WhatsApp en un dispositivo nuevo. Es la principal protección del 2FA."
+    },
+    {
+      id: "2fa-wa-3",
       question: "¿Qué NUNCA deberías hacer con tu PIN de WhatsApp?",
       type: "multiple-choice",
       options: [

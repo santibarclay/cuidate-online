@@ -80,14 +80,19 @@ export default function DashboardPage() {
   }
 
   const level1Missions = getMissionsByLevel(1);
-  const availableMissions = level1Missions.slice(0, 3); // Show only first 3 missions for MVP
+  const level2Missions = getMissionsByLevel(2);
+  const availableMissions = level1Missions; // Show all Level 1 missions
   
-  const nextMission = availableMissions.find(mission => !user.completedMissions.includes(mission.id));
+  // Find next mission from Level 1, then Level 2 if Level 1 is complete
+  const level1Completed = level1Missions.every(mission => user.completedMissions.includes(mission.id));
+  const nextMission = level1Missions.find(mission => !user.completedMissions.includes(mission.id)) ||
+    (level1Completed ? level2Missions.find(mission => !user.completedMissions.includes(mission.id)) : null);
   
+  const allMissions = [...level1Missions, ...level2Missions];
   const completionStats = {
-    totalMissions: availableMissions.length,
+    totalMissions: allMissions.length,
     completedMissions: user.completedMissions.length,
-    completionRate: Math.round((user.completedMissions.length / availableMissions.length) * 100) || 0
+    completionRate: Math.round((user.completedMissions.length / allMissions.length) * 100) || 0
   };
 
   return (
@@ -128,30 +133,29 @@ export default function DashboardPage() {
             </button>
           </div>
         </div>
-        
-        {!user.preferences?.isPersonalized && (
-          <div className="mt-4 p-4 sm:p-6 bg-gradient-to-r from-security-blue to-blue-600 text-white rounded-lg">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
-              <div className="flex-1">
-                <h4 className="font-bold text-base sm:text-lg mb-2 flex items-center">
-                  ✨ ¡Felicitaciones por tu medalla de Pionero Digital!
-                </h4>
-                <p className="text-blue-100 mb-3 text-sm sm:text-base">
-                  Ahora podés personalizar tu experiencia para recibir guías específicas para tus herramientas
-                </p>
-                <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-1 sm:space-y-0 text-xs sm:text-sm text-blue-100">
-                  <span>🌐 Navegador específico</span>
-                  <span>📱 Tipo de celular</span>
-                  <span>📧 Proveedor de email</span>
+
+        {/* Acción Principal - Primera Misión */}
+        {nextMission && (
+          <div className="mt-4">
+            <Link href={`/missions/${nextMission.id}`}>
+              <button className="w-full p-4 sm:p-6 bg-gradient-to-r from-security-green to-green-600 text-white rounded-lg hover:from-green-600 hover:to-green-700 transition-all cursor-pointer shadow-lg">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
+                  <div className="text-left">
+                    <h4 className="font-bold text-base sm:text-lg mb-1">
+                      {user.completedMissions.length === 0 ? '🚀 Primera Misión' : '🎯 Siguiente Misión'}
+                    </h4>
+                    <p className="text-green-100 text-sm sm:text-base">
+                      {nextMission.title}
+                    </p>
+                  </div>
+                  <div className="text-right sm:ml-4">
+                    <div className="text-xs sm:text-sm text-green-100">
+                      {nextMission.estimatedTime} • {nextMission.xp} XP
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <button 
-                onClick={() => setShowPersonalization(true)}
-                className="w-full sm:w-auto sm:ml-4 px-4 sm:px-6 py-2 sm:py-3 bg-white text-security-blue rounded-lg hover:bg-gray-100 transition-colors cursor-pointer font-bold text-sm sm:text-base shadow-lg"
-              >
-                ¡Personalizar ahora!
               </button>
-            </div>
+            </Link>
           </div>
         )}
       </div>
@@ -241,7 +245,7 @@ export default function DashboardPage() {
         </Card>
       )}
 
-      {/* All Missions */}
+      {/* Level 1 Missions */}
       <Card className="mb-8">
         <CardHeader>
           <CardTitle>Misiones Disponibles - Nivel 1</CardTitle>
@@ -253,22 +257,48 @@ export default function DashboardPage() {
                 key={mission.id}
                 mission={mission}
                 isCompleted={user.completedMissions.includes(mission.id)}
-                completionRate={Math.floor(Math.random() * 30) + 60} // Mock completion rate
               />
             ))}
           </div>
-          
-          {/* Coming Soon */}
-          <div className="mt-6 p-6 bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg text-center">
-            <h3 className="text-lg font-medium text-gray-900 mb-2">
-              Más misiones próximamente
-            </h3>
-            <p className="text-gray-600">
-              Estamos preparando más misiones de Nivel 2 y Nivel 3. ¡Seguí completando las actuales!
-            </p>
-          </div>
         </CardContent>
       </Card>
+
+      {/* Level 2 Missions */}
+      {level2Missions.length > 0 && (
+        <Card className="mb-8">
+          <CardHeader>
+            <CardTitle>Misiones Disponibles - Nivel 2</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {level2Missions.map((mission) => {
+                // Check if user has completed all Level 1 missions to unlock Level 2
+                const level1Completed = level1Missions.every(l1Mission => user.completedMissions.includes(l1Mission.id));
+                const isLocked = !level1Completed;
+
+                return (
+                  <MissionCard
+                    key={mission.id}
+                    mission={mission}
+                    isCompleted={user.completedMissions.includes(mission.id)}
+                    isLocked={isLocked}
+                  />
+                );
+              })}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Coming Soon */}
+      <div className="mt-6 p-6 bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg text-center">
+        <h3 className="text-lg font-medium text-gray-900 mb-2">
+          Más misiones próximamente
+        </h3>
+        <p className="text-gray-600">
+          Estamos preparando más misiones de Nivel 3. ¡Seguí completando las actuales!
+        </p>
+      </div>
 
       {/* Badges Showcase */}
       <BadgeShowcase userBadges={user.badges} />

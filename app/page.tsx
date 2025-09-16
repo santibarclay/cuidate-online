@@ -22,11 +22,6 @@ export default function HomePage() {
       icon: "🎮"
     },
     {
-      title: "Ejemplos Argentinos",
-      description: "Casos reales de phishing con Mercado Pago, AFIP, bancos argentinos y más",
-      icon: "🇦🇷"
-    },
-    {
       title: "Paso a Paso",
       description: "Guías detalladas con screenshots para que nunca te pierdas",
       icon: "📋"
@@ -220,7 +215,7 @@ export default function HomePage() {
           </p>
           <Button asChild size="lg" className="bg-white text-security-blue hover:bg-gray-100 text-lg px-8 py-4">
             <Link href="/register">
-              Registrarme gratis
+              Empezar gratis
             </Link>
           </Button>
           <p className="mt-4 text-sm opacity-75">

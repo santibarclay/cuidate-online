@@ -30,19 +30,36 @@ export const MISSIONS: Mission[] = [
     resources: []
   },
   {
-    id: "activar-2fa-email-whatsapp",
-    title: "Segundo Factor de Autenticación en correo y WhatsApp",
-    description: "Protegé tus cuentas más importantes con autenticación en dos pasos",
+    id: "activar-2fa-email",
+    title: "Segundo Factor de Autenticación en correo electrónico",
+    description: "Protegé tu correo electrónico con autenticación en dos pasos",
     level: 1,
-    xp: 300,
-    estimatedTime: "10 minutos",
+    xp: 250,
+    estimatedTime: "8 minutos",
     risk: "El segundo factor de autenticación (2FA) es una capa extra de seguridad que requiere dos métodos para verificar tu identidad: tu contraseña (algo que sabés) y un código temporal de tu teléfono (algo que tenés). Incluso si hackean tu contraseña, no podrán acceder sin tu teléfono.",
     steps: [],
     tips: [
       "El 2FA te protege incluso si tu contraseña es robada",
-      "WhatsApp te pedirá el PIN cada tanto para que no te lo olvides, y al registrar la app en un dispositivo nuevo",
+      "Guardá los códigos de respaldo en papel o en tu computadora",
+      "Usá una app como Google Authenticator o Authy para generar códigos",
+      "Activá 2FA primero en tu correo porque es la puerta de entrada a todas tus otras cuentas"
+    ],
+    resources: []
+  },
+  {
+    id: "activar-2fa-whatsapp",
+    title: "Segundo Factor de Autenticación en WhatsApp",
+    description: "Protegé tu WhatsApp con verificación en dos pasos",
+    level: 2,
+    xp: 250,
+    estimatedTime: "5 minutos",
+    risk: "WhatsApp es el medio de comunicación más usado en Argentina. Si alguien accede a tu cuenta, puede hacerse pasar por vos y estafar a tus contactos. La verificación en dos pasos evita que alguien active WhatsApp en otro teléfono con tu número.",
+    steps: [],
+    tips: [
+      "WhatsApp te pedirá el PIN cada tanto para que no te lo olvides",
+      "El PIN se solicita al registrar WhatsApp en un dispositivo nuevo",
       "NUNCA compartas tu PIN de WhatsApp con nadie por teléfono",
-      "Guardá los códigos de respaldo en papel o en tu computadora"
+      "Elegí un PIN que puedas recordar pero que no sea obvio (evitá fechas de nacimiento)"
     ],
     resources: []
   },

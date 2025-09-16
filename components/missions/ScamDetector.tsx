@@ -130,6 +130,7 @@ export function ScamDetector({ onComplete }: ScamDetectorProps) {
         }
       });
       const score = Math.round((correct / SCAM_EXAMPLES.length) * 100);
+      console.log('ScamDetector - Final score:', score, 'correct:', correct, 'total:', SCAM_EXAMPLES.length);
       onComplete(score);
     } else {
       setCurrentExample(prev => prev + 1);

@@ -110,9 +110,35 @@ export default function MissionPage() {
   };
 
   const handleInteractiveComplete = (score?: number) => {
+    console.log('handleInteractiveComplete called with score:', score, 'for mission:', missionId);
+
     if (score !== undefined) {
       setInteractiveScore(score);
     }
+
+    // For scam detection mission, complete directly without quiz
+    if (missionId === 'detectar-estafas' && user && mission) {
+      const percentage = score || 100;
+      const passed = percentage >= 60; // Lower threshold for scam detection
+
+      console.log('Scam detection mission - percentage:', percentage, 'passed:', passed, 'already completed:', user.completedMissions.includes(missionId));
+
+      if (passed && !user.completedMissions.includes(missionId)) {
+        console.log('Completing scam detection mission...');
+        const completedUser = completeMission(user, missionId, mission.xp);
+        setUser(completedUser);
+        saveUserProgress(completedUser);
+        setMissionCompleted(true);
+        return;
+      } else if (!passed && !user.completedMissions.includes(missionId)) {
+        // Show retry option for low scores
+        setShowQuiz(false);
+        setShowInteractive(false);
+        // Reset to allow retry
+        return;
+      }
+    }
+
     setShowQuiz(true);
   };
 
@@ -239,8 +265,8 @@ export default function MissionPage() {
               <AlertTriangle className="h-6 w-6 text-orange-600 flex-shrink-0 mt-1" />
               <div>
                 <h3 className="font-semibold text-orange-800 mb-2">
-                  {mission.id === 'activar-2fa-email-whatsapp' 
-                    ? '¿Qué es el segundo factor de autenticación?' 
+                  {(mission.id === 'activar-2fa-email' || mission.id === 'activar-2fa-whatsapp')
+                    ? '¿Qué es el segundo factor de autenticación?'
                     : '¿Por qué es importante esta misión?'}
                 </h3>
                 <p className="text-orange-700">
@@ -394,22 +420,44 @@ export default function MissionPage() {
           <CardHeader>
             <CardTitle>
               {missionId === 'cuidemos-contrasenas' && 'Verificá tus contraseñas'}
-              {missionId === 'activar-2fa-email-whatsapp' && 'Activá el 2FA'}
+              {(missionId === 'activar-2fa-email' || missionId === 'activar-2fa-whatsapp') && 'Activá el 2FA'}
               {missionId === 'detectar-estafas' && 'Practicá detectando estafas'}
             </CardTitle>
           </CardHeader>
           <CardContent>
-            {!showInteractive && !showQuiz ? (
+            {!showInteractive && !showQuiz && interactiveScore === null ? (
               <div className="text-center py-6">
                 <p className="text-gray-600 mb-6">
                   {missionId === 'cuidemos-contrasenas' && 'Ahora vamos a verificar si alguna de tus contraseñas está expuesta'}
-                  {missionId === 'activar-2fa-email-whatsapp' && 'Seguí las guías personalizadas para activar 2FA en tus cuentas'}
+                  {missionId === 'activar-2fa-email' && 'Seguí la guía personalizada para activar 2FA en tu correo electrónico'}
+                  {missionId === 'activar-2fa-whatsapp' && 'Seguí la guía personalizada para activar 2FA en WhatsApp'}
                   {missionId === 'detectar-estafas' && 'Practicá identificando estafas reales de internet'}
                 </p>
                 <Button onClick={handleStartInteractive} size="lg">
                   {missionId === 'cuidemos-contrasenas' && 'Verificar contraseñas'}
-                  {missionId === 'activar-2fa-email-whatsapp' && 'Empezar configuración'}
+                  {(missionId === 'activar-2fa-email' || missionId === 'activar-2fa-whatsapp') && 'Empezar configuración'}
                   {missionId === 'detectar-estafas' && 'Comenzar práctica'}
+                </Button>
+              </div>
+            ) : !showInteractive && !showQuiz && interactiveScore !== null && missionId === 'detectar-estafas' && interactiveScore < 60 ? (
+              <div className="text-center py-6">
+                <div className="mb-6">
+                  <div className="text-4xl mb-4">📊</div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                    Tu puntaje: {interactiveScore}%
+                  </h3>
+                  <p className="text-gray-600 mb-4">
+                    Necesitás al menos 60% para completar esta misión.
+                  </p>
+                  <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+                    <p className="text-yellow-800 text-sm">
+                      💡 <strong>Consejo:</strong> Repasá los tips de Santiago y probá de nuevo.
+                      Recordá buscar señales como urgencia artificial, dominios falsos, y pedidos de datos personales.
+                    </p>
+                  </div>
+                </div>
+                <Button onClick={() => { setInteractiveScore(null); handleStartInteractive(); }} size="lg">
+                  Intentar de nuevo
                 </Button>
               </div>
             ) : showInteractive ? (
@@ -420,10 +468,18 @@ export default function MissionPage() {
                     onComplete={handleInteractiveComplete}
                   />
                 )}
-                {missionId === 'activar-2fa-email-whatsapp' && (
+                {missionId === 'activar-2fa-email' && (
                   <TwoFactorSetup
                     userPreferences={user.preferences || { browser: null, device: null, email: null, os: null, isPersonalized: false }}
                     onComplete={handleInteractiveComplete}
+                    emailOnly={true}
+                  />
+                )}
+                {missionId === 'activar-2fa-whatsapp' && (
+                  <TwoFactorSetup
+                    userPreferences={user.preferences || { browser: null, device: null, email: null, os: null, isPersonalized: false }}
+                    onComplete={handleInteractiveComplete}
+                    whatsappOnly={true}
                   />
                 )}
                 {missionId === 'detectar-estafas' && (
@@ -438,7 +494,7 @@ export default function MissionPage() {
       )}
 
       {/* Quiz Section */}
-      {quizQuestions.length > 0 && (showQuiz || missionCompleted) && (
+      {quizQuestions.length > 0 && (showQuiz || missionCompleted) && missionId !== 'detectar-estafas' && (
         <Card className="mb-8">
           <CardHeader>
             <CardTitle>Verificá tu conocimiento</CardTitle>

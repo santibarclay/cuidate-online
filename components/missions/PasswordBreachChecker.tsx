@@ -48,13 +48,7 @@ export function PasswordBreachChecker({ userPreferences, onComplete }: PasswordB
   const [skippedVerification, setSkippedVerification] = useState(false);
   const [apiResponse, setApiResponse] = useState<{ breaches: BreachResult[]; source: 'hibp' | 'proxynova' } | null>(null);
 
-  const isGmailUser = userPreferences.email === 'gmail';
-
-  const handleGooglePasswordCheckup = () => {
-    // Open Google Password Checkup in new tab
-    window.open('https://passwords.google.com/checkup/start', '_blank');
-    setStep('results');
-  };
+  // Always use HIBP regardless of email provider - better coverage and consistency
 
   const handleComplete = () => {
     onComplete(100);
@@ -116,7 +110,10 @@ export function PasswordBreachChecker({ userPreferences, onComplete }: PasswordB
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ email })
+        body: JSON.stringify({
+          email,
+          forceProvider: 'hibp' // Always use HIBP for consistency
+        })
       });
       
       const data = await response.json();
@@ -148,101 +145,67 @@ export function PasswordBreachChecker({ userPreferences, onComplete }: PasswordB
         </p>
       </div>
       
-      {isGmailUser ? (
-        <Card className="bg-blue-50 border-blue-200">
-          <CardHeader>
-            <CardTitle className="text-lg flex items-center space-x-2">
-              <Mail className="h-5 w-5 text-blue-600" />
-              <span>Para usuarios de Gmail</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-gray-700 mb-4">
-              Como usás Gmail, podés usar la herramienta oficial de Google que verificará automáticamente 
-              todas las contraseñas que tenés guardadas en tu navegador.
-            </p>
-            
-            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 mb-4">
-              <p className="text-yellow-800 text-sm font-medium">
-                📋 Recordatorio: Al terminar la revisión de contraseñas en Google, volvé a esta pestaña de Cuidate Online para continuar con la misión.
-              </p>
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">Verificación de contraseñas con Have I Been Pwned</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                Ingresá tu email para verificar
+              </label>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  if (error) setError('');
+                }}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-security-blue focus:border-transparent"
+                placeholder="tu.email@ejemplo.com"
+              />
+              {error && (
+                <p className="text-red-600 text-sm mt-1">{error}</p>
+              )}
             </div>
-            
-            <Button 
-              onClick={handleGooglePasswordCheckup}
-              className="w-full bg-blue-600 hover:bg-blue-700"
-            >
-              <ExternalLink className="h-4 w-4 mr-2" />
-              Abrir Google Password Checkup
-            </Button>
-            <p className="text-xs text-gray-500 mt-2">
-              Te dirigirá a passwords.google.com/checkup/start
-            </p>
-          </CardContent>
-        </Card>
-      ) : (
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">Verificación por email</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                  Ingresá tu email para verificar
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                    if (error) setError('');
-                  }}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-security-blue focus:border-transparent"
-                  placeholder="tu.email@ejemplo.com"
-                />
-                {error && (
-                  <p className="text-red-600 text-sm mt-1">{error}</p>
+
+            <div className="bg-green-50 border border-green-200 rounded-lg p-3">
+              <h4 className="font-medium text-green-800 mb-2">🔒 Privacidad</h4>
+              <div className="text-sm text-green-700 space-y-2">
+                <p>Tu email será enviado a <span translate="no">Have I Been Pwned</span>, la base de datos más completa de brechas de seguridad. Podés leer su <a href="https://haveibeenpwned.com/Privacy" target="_blank" className="underline">política de privacidad</a>.</p>
+                <p>Si preferís no usar este servicio, podés continuar sin hacer esta verificación.</p>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <Button
+                onClick={handleEmailCheck}
+                disabled={isLoading}
+                className="w-full"
+              >
+                {isLoading ? (
+                  <>
+                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    Verificando...
+                  </>
+                ) : (
+                  'Verificar contraseñas'
                 )}
-              </div>
-              
-              <div className="bg-green-50 border border-green-200 rounded-lg p-3">
-                <h4 className="font-medium text-green-800 mb-2">🔒 Privacidad</h4>
-                <div className="text-sm text-green-700 space-y-2">
-                  <p>Este email será enviado a un proveedor externo en el que confío (<span translate="no">Have I Been Pwned</span>), pero podés leer su <a href="https://haveibeenpwned.com/Privacy" target="_blank" className="underline">política de privacidad</a>.</p>
-                  <p>Si preferís no usar este servicio, podés continuar sin hacer esta verificación.</p>
-                </div>
-              </div>
-              
-              <div className="space-y-3">
-                <Button 
-                  onClick={handleEmailCheck}
-                  disabled={isLoading}
-                  className="w-full"
-                >
-                  {isLoading ? (
-                    <>
-                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                      Verificando...
-                    </>
-                  ) : (
-                    'Verificar contraseñas'
-                  )}
-                </Button>
-                
-                <Button 
-                  onClick={handleSkipVerification}
-                  variant="outline"
-                  className="w-full"
-                >
-                  Continuar sin verificar
-                </Button>
-              </div>
+              </Button>
+
+              <Button
+                onClick={handleSkipVerification}
+                variant="outline"
+                className="w-full"
+              >
+                Continuar sin verificar
+              </Button>
             </div>
-          </CardContent>
-        </Card>
-      )}
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 

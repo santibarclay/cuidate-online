@@ -92,7 +92,7 @@ export default function RegisterPage() {
         {/* Registration Form */}
         <Card>
           <CardHeader>
-            <CardTitle>Registrarse</CardTitle>
+            <CardTitle>Empecemos</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">

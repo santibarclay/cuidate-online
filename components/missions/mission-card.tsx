@@ -11,10 +11,9 @@ interface MissionCardProps {
   mission: Mission;
   isCompleted: boolean;
   isLocked?: boolean;
-  completionRate?: number;
 }
 
-export function MissionCard({ mission, isCompleted, isLocked = false, completionRate }: MissionCardProps) {
+export function MissionCard({ mission, isCompleted, isLocked = false }: MissionCardProps) {
   const getLevelColor = (level: number) => {
     switch (level) {
       case 1: return 'bg-green-100 text-green-800';
@@ -111,11 +110,6 @@ export function MissionCard({ mission, isCompleted, isLocked = false, completion
               <Clock className="h-4 w-4" />
               <span>{mission.estimatedTime}</span>
             </div>
-            {completionRate !== undefined && (
-              <div className="text-xs text-gray-400">
-                {completionRate}% de usuarios completaron
-              </div>
-            )}
           </div>
           
           <div className="flex justify-end sm:justify-start">

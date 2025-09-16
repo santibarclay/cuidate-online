@@ -65,17 +65,18 @@ export function checkBadgeEligibility(user: UserProgress): string[] {
   
   // Primera Línea: Complete Level 1
   if (!user.badges.includes(BADGES.PRIMERA_LINEA.id)) {
-    const level1Missions = ['cuidemos-contrasenas', 'activar-2fa-email-whatsapp', 'detectar-estafas'];
+    const level1Missions = ['cuidemos-contrasenas', 'activar-2fa-email', 'detectar-estafas'];
     const completedLevel1 = level1Missions.every(mission => user.completedMissions.includes(mission));
     if (completedLevel1) {
       newBadges.push(BADGES.PRIMERA_LINEA.id);
     }
   }
   
-  // Guardián 2FA: Activate 2FA in 3+ services (simplified for MVP)
+  // Guardián 2FA: Activate 2FA in both email and WhatsApp
   if (!user.badges.includes(BADGES.GUARDIAN_2FA.id)) {
-    const twoFAMissions = ['activar-2fa-email-whatsapp']; // Will add more 2FA missions later
-    if (user.completedMissions.includes('activar-2fa-email-whatsapp')) {
+    const twoFAMissions = ['activar-2fa-email', 'activar-2fa-whatsapp'];
+    const completedBoth2FA = twoFAMissions.every(mission => user.completedMissions.includes(mission));
+    if (completedBoth2FA) {
       newBadges.push(BADGES.GUARDIAN_2FA.id);
     }
   }
