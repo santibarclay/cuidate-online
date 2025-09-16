@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from '@/lib/constants';
 import { Analytics } from '@vercel/analytics/react';
+import { FeedbackWidget } from '@/components/ui/FeedbackWidget';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -40,6 +41,7 @@ export default function RootLayout({
     <html lang="es-AR">
       <body className={inter.className}>
         {children}
+        <FeedbackWidget />
         <Analytics />
       </body>
     </html>

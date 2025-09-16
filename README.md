@@ -14,6 +14,7 @@ Una aplicación web gratuita diseñada para enseñar conceptos fundamentales de 
 - **🇦🇷 Contexto Local**: Ejemplos con Mercado Pago, AFIP, bancos argentinos
 - **📚 Práctica**: Guías paso a paso con herramientas interactivas
 - **🔍 Verificación de Brechas**: Búsqueda anónima de emails en brechas de datos conocidas
+- **💬 Feedback Directo**: Widget flotante para reportar errores y sugerir mejoras con notificación por email
 - **💰 Gratuita**: Sin costos, sin registro complejo, sin spam
 - **🔒 Privacidad**: Datos guardados solo localmente, máxima transparencia
 
@@ -50,6 +51,10 @@ HIBP_API_KEY=tu_api_key_aqui
 # Contraseña para acceder a /breach-checker
 HIBP_PAGE_PASSWD=contraseña_segura
 
+# Sistema de Feedback (opcional)
+RESEND_API_KEY=re_tu_resend_api_key_aqui
+FEEDBACK_EMAIL=tu.email@gmail.com
+
 # Analytics (opcional)
 VERCEL_ANALYTICS_ID=tu_analytics_id
 ```
@@ -69,6 +74,7 @@ npm run secrets  # Escaneo de secretos con GitLeaks
 - **Lenguaje**: TypeScript
 - **Estilos**: Tailwind CSS
 - **Almacenamiento**: localStorage (sin base de datos)
+- **Email**: Resend (para sistema de feedback)
 - **Iconos**: Lucide React
 - **Animaciones**: Framer Motion
 - **Despliegue**: Vercel
@@ -105,6 +111,32 @@ Sistema de reconocimientos que premia el progreso del usuario:
 - Reconocimientos por activar medidas de seguridad
 - Premios por mantener buenas prácticas
 - Medallas especiales por actividad consistente
+
+## 💬 Sistema de Feedback
+
+### Widget Flotante de Feedback
+La plataforma incluye un sistema de feedback continuo que permite a los usuarios reportar errores, sugerir mejoras y comunicarse directamente con el desarrollador:
+
+**Características:**
+- **Widget flotante** visible en todas las páginas
+- **Formulario simple** con mensaje de feedback y email opcional
+- **Información contextual automática** (página, navegador, viewport)
+- **Notificaciones por email** al desarrollador con toda la información necesaria
+- **Respuesta directa** usando reply-to cuando el usuario proporciona su email
+
+**Privacidad del Feedback:**
+- ✅ El email del desarrollador nunca se expone en el frontend
+- ✅ Configuración segura mediante variables de entorno
+- ✅ Los emails de feedback se procesan via Resend (servicio confiable)
+- ✅ Información contextual incluida automáticamente para mejor debugging
+- ✅ Sin almacenamiento de datos - cada feedback es independiente
+
+**Configuración:**
+```bash
+# Sistema de Feedback
+RESEND_API_KEY=re_tu_resend_api_key_aqui  # API key de Resend
+FEEDBACK_EMAIL=tu.email@gmail.com          # Tu email (no se expone)
+```
 
 ## 🔍 APIs y Servicios de Verificación de Brechas
 
@@ -224,6 +256,7 @@ Este proyecto está abierto a contribuciones de la comunidad:
 ### Costos de Desarrollo y Operación
 - **Claude Code API**: ~$35 USD (desarrollo inicial)
 - **Have I Been Pwned API**: ~$45 USD/año (verificación de brechas)
+- **Resend Email API**: $0 USD (3,000 emails/mes gratuitos - suficiente para feedback)
 - **Hosting Vercel**: $0 USD (plan gratuito)
 - **Dominio**: ~$20 USD/año
 - **Total anual**: ~$65 USD
