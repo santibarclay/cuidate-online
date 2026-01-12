@@ -118,8 +118,7 @@ export function TwoFactorSetup({ userPreferences, onComplete, emailOnly = false,
           <h5 className="font-medium text-green-800 mb-1">💡 Consejos importantes:</h5>
           <ul className="text-green-700 text-sm space-y-1">
             <li>• Usá una app autenticadora (más seguro que SMS)</li>
-            <li>• Guardá los códigos de respaldo en papel o en tu computadora</li>
-            <li>• Probá que funciona antes de cerrar la configuración</li>
+            <li>• Guardá los códigos de respaldo en papel, y guarda ese papel en un lugar seguro donde no se pierda ni se dañe</li>
           </ul>
         </div>
         

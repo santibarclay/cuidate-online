@@ -81,6 +81,14 @@ export function checkBadgeEligibility(user: UserProgress): string[] {
     }
   }
   
+  // Cazador de Phishing: 100% in scam detection
+  if (!user.badges.includes(BADGES.CAZADOR_PHISHING.id)) {
+    const scamQuiz = user.quizScores['detectar-estafas'];
+    if (scamQuiz && (scamQuiz.score / scamQuiz.maxScore) * 100 === 100) {
+      newBadges.push(BADGES.CAZADOR_PHISHING.id);
+    }
+  }
+  
   // En Llamas: 7 day streak
   if (!user.badges.includes(BADGES.EN_LLAMAS.id) && user.streak >= 7) {
     newBadges.push(BADGES.EN_LLAMAS.id);

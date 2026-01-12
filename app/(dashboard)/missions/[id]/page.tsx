@@ -125,7 +125,22 @@ export default function MissionPage() {
 
       if (passed && !user.completedMissions.includes(missionId)) {
         console.log('Completing scam detection mission...');
-        const completedUser = completeMission(user, missionId, mission.xp);
+        
+        // Save the score first
+        const userWithScore: UserProgress = {
+          ...user,
+          quizScores: {
+            ...user.quizScores,
+            [missionId]: {
+              score: percentage,
+              maxScore: 100,
+              attempts: (user.quizScores[missionId]?.attempts || 0) + 1
+            }
+          }
+        };
+        
+        // Then complete the mission (which will check for badges)
+        const completedUser = completeMission(userWithScore, missionId, mission.xp);
         setUser(completedUser);
         saveUserProgress(completedUser);
         setMissionCompleted(true);

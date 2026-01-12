@@ -17,9 +17,9 @@ export default function HomePage() {
 
   const features = [
     {
-      title: "Aprendé Jugando",
-      description: "Sistema de niveles, puntos y medallas que hace divertido aprender seguridad digital",
-      icon: "🎮"
+      title: "Gratis y Open Source",
+      description: "Acceso completo sin costo. Código abierto y auditado por la comunidad",
+      icon: "🆓"
     },
     {
       title: "Paso a Paso",
@@ -27,9 +27,9 @@ export default function HomePage() {
       icon: "📋"
     },
     {
-      title: "Gratis y Open Source",
-      description: "Acceso completo sin costo. Código abierto y auditado por la comunidad",
-      icon: "🆓"
+      title: "Aprendé Jugando",
+      description: "Sistema de niveles, puntos y medallas que hace divertido aprender seguridad digital",
+      icon: "🎮"
     }
   ];
 
@@ -118,7 +118,7 @@ export default function HomePage() {
           <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-8 sm:mb-12 px-2">
             ¿Por qué elegir {SITE_NAME}?
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-8 max-w-5xl mx-auto">
             {features.map((feature, index) => (
               <Card key={index} className="text-center p-4 sm:p-6 hover:shadow-md transition-shadow">
                 <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">

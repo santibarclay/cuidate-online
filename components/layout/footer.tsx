@@ -27,7 +27,7 @@ export function Footer() {
         
         <div className="mt-6 pt-6 border-t border-gray-200 text-center text-sm text-gray-600">
           <p>
-            {SITE_NAME} © 2025 - Un proyecto de{' '}
+            {SITE_NAME} © 2026 - Un proyecto de{' '}
             <a 
               href="https://www.linkedin.com/in/santibarclay/" 
               target="_blank" 
