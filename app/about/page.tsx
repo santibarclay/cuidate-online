@@ -48,7 +48,7 @@ export default function AboutPage() {
             <div className="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
               <div className="w-32 h-32 rounded-full overflow-hidden ring-4 ring-security-blue/20 flex-shrink-0">
                 <img 
-                  src="https://media.licdn.com/dms/image/v2/D4D03AQHsIKDu487_dQ/profile-displayphoto-shrink_800_800/B4DZTNX_xsHkAc-/0/1738612408100?e=1758153600&v=beta&t=YO5iPzp16A0qexTZoZgd7fV4OaOZyCSo-0v0lgUUcrM"
+                  src="/images/santiago-barclay.jpg"
                   alt="Santiago Barclay"
                   className="w-full h-full object-cover"
                 />
