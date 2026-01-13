@@ -1,4 +1,5 @@
 import { LEVELS, BADGES } from './constants';
+import { MISSIONS } from './missions-data';
 
 export interface UserPreferences {
   browser: 'chrome' | 'edge' | 'safari' | 'firefox' | null;
@@ -97,6 +98,15 @@ export function checkBadgeEligibility(user: UserProgress): string[] {
   // Voy en serio: Complete personalization
   if (!user.badges.includes(BADGES.VOY_EN_SERIO.id) && user.preferences.isPersonalized) {
     newBadges.push(BADGES.VOY_EN_SERIO.id);
+  }
+  
+  // Leyenda: Complete all missions
+  if (!user.badges.includes(BADGES.LEYENDA.id)) {
+    const allMissionIds = MISSIONS.map(m => m.id);
+    const completedAllMissions = allMissionIds.every(mission => user.completedMissions.includes(mission));
+    if (completedAllMissions) {
+      newBadges.push(BADGES.LEYENDA.id);
+    }
   }
   
   return newBadges;
