@@ -9,6 +9,7 @@ export interface Mission {
   steps: string[];
   tips: string[];
   resources: { title: string; url: string }[];
+  securityConcepts: string[];
 }
 
 export const MISSIONS: Mission[] = [
@@ -27,7 +28,8 @@ export const MISSIONS: Mission[] = [
       "Es mejor tener una contraseña larga y fácil de recordar que una corta y compleja",
       "Más adelante aprenderemos cómo protegernos del phishing y los virus que roban contraseñas"
     ],
-    resources: []
+    resources: [],
+    securityConcepts: ["Brechas de seguridad", "Higiene de contraseñas", "Reutilización de contraseñas", "Phishing"]
   },
   {
     id: "activar-2fa-email",
@@ -44,7 +46,8 @@ export const MISSIONS: Mission[] = [
       "Usá una app como Google Authenticator o Authy para generar códigos",
       "Activá 2FA primero en tu correo porque es la puerta de entrada a todas tus otras cuentas"
     ],
-    resources: []
+    resources: [],
+    securityConcepts: ["Autenticación de dos factores (2FA)", "Códigos de respaldo", "Apps autenticadoras", "SMS vs TOTP"]
   },
   {
     id: "activar-2fa-whatsapp",
@@ -61,7 +64,8 @@ export const MISSIONS: Mission[] = [
       "NUNCA compartas tu PIN de WhatsApp con nadie por teléfono",
       "Elegí un PIN que puedas recordar pero que no sea obvio (evitá fechas de nacimiento)"
     ],
-    resources: []
+    resources: [],
+    securityConcepts: ["Verificación en dos pasos", "PIN de seguridad", "SIM Swapping", "Suplantación de identidad"]
   },
   {
     id: "detectar-estafas",
@@ -78,7 +82,8 @@ export const MISSIONS: Mission[] = [
       "Ante la duda, entrá directo al sitio oficial escribiendo la URL",
       "Si algo parece demasiado bueno para ser verdad, probablemente sea una estafa"
     ],
-    resources: []
+    resources: [],
+    securityConcepts: ["Phishing", "Ingeniería social", "Dominios falsos", "Urgencia artificial", "Verificación de URLs"]
   }
 ];
 

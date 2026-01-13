@@ -11,15 +11,21 @@ import {
   BookOpen
 } from 'lucide-react';
 import { SITE_NAME, CREATOR } from '@/lib/constants';
-import { getCurrentStats } from '@/lib/growth-data';
+import { MISSIONS } from '@/lib/missions-data';
 
 export default function AboutPage() {
-  const currentStats = getCurrentStats();
+  // Calculate stats dynamically from MISSIONS
+  const totalMissions = MISSIONS.length;
+  const totalConcepts = MISSIONS.reduce((sum, mission) => sum + mission.securityConcepts.length, 0);
+  const totalHours = MISSIONS.reduce((sum, mission) => {
+    const time = parseFloat(mission.estimatedTime);
+    return sum + (isNaN(time) ? 0 : time);
+  }, 0);
   
   const stats = [
-    { label: "Misiones educativas", value: currentStats.missions.toString(), icon: BookOpen },
-    { label: "Conceptos de seguridad", value: currentStats.concepts.toString(), icon: Shield },
-    { label: "Horas de contenido", value: currentStats.hours.toString(), icon: Target }
+    { label: "Misiones educativas", value: totalMissions.toString(), icon: BookOpen },
+    { label: "Conceptos de seguridad", value: totalConcepts.toString(), icon: Shield },
+    { label: "Horas de contenido", value: totalHours.toFixed(1), icon: Target }
   ];
 
   return (
@@ -118,103 +124,6 @@ export default function AboutPage() {
           ))}
         </div>
 
-        {/* Growth Projection */}
-        <Card className="mb-12 bg-gradient-to-r from-blue-50 to-green-50 border-blue-200">
-          <CardHeader>
-            <CardTitle className="text-2xl text-center">Proyección de Crecimiento 2025</CardTitle>
-          </CardHeader>
-          <CardContent className="p-8">
-            <p className="text-center text-gray-600 mb-6">
-              El plan es seguir agregando contenido educativo de calidad durante todo el año.
-            </p>
-            <div className="space-y-6">
-              <div className="border rounded-lg p-4 bg-white/50">
-                <div className="flex justify-between items-center mb-3">
-                  <h4 className="font-semibold text-gray-900">septiembre 2025</h4>
-                  <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Proyección</span>
-                </div>
-                <div className="grid grid-cols-3 gap-4 text-center">
-                  <div>
-                    <div className="text-2xl font-bold text-blue-600">9</div>
-                    <div className="text-xs text-gray-600">Misiones</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-green-600">30</div>
-                    <div className="text-xs text-gray-600">Conceptos</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-purple-600">4.5</div>
-                    <div className="text-xs text-gray-600">Horas</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="border rounded-lg p-4 bg-white/50">
-                <div className="flex justify-between items-center mb-3">
-                  <h4 className="font-semibold text-gray-900">diciembre 2025</h4>
-                  <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Proyección</span>
-                </div>
-                <div className="grid grid-cols-3 gap-4 text-center">
-                  <div>
-                    <div className="text-2xl font-bold text-blue-600">15</div>
-                    <div className="text-xs text-gray-600">Misiones</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-green-600">45</div>
-                    <div className="text-xs text-gray-600">Conceptos</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-purple-600">7.5</div>
-                    <div className="text-xs text-gray-600">Horas</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="border rounded-lg p-4 bg-white/50">
-                <div className="flex justify-between items-center mb-3">
-                  <h4 className="font-semibold text-gray-900">marzo 2026</h4>
-                  <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Proyección</span>
-                </div>
-                <div className="grid grid-cols-3 gap-4 text-center">
-                  <div>
-                    <div className="text-2xl font-bold text-blue-600">21</div>
-                    <div className="text-xs text-gray-600">Misiones</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-green-600">60</div>
-                    <div className="text-xs text-gray-600">Conceptos</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-purple-600">10.5</div>
-                    <div className="text-xs text-gray-600">Horas</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="border rounded-lg p-4 bg-white/50">
-                <div className="flex justify-between items-center mb-3">
-                  <h4 className="font-semibold text-gray-900">junio 2026</h4>
-                  <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Proyección</span>
-                </div>
-                <div className="grid grid-cols-3 gap-4 text-center">
-                  <div>
-                    <div className="text-2xl font-bold text-blue-600">27</div>
-                    <div className="text-xs text-gray-600">Misiones</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-green-600">75</div>
-                    <div className="text-xs text-gray-600">Conceptos</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-purple-600">13.5</div>
-                    <div className="text-xs text-gray-600">Horas</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
         {/* Why Free */}
         <Card className="mb-12 bg-security-green/5 border-security-green/20">
           <CardHeader>
@@ -266,47 +175,6 @@ export default function AboutPage() {
           </CardContent>
         </Card>
 
-        {/* Future Plans */}
-        <Card className="mb-12 bg-security-blue/5 border-security-blue/20">
-          <CardHeader>
-            <CardTitle className="text-2xl flex items-center space-x-2">
-              <Target className="h-6 w-6 text-security-blue" />
-              <span>¿Qué viene después?</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="p-8">
-            <div className="space-y-4">
-              <div className="flex items-center space-x-3">
-                <div className="w-2 h-2 bg-security-blue rounded-full"></div>
-                <span className="text-gray-700">Más misiones de Nivel 2 y 3 (SIM Swapping, Home Banking, etc.)</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <div className="w-2 h-2 bg-security-blue rounded-full"></div>
-                <span className="text-gray-700">Sistema de ligas competitivas (Bronce, Plata, Oro)</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <div className="w-2 h-2 bg-security-blue rounded-full"></div>
-                <span className="text-gray-700">Simuladores interactivos de phishing argentino</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <div className="w-2 h-2 bg-security-blue rounded-full"></div>
-                <span className="text-gray-700">Contenido específico para adolescentes</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <div className="w-2 h-2 bg-security-blue rounded-full"></div>
-                <span className="text-gray-700">Integración con bancos argentinos para alertas en tiempo real</span>
-              </div>
-            </div>
-            
-            <div className="mt-6 p-4 bg-white rounded-lg border">
-              <p className="text-sm text-gray-600">
-                <strong>¿Tenés ideas?</strong> Tu feedback es fundamental para hacer de {SITE_NAME} una 
-                plataforma cada vez más útil. Contactame en LinkedIn con tus sugerencias.
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-
         {/* AI Development Section */}
         <Card className="mb-12 bg-gradient-to-r from-purple-100 to-blue-100 border-purple-200">
           <CardHeader>
@@ -324,8 +192,8 @@ export default function AboutPage() {
                   <li>• <strong>Costo desarrollo:</strong> ~$35 USD en tokens</li>
                   <li>• <strong>API Key HIBP:</strong> ~$45 USD/año (verificación de brechas)</li>
                   <li>• <strong>Dominio:</strong> ~$20 USD/año</li>
-                  <li>• <strong>Tiempo:</strong> 2 sesiones intensivas</li>
-                  <li>• <strong>Líneas:</strong> 5,479 de código</li>
+                  <li>• <strong>Tiempo:</strong> 3 sesiones intensivas</li>
+                  <li>• <strong>Líneas:</strong> 6,200+ de código</li>
                 </ul>
               </div>
               <div>
